@@ -1,0 +1,36 @@
+{
+  "name": "www",
+  "version": "1.0.0",
+  "description": "front-end assets for lightning",
+  "main": "main.js",
+  "dependencies": {
+    "gulp": "^3.8.8",
+    "gulp-util": "^3.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^5.11.2",
+    "gulp": "^3.8.8",
+    "gulp-util": "^3.0.1",
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^1.0.2"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightning/www.git"
+  },
+  "keywords": [
+    "lightning",
+    "audio",
+    "music",
+    "kids"
+  ],
+  "author": "Brian Sorahan",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/lightning/www/issues"
+  },
+  "homepage": "https://github.com/lightning/www"
+}
