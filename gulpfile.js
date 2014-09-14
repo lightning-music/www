@@ -30,7 +30,7 @@ gulp.task('templates', function() {
   gulp.src('templates/*.html')
     .pipe(handlebars())
     .pipe(defineModule('node'))
-    .pipe(gulp.dest('templates'));
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('clean', function() {
