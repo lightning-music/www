@@ -1,58 +1,96 @@
-var EventEmitter = require('events').EventEmitter,
-    http = require('http'),
-    util = require('util'),
-    $ = require('jquery'),
-    Backbone = require('backbone'),
-    Samples = require('./samples');
-
-// HACK
-// see https://github.com/marionettejs/backbone.marionette/issues/1719
-// and https://github.com/jashkenas/backbone/issues/3291
-Backbone.$ = $;
-
-var Marionette = require('backbone.marionette');
-
+// Abstraction for controlling a lightning backend.
 function Lightning(options) {
   var self = this;
   options = options || {};
-  self._hostname = options.hostname || 'localhost';
-  self._port = options.port || 3428;
 
-  var App = Marionette.Application.extend({
-    initialize: function(options) {
-      console.log('app initialized');
+  // websocket wrapper
+  function WS(addr) {
+    var self = this;
+    self.__conn = new WebSocket(addr);
+    self.__events = {
+      open: function(handler) {
+        self.__conn.onopen = handler;
+      },
+      message: function(handler) {
+        self.__conn.onmessage = handler;
+      }
+    };
+  }
+
+  WS.prototype.on = function(type, handler) {
+    var self = this;
+    if (typeof type !== 'string' || !(type in self.__events)) {
+      throw new TypeError('unrecognized type: ' + type);
     }
+    self.__events[type](handler);
+  };
+
+  WS.prototype.send = function(msg) {
+    if (typeof msg !== 'string') {
+      msg = JSON.stringify(msg);
+    }
+    this.__conn.send(msg);
+  };
+
+  WS.create = function(addr) {
+    return new WS(addr);
+  };
+
+  // setup new Lightning instance
+
+  self.__wsAddr = options.ws || "ws://localhost:3428";
+  self.__httpAddr = options.http || "http://localhost:3428";
+
+  self.__samplePlay = WS.create(self.__wsAddr + "/sample/play");
+  self.__samplePlay.on('open', function(event) {
+    console.log("connected to /samples/play websocket endpoint");
   });
 
-  // initialize universe
-  self._app = new App({ conatiner: '#app' });
-  self._samples = Samples.create();
-  // websocket endpoint for triggering samples
-  var psuri = 'ws://' + self._hostname + ':' + self._port + '/sample/play';
-  // TODO: support node
-  var playSamples = new WebSocket(psuri);
-  playSamples.onopen = function(event) {
-    console.log('connected to ' + psuri);
-    self._app.start(self._app);
+  self.__events = {
+    // handler for sequencer position messages
+    'seq:pos': function(handler) {
+    }
   };
 }
 
-util.inherits(Lightning, EventEmitter);
-
-/**
- * Get the list of samples the server can play.
- */
-Lightning.prototype.listSamples = function(cb) {
-  this._samples.FetchList(cb);
+Lightning.prototype.on = function(type, handler) {
+  var self = this;
+  if (typeof type !== 'string' || !(type in self.__events)) {
+    throw new TypeError('invalid event type: ' + type);
+  }
 };
 
-/**
- * Create a new instance of Lightning
- * 
- * @param  {Object}    options
- * @param  {String}    options.hostname - Name of lightning host
- * @param  {String}    options.port - Listening port of lightning host
- */
-module.exports.create = function(options) {
-  return new Lightning(options);
+Lightning.prototype.listSamples = function(f) {
+  var self = this;
+  $.ajax({
+    type: 'GET',
+    url: self.__httpAddr + "/samples",
+    error: function() {
+      f(new Error("error getting samples list"), null);
+    },
+    success: function(samples) {
+      f(null, samples);
+    }
+  });
 };
+
+Lightning.prototype.playSample = function(path, note, vel) {
+  var self = this;
+  self.__samplePlay.send({
+    sample: path,
+    number: note,
+    velocity: vel
+  });
+};
+
+Lightning.getInstance = (function() {
+  var INSTANCE;
+  return function() {
+    if (INSTANCE === undefined) {
+      INSTANCE = new Lightning();
+    }
+    return INSTANCE;
+  };
+})();
+
+window.lightning = new Lightning();

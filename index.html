@@ -1,8 +1,23 @@
+<!DOCTYPE html>
 <html>
+
 <head>
   <title>lightning</title>
-  <script type="text/javascript" src="bundle.js"></script>
+
+  <script type="text/template" id="sample-trigger-template">
+    <button class="sample-trigger" id="<%= path %>"><%= path %></button>
+  </script>
+
+  <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="lodash.js"></script>
+  <script type="text/javascript" src="backbone-min.js"></script>
+  <script type="text/javascript" src="lightning.js"></script>
+  <script type="text/javascript" src="templates.js"></script>
+  <script type="text/javascript" src="models.js"></script>
+  <script type="text/javascript" src="views.js"></script>
+  <script type="text/javascript" src="main.js"></script>
 </head>
+
 <body>
   <div id="app">
 
@@ -10,7 +25,14 @@
 
     <div id="sample-triggers">
     </div>
+
     <br/>
+    <div>Sequencer Input</div>
+    <br/>
+
+    <form id="sequencer-input">
+      <input type="text"></input>
+    </form>
 
   </div>
 </body>
