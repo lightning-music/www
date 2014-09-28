@@ -4,6 +4,8 @@
 <head>
   <title>lightning</title>
 
+  <link rel="stylesheet" type="text/css" href="lightning.css"></link>
+
   <script type="text/template" id="sample-trigger-template">
     <button class="sample-trigger" id="<%= path %>"><%= path %></button>
   </script>
@@ -30,9 +32,8 @@
     <div>Sequencer Input</div>
     <br/>
 
-    <form id="sequencer-input">
-      <input type="text"></input>
-    </form>
+    <canvas id="sequencer-input" width="1200" height="300">
+    </canvas>
 
   </div>
 </body>
