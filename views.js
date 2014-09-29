@@ -1,5 +1,4 @@
-Lightning.Views = {};
-
+Lightning.Views = Lightning.Views || {};
 Lightning.Views.SampleTriggers = Backbone.View.extend({
   collection: Lightning.Models.SampleTriggers,
 

@@ -1,82 +1,21 @@
 $(function() {
   var lightning = Lightning.getInstance();
-  var trigs = new Lightning.Views.SampleTriggers({ el: '#sample-triggers' });
-  
-  // lightning.listSamples(function(err, samples) {
-  //   if (err) {
-  //     throw err;
-  //   } else {
-  //     var samps;
-  //     samps = JSON.parse(samples);
-  //     var trigs = new Lightning.Views.SampleTriggers({
-  //       collection: samps
-  //     });
-  //     // trigs.render();
-  //   }
-  // });
+  var trigs = new Lightning.Views.SampleTriggers({
+    el: '#sample-triggers'
+  });
 
-  // $("#sample1").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/21653__madjad__indonesian-thum-note-2.wav",
-  //     number: 60,
-  //     velocity: 96
-  //   }));
-  // });
+  function getMousePos(canvas, event) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+  }
 
-  // $("#sample2").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/48223__slothrop__trumpetc2.wav",
-  //     number: 48,
-  //     velocity: 96
-  //   }));
-  // });
-
-  // $("#sample3").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/48223__slothrop__trumpetc2.wav",
-  //     number: 52,
-  //     velocity: 96
-  //   }));
-  // });
-
-  // $("#sample4").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/48223__slothrop__trumpetc2.wav",
-  //     number: 55,
-  //     velocity: 96
-  //   }));
-  // });
-
-  // $("#sample5").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/25838__neutri__vargan-ptd.wav",
-  //     number: 48,
-  //     velocity: 96
-  //   }));
-  // });
-
-  // $("#sample6").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/25838__neutri__vargan-ptd.wav",
-  //     number: 60,
-  //     velocity: 96
-  //   }));
-  // });
-
-  // $("#sample7").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/25838__neutri__vargan-ptd.wav",
-  //     number: 72,
-  //     velocity: 96
-  //   }));
-  // });
-
-  // $("#sample8").click(function(event) {
-  //   ws.send(JSON.stringify({
-  //     sample: freesound + "/25838__neutri__vargan-ptd.wav",
-  //     number: 84,
-  //     velocity: 96
-  //   }));
-  // });
-
+  var canvas = document.getElementById('sequencer-input');
+  var ctx = canvas.getContext('2d');
+  canvas.addEventListener('mousemove', function(event) {
+    var mousePos = getMousePos(canvas, event);
+    console.log('mouseX=' + mousePos.x + ', mouseY=' + mousePos.y);
+  });
 });
