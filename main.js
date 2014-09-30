@@ -4,18 +4,15 @@ $(function() {
     el: '#sample-triggers'
   });
 
-  function getMousePos(canvas, event) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top
-    };
-  }
+  var sequencer = Lightning.Sequencer.create({
+    id: 'sequencer-input'
+  });
 
-  var canvas = document.getElementById('sequencer-input');
-  var ctx = canvas.getContext('2d');
-  canvas.addEventListener('mousemove', function(event) {
-    var mousePos = getMousePos(canvas, event);
-    console.log('mouseX=' + mousePos.x + ', mouseY=' + mousePos.y);
+  sequencer.on('mouse:move', function(mousePos) {
+    // console.log('mouseX=' + mousePos.x + ', mouseY=' + mousePos.y);
+  });
+
+  sequencer.on('mouse:down', function(mousePos) {
+    console.log('clicked (' + mousePos.x + ', ' + mousePos.y + ')');
   });
 });
