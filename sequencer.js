@@ -1,14 +1,71 @@
 Lightning.Sequencer = function(options) {
   options = options || {};
 
+  /**
+   * @class Cell
+   */
+  function Cell(ctx, x, y, w, h) {
+    this.__on = false;
+    this.__x = x; this.__y = y;
+    this.__w = w; this.__h = h;
+    this.__ctx = ctx;
+  }
+
+  Cell.prototype.x =  function() { return this.__x;  };
+  Cell.prototype.y =  function() { return this.__y;  };
+
+  Cell.prototype.toString = function() {
+    return '(' + this.__x + ', ' + this.__y + ')';
+  };
+
+  /**
+   * Determine if (x, y) is in this cell.
+   */
+  Cell.prototype.contains = function(x, y) {
+    return x > this.__x && x < this.__x + this.__w
+      &&   y > this.__y && y < this.__y + this.__h;
+  };
+
+  /**
+   * Toggle the cell on/off.
+   */
+  Cell.prototype.toggle = function() {
+    this.__on = !this.__on;
+    if (this.__on) {
+      this.__ctx.strokeStyle = '#000000';
+      this.__ctx.fillStyle = '#000000';
+      this.__draw();
+    } else {
+      this.__ctx.strokeStyle = '#FFFFFF';
+      this.__ctx.fillStyle = '#FFFFFF';
+      this.__draw();
+    }
+  };
+
+  /**
+   * Draw the cell.
+   */
+  Cell.prototype.__draw = function() {
+    this.__ctx.fillRect(this.__x + (this.__w * 0.25),
+                        this.__y + (this.__h * 0.25),
+                        this.__w / 2,
+                        this.__h / 2);
+  };
+
+  Cell.create = function(x, y, w, h) {
+    return new Cell(x, y, w, h);
+  };
+
+  // initialize sequencer
+
   var self = this,
       elid = options.id;
 
-  this.__canvas = document.getElementById(elid);
-  this.__width = this.__canvas.width;
-  this.__height = this.__canvas.height;
-  this.__ctx = this.__canvas.getContext('2d');
-  this.__boundary = this.__canvas.getBoundingClientRect();
+  self.__canvas = document.getElementById(elid);
+  self.__w = self.__canvas.width;
+  self.__h = self.__canvas.height;
+  self.__ctx = self.__canvas.getContext('2d');
+  self.__boundary = self.__canvas.getBoundingClientRect();
 
   var mousePos = function(event) {
     return {
@@ -17,34 +74,23 @@ Lightning.Sequencer = function(options) {
     };
   };
 
-  this.__events = {
-    'mouse:move': function(handler) {
-      self.__canvas.addEventListener('mousemove', function(event) {
-        handler(mousePos(event));
-      });
-    },
-    'mouse:down': function(handler) {
-      self.__canvas.addEventListener('mousedown', function(event) {
-        handler(mousePos(event));
-      });
-    }
-  };
+  self.__hcells = 64;
+  self.__vcells = 16;
 
-  // draw grid
+  var x,
+      y,
+      w = self.__w / self.__hcells,
+      h = self.__h / self.__vcells;
 
-  var x, y,
-      hcells = 32,
-      vcells = 8,
-      w = this.__width / hcells,
-      h = this.__height / vcells,
-      gridpoints = [];
+  self.__cells = [];
 
-  for (x = 0; x < hcells; x++) {
-    for (y = 0; y < vcells; y++) {
-      if (x > 0 && y > 0) {
-        gridpoints.push([x * w, y * h]);
-      }
-      this.__ctx.strokeRect(x * w, y * h, w, h);
+  for (x = 0; x < self.__hcells; x++) {
+    for (y = 0; y < self.__vcells; y++) {
+      // draw grid
+      self.__ctx.strokeRect(x * w, y * h, w, h);
+      // create cells
+      self.__cells[x] = self.__cells[x] || [];
+      self.__cells[x].push(Cell.create(self.__ctx, x * w, y * h, w, h));
     }
   }
 
@@ -52,17 +98,22 @@ Lightning.Sequencer = function(options) {
   // place a note on the grid at the closest point
   // to the click
   self.__canvas.addEventListener('mousedown', function(event) {
-    var pos = mousePos(event);
-  });
-};
+    var cell,
+        pos = mousePos(event);
 
-Lightning.Sequencer.prototype.on = function(type, handler) {
-  var self = this;
-  if (typeof type !== 'string' || !(type in self.__events)) {
-    throw new TypeError('invalid type: ' + type);
-  }
-  this.__events[type](handler);
-};
+    for (x = 0; x < self.__hcells; x++) {
+      for (y = 0; y < self.__vcells; y++) {
+        cell = self.__cells[x][y];
+        console.log('testing cell ' + cell);
+        if (cell.contains(pos.x, pos.y)) {
+          console.log('clicked cell ' + cell);
+          cell.toggle();
+          return;
+        }
+      }
+    }
+  });
+}; // Lightning.Sequencer constructor
 
 Lightning.Sequencer.create = function(options) {
   return new Lightning.Sequencer(options);
