@@ -8,6 +8,6 @@ function GenerateTemplate(id) {
 }
 
 Lightning.Templates = {
-  'sample:trigger' : GenerateTemplate('sample-trigger-template')
+  'sample:trigger' : GenerateTemplate('sample-trigger-template'),
+  'transport' : GenerateTemplate('transport-template')
 };
-

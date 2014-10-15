@@ -1,4 +1,5 @@
 Lightning.Views = Lightning.Views || {};
+
 Lightning.Views.SampleTriggers = Backbone.View.extend({
   collection: Lightning.Models.SampleTriggers,
 
@@ -31,5 +32,31 @@ Lightning.Views.SampleTriggers = Backbone.View.extend({
       self.$el.append(html);
     });
     return this;
+  }
+});
+
+Lightning.Views.Transport = Backbone.View.extend({
+  template: Lightning.Templates['transport'],
+
+  events: {
+    'click #transport-start': 'start',
+    'click #transport-stop': 'stop'
+  },
+
+  initialize: function(options) {
+    console.log('transport.initialize');
+  },
+
+  render: function() {
+    var html = this.template();
+    this.$el.html(html);
+    console.log('rendering', html);
+    return this;
+  },
+
+  start: function() {
+  },
+
+  stop: function() {
   }
 });

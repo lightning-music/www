@@ -10,6 +10,11 @@
     <button class="sample-trigger" id="<%= path %>"><%= path %></button>
   </script>
 
+  <script type="text/template" id="transport-template">
+   <button id="transport-start"></button>
+   <button id="transport-stop"></button>
+  </script>
+
   <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="lodash.js"></script>
   <script type="text/javascript" src="backbone-min.js"></script>
@@ -35,6 +40,10 @@
 
     <canvas id="sequencer-input" width="1200" height="300">
     </canvas>
+    <br/>
+
+    <div id="transport-controls">
+    </div>
 
   </div>
 </body>
