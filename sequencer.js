@@ -9,6 +9,7 @@ Lightning.Sequencer = function(options) {
     this.__x = x; this.__y = y;
     this.__w = w; this.__h = h;
     this.__ctx = ctx;
+    this.__ctx.strokeStyle = '#fea723';
   }
 
   Cell.prototype.x =  function() { return this.__x;  };

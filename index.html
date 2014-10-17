@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>lightning</title>
-
-  <link rel="stylesheet" type="text/css" href="lightning.css"></link>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+				  minimum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>.::Lightning::. Make Music on Linux Lightning Fast!</title>
+  <link rel="shortcut icon" type="image/x-icon" 
+	href="assets/images/favicon.ico" />
+  <link href="http://fonts.googleapis.com/css?family=Coming+Soon" 
+	rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" 
+	href="assets/style/reset.css"></link>
+  <link rel="stylesheet" type="text/css" 
+	href="assets/style/lightning.css"></link>
 
   <script type="text/template" id="sample-trigger-template">
     <button class="sample-trigger" id="<%= path %>"><%= path %></button>
@@ -24,17 +34,74 @@
 <body>
   <div id="app">
 
-    <h3>lightning</h3><br/>
+    <h1>Lightning</h1><br/>
 
-    <div id="sample-triggers">
+    <div class="samples">
+      <div class="reverse"></div>
+      <div id="sample-triggers">
+	Samples go here
+      </div>
+      <div class="forward"></div>
+    </div>
+    
+    <div class="stage">
+      <canvas id="sequencer-input" width="1200" height="300">
+      </canvas>
     </div>
 
-    <br/>
-    <div>Sequencer Input</div>
-    <br/>
+    <div class="controls">
+      <div class="mediaControls">
+	<div class="play"            id="play">Play</div>
+	<div class="stop toggle"     id="stop">Stop</div>
+	<div class="loop"            id="loop">Loop</div>
+	<div class="erase btnShadow" id="erase">Erase</div>
+      </div>
+      <div class="timingControls">
+	<div class="timeSignature btnShadow">
+	  <div class="threeFour toggle" id="3_4"></div>
+	  <div class="fourFour"         id="4_4"></div>
+	</div>
+	<div class="bpm btnShadow" id="bpm"></div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="saveBox">
+	<div class="files">
+	  <ul>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li class="selected">Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	    <li>Song Name</li>
+	  </ul>
+	</div>
+	<div class="saveButtons">
+	  <button class="save" id="save">Save</button>
+	  <button class="saveAs" id="saveAs">Save As</button>
+	  <button class="delete" id="delete">Delete</button>
+	</div>
+	<form id="newSong" class="newSong">
+	  <input type="text" id="songName" class="songName">
+	  <input type="submit" id="new" class="new" value="new">
+	</form>
+      </div>
+    </div>
 
-    <canvas id="sequencer-input" width="1200" height="300">
-    </canvas>
+    <p class="footer">
+      <em>Lightning</em>Make music on Linux lightning fast!<br />
+      v<span class="version" id="version">X.X</span>
+      rev<span class="revision" id="revision">xxx</span>
+    </p>
 
   </div>
 </body>
