@@ -1,78 +1,61 @@
-Lightning.Sequencer = function(options) {
+
+var Lightning = Lightning || {};
+
+/**
+ * @class Note
+ */
+Lightning.Note = function(x, y, r) {
+  this.__on = false;
+  this.__x = x; this.__y = y;
+  this.__r = r;
+};
+
+Lightning.Note.prototype.x =  function() { return this.__x;  };
+Lightning.Note.prototype.y =  function() { return this.__y;  };
+
+Lightning.Note.prototype.toString = function() {
+  return '(' + this.__x + ', ' + this.__y + ', ' + this.__r + ')';
+};
+
+/**
+ * Determine if (x, y) is in this cell.
+ */
+Lightning.Note.prototype.contains = function(x, y) {
+  return this.__r > Math.sqrt(Math.pow(this.__x - x, 2) +
+                              Math.pow(this.__y - y, 2));
+};
+
+/**
+ * Toggle the cell on/off.
+ */
+Lightning.Note.prototype.toggle = function() {
+  this.__on = !this.__on;
+};
+
+/**
+ * Draw the note on a 2d context.
+ */
+Lightning.Note.prototype.draw = function(ctx) {
+  ctx.fillStyle = 'black';
+  ctx.drawArc(this.__x, this.__y, this.__r, 0, 2 * Math.PI, false);
+};
+
+Lightning.Note.create = function(x, y, w, h) {
+  return new Lightning.Note(x, y, w, h);
+};
+
+/**
+ * @class Sequencer
+ */
+Lightning.Sequencer = function(canvas, context, options) {
   options = options || {};
-
-  /**
-   * @class Cell
-   */
-  function Cell(ctx, x, y, w, h) {
-    this.__on = false;
-    this.__x = x; this.__y = y;
-    this.__w = w; this.__h = h;
-    this.__ctx = ctx;
-  }
-
-  Cell.prototype.x =  function() { return this.__x;  };
-  Cell.prototype.y =  function() { return this.__y;  };
-
-  Cell.prototype.toString = function() {
-    return '(' + this.__x + ', ' + this.__y + ')';
-  };
-
-  /**
-   * Determine if (x, y) is in this cell.
-   */
-  Cell.prototype.contains = function(x, y) {
-    return x > this.__x && x < this.__x + this.__w
-      &&   y > this.__y && y < this.__y + this.__h;
-  };
-
-  /**
-   * Toggle the cell on/off.
-   */
-  Cell.prototype.toggle = function() {
-    this.__on = !this.__on;
-    if (this.__on) {
-      this.__ctx.strokeStyle = '#000000';
-      this.__ctx.fillStyle = '#000000';
-      this.__draw();
-    } else {
-      this.__ctx.strokeStyle = '#FFFFFF';
-      this.__ctx.fillStyle = '#FFFFFF';
-      this.__draw();
-    }
-  };
-
-  /**
-   * Draw the cell.
-   */
-  Cell.prototype.__draw = function() {
-    this.__ctx.fillRect(this.__x + (this.__w * 0.25),
-                        this.__y + (this.__h * 0.25),
-                        this.__w / 2,
-                        this.__h / 2);
-  };
-
-  Cell.create = function(x, y, w, h) {
-    return new Cell(x, y, w, h);
-  };
 
   // initialize sequencer
 
-  var self = this,
-      elid = options.id;
+  var self = this;
 
-  self.__canvas = document.getElementById(elid);
-  self.__w = self.__canvas.width;
-  self.__h = self.__canvas.height;
-  self.__ctx = self.__canvas.getContext('2d');
-  self.__boundary = self.__canvas.getBoundingClientRect();
-
-  var mousePos = function(event) {
-    return {
-      x: event.clientX - self.__boundary.left,
-      y: event.clientY - self.__boundary.top
-    };
-  };
+  self.__w = canvas.width;
+  self.__h = canvas.height;
 
   self.__hcells = 64;
   self.__vcells = 16;
@@ -86,34 +69,32 @@ Lightning.Sequencer = function(options) {
 
   for (x = 0; x < self.__hcells; x++) {
     for (y = 0; y < self.__vcells; y++) {
-      // draw grid
-      self.__ctx.strokeRect(x * w, y * h, w, h);
       // create cells
       self.__cells[x] = self.__cells[x] || [];
-      self.__cells[x].push(Cell.create(self.__ctx, x * w, y * h, w, h));
+      self.__cells[x].push(Lightning.Note.create(x * w, y * h, w / 2));
     }
   }
+};
 
-  // register a click handler that will
-  // place a note on the grid at the closest point
-  // to the click
-  self.__canvas.addEventListener('mousedown', function(event) {
-    var cell,
-        pos = mousePos(event);
+Lightning.Sequencer.prototype.click = function(pos) {
+  var self = this,
+      note, x, y;
 
-    for (x = 0; x < self.__hcells; x++) {
-      for (y = 0; y < self.__vcells; y++) {
-        cell = self.__cells[x][y];
-        console.log('testing cell ' + cell);
-        if (cell.contains(pos.x, pos.y)) {
-          console.log('clicked cell ' + cell);
-          cell.toggle();
-          return;
-        }
+  for (x = 0; x < self.__hcells; x++) {
+    for (y = 0; y < self.__vcells; y++) {
+      note = self.__cells[x][y];
+
+      if (note.contains(pos.x, pos.y)) {
+        console.log('clicked', note);
+        note.toggle();
+        return;
       }
     }
-  });
-}; // Lightning.Sequencer constructor
+  }
+};
+
+Lightning.Sequencer.draw = function(ctx) {
+};
 
 Lightning.Sequencer.create = function(options) {
   return new Lightning.Sequencer(options);
