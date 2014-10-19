@@ -3,39 +3,6 @@ function Lightning(options) {
   var self = this;
   options = options || {};
 
-  // websocket wrapper
-  function WS(addr) {
-    var self = this;
-    self.__conn = new WebSocket(addr);
-    self.__events = {
-      open: function(handler) {
-        self.__conn.onopen = handler;
-      },
-      message: function(handler) {
-        self.__conn.onmessage = handler;
-      }
-    };
-  }
-
-  WS.prototype.on = function(type, handler) {
-    var self = this;
-    if (typeof type !== 'string' || !(type in self.__events)) {
-      throw new TypeError('unrecognized type: ' + type);
-    }
-    self.__events[type](handler);
-  };
-
-  WS.prototype.send = function(msg) {
-    if (typeof msg !== 'string') {
-      msg = JSON.stringify(msg);
-    }
-    this.__conn.send(msg);
-  };
-
-  WS.create = function(addr) {
-    return new WS(addr);
-  };
-
   // setup new Lightning instance
 
   self.__wsAddr = options.ws || "ws://localhost:3428";
@@ -44,6 +11,21 @@ function Lightning(options) {
   self.__samplePlay = WS.create(self.__wsAddr + "/sample/play");
   self.__samplePlay.on('open', function(event) {
     console.log("connected to /samples/play websocket endpoint");
+  });
+
+  self.__patternEdit = WS.create(self.__wsAddr + "/pattern");
+  self.__patternEdit.on('open', function(event) {
+    console.log("connected to /pattern websocket endpoint");
+  });
+
+  self.__play = WS.create(self.__wsAddr + "/pattern/play");
+  self.__play.on('open', function(event) {
+    console.log("connected to /pattern/play websocket endpoint");
+  });
+
+  self.__stop = WS.create(self.__wsAddr + "/pattern/stop");
+  self.__stop.on('open', function(event) {
+    console.log("connected to /pattern/stop websocket endpoint");
   });
 
   self.__events = {
@@ -80,6 +62,28 @@ Lightning.prototype.playSample = function(path, note, vel) {
     sample: path,
     number: note,
     velocity: vel
+  });
+};
+
+Lightning.prototype.addNote = function(pos, sample, note, vel) {
+  var self = this;
+  self.__patternEdit.send({
+    pos: pos,
+    note: {
+      sample: sample,
+      number: note,
+      velocity: vel
+    }
+  });
+};
+
+Lightning.prototype.play = function() {
+  this.__patternEdit.send({
+  });
+};
+
+Lightning.prototype.stop = function() {
+  this.__patternEdit.send({
   });
 };
 
