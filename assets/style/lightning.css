@@ -1,0 +1,361 @@
+html {
+    min-height: 100vh;
+    background: #98e4f4; 
+    background: -moz-linear-gradient(top,  #98e4f4 0%, #17aaed 100%); 
+    background: -webkit-gradient(linear, left top, left bottom, 
+				 color-stop(0%,#98e4f4), 
+				 color-stop(100%,#17aaed));
+    background: -webkit-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
+    background: -o-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
+    background: -ms-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
+    background: linear-gradient(to bottom,  #98e4f4 0%,#17aaed 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( 
+	startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 ); 
+}
+
+#app {
+    min-height: 100vh;
+    background: transparent url(../images/starburst.svg) left top;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+#app::before {
+    content: " ";
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    margin-left: -452px;
+    z-index: -9;
+    width: 462px;
+    height: 478px;
+    background: transparent url(../images/lightning.png) 
+    left top no-repeat;
+}
+#app::after {
+    content: " ";
+    position: absolute;
+    top: 3%;
+    right: 0;
+    z-index: -9;
+    width: 282px;
+    height: 449px;
+    background: transparent url(../images/lightning.png) 
+    right top no-repeat;
+}
+
+#sequencer-input {
+    background-color: #fe9900;
+}
+
+h1 {
+    text-indent: -10000px;
+    height: .001em;
+}
+
+.samples {
+    margin: -10px auto 0 auto;
+    width: 960px;
+    height: 45px;
+}
+
+.reverse, .forward {
+    height: 45px;
+    width: 67px;
+    cursor: pointer;
+    background: transparent url(../images/arrow.png) left top no-repeat;
+    position: relative;
+    float: left;
+}
+
+.forward {
+    float: right;
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    transform: scale(-1, 1);
+}
+
+#sample-triggers {
+    width: 815px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    margin-left: 5px;
+    height: 35px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px
+}
+
+.stage {
+    width: 960px;
+    height: 326px;
+    overflow: auto;
+    overflow-y: hidden;
+    -ms-overflow-y: hidden;
+    margin: 0 auto;
+    display: block;
+}
+
+/* 
+ * Due to the way the canvas overflow is handled, the drop shadow
+ * cannot be on the canvas element otherwise it has abrupt edges.
+ * Instead assigning the drop shadow to a pseudo class. 
+*/
+.stage::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 960px;
+    height: 300px;
+    margin: -305px auto 0 auto;
+    z-index: -1;
+    background: rgba(0,0,0,0.25);
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.25);
+}
+.stage::before {
+    content: " ";
+    background: #fe9900 url(../images/cleff.png) top left no-repeat;
+    display: block;
+    position: absolute;
+    height: 300px;
+    width: 102px;
+}
+
+.controls {
+    width: 960px;
+    height: 35px;
+    margin: 10px auto;
+    clear: both;
+}
+
+.mediaControls, .timingControls {
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.mediaControls::after {
+    content: " ";
+    display: block;
+    height: 35px;
+    width: 290px;
+    border-radius: 17px;
+    background: rgba(0,0,0,0.25);
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.25);
+}
+
+.play, .stop, .loop, .erase {
+    position: relative;
+    float: left;
+    height: 100%;
+    text-indent: -9999px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.play {
+    width: 95px;
+    background: transparent url(../images/mediaControls.png) 
+    0px top no-repeat;
+}
+.play.toggle { background-position: 0px bottom; }
+
+.stop {
+    width: 93px;
+    background: transparent url(../images/mediaControls.png) 
+    -93px top no-repeat;
+}
+.stop.toggle { background-position: -93px bottom; }
+
+.loop {
+    width: 102px;
+    background: transparent url(../images/mediaControls.png) 
+    -188px top no-repeat;
+}
+.loop.toggle { background-position: -188px bottom; }
+
+.erase {
+    width: 109px;
+    position: relative;
+    float: right;
+    margin-right: 40px;
+    background: transparent url(../images/buttonSprite.png)
+    0px top no-repeat;
+}
+
+.timeSignature {
+    height: 100%;
+    width: 96px;
+    position: relative;
+    float: left;
+}
+
+.threeFour, .fourFour {
+    height: 100%;
+    position: relative;
+    float: left;
+    cursor: pointer;    
+    background: transparent url(../images/buttonSprite.png)
+    -227px top no-repeat;
+}
+
+.threeFour {
+    width: 57px;
+}
+.threeFour.toggle { background-position: -227px bottom;}
+
+.fourFour {
+    width: 61px;
+    margin-left: -23px;
+    background-position: -284px top;
+}
+.fourFour.toggle { background-position: -284px bottom;}
+
+.btnShadow, button {
+    border: 0;
+    cursor: pointer;
+    display: block;
+    border-radius: 17px;
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.25);
+}
+
+.bpm {
+    width: 369px;
+    height: 100%;
+    background: #f64801;
+    position: relative;
+    float: right;
+}
+
+.bottom {
+    width: 960px;
+    height: 350px;
+    margin: 20px auto 0 auto;
+    background: url(../images/lightningBug.png) 660px bottom no-repeat;
+}
+
+.saveBox {
+    width: 50%;
+    float: left;
+    height: 293px;
+    background: transparent url(../images/saveBox.png) left top no-repeat;
+}
+
+.footer {
+    color: #0b5678;
+    display: block;
+    position: relative;
+    margin: 30px auto 10px auto;
+    width: 960px;
+    text-align: center;
+}
+
+.files {
+    font-size: .8em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: relative;
+    float: left;
+    height: 179px;
+    width: 254px;
+    color: #4b1c15;
+    overflow: auto;
+    border-radius: 14px;
+    border: 1px solid #4b1c15;
+    background: #fe9900;
+    margin: 31px 0 0 33px;
+}
+
+.files li {
+    height: 1.2em;
+    padding-left: 5px;
+    padding-top: 2px;
+    display: block;
+    margin: 2px 0;
+}
+
+li.selected {
+    background: #ff7000;
+}
+
+.saveButtons {
+    height: 196px;
+    width: 125px;
+    position: relative;
+    float: left;
+    margin: 26px 0 0 2px;
+}
+
+.save, .saveAs, .delete {
+    text-indent: -10000px;
+    overflow: hidden;
+    height: 35px;
+    width: 118px;
+    background: transparent url(../images/buttonSprite.png)
+    -109px top no-repeat;
+}
+
+.saveAs {
+    height: 31px;
+    width: 100px;
+    background-position: -345px top;
+    position: relative;
+    margin: 20px auto 0 auto;
+}
+
+.delete {
+    height: 31px;
+    width: 101px;
+    background-position: -522px top;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    margin-left: -50px;
+}
+
+.newSong {
+    width: 254px;
+    height: 36px;
+    display: block;
+    position: relative;
+    float: left;
+    margin: 5px 0 0 33px;
+}
+
+.songName {
+    display: block;
+    position: relative;
+    float: left;
+    height: 36px;
+    width: 168px;
+    border-radius: 18px;
+    background: #fe9900;
+    border: 0;
+}
+
+.new {
+    width: 77px;
+    height: 31px;
+    display: block;
+    position: relative;
+    float: right;
+    border: 0;
+    margin-top: 2px;
+    background: transparent url(../images/buttonSprite.png)
+    -445px top no-repeat;
+    text-indent: -99999px;
+    cursor: pointer;
+}
+
+
+
+
+.footer em {
+    color: #fff;
+    font-weight: bold;
+    margin-right: 5px;
+}
