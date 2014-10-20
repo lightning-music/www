@@ -25,6 +25,10 @@
    <button id="transport-stop"></button>
   </script>
 
+  <script type="text/template" id="sample-trigger-template">
+    <button class="sample-trigger" id="<%= path %>"><%= path %></button>
+  </script>
+
   <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="lodash.js"></script>
   <script type="text/javascript" src="backbone-min.js"></script>
@@ -40,83 +44,103 @@
 <body>
   <div id="app">
 
-    <h1>Lightning</h1><br/>
-
-    <div class="samples">
-      <div class="reverse"></div>
-      <div id="sample-triggers">
-	    Samples go here
-      </div>
-      <div class="forward"></div>
-    </div>
-    
-    <div class="stage">
-      <canvas id="sequencer-input" width="1200" height="300">
-      </canvas>
-    </div>
-
-    <div class="controls">
-      <div class="mediaControls">
-	<div class="play"            id="play">Play</div>
-	<div class="stop toggle"     id="stop">Stop</div>
-	<div class="loop"            id="loop">Loop</div>
-	<div class="erase btnShadow" id="erase">Erase</div>
-      </div>
-      <div class="timingControls">
-	<div class="timeSignature btnShadow">
-	  <div class="threeFour toggle" id="3_4"></div>
-	  <div class="fourFour"         id="4_4"></div>
-	</div>
-	<div class="bpm btnShadow" id="bpm"></div>
-      </div>
-    </div>
-    <div class="bottom">
-      <div class="saveBox">
-	<div class="files">
-	  <ul>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li class="selected">Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
-	    <li>Song Name</li>
+    <div class="content">
+      <h1>Lightning</h1>
+      <div class="samples">
+	<div class="reverse"></div>
+	<div id="sample-triggers">
+	  <!-- Samples go here -->
+	  <ul class="sampleList">
+	    <li class="violin"></li>
+	    <li class="cat"></li>
+	    <li class="cow"></li>
+	    <li class="guitar"></li>
+	    <li class="gong"></li>
+	    <li class="duck"></li>
+	    <li class="drum"></li>
+	    <li class="triangle"></li>
+	    <li class="dog"></li>
+	    <li class="pig"></li>
+	    <li class="sheep"></li>
+	    <li class="piano"></li>
+	    <li class="crow"></li>
+	    <li class="beep"></li>
+	    <li class="mouthHarp"></li>
+	    <li class="squeek"></li>
 	  </ul>
 	</div>
-	<div class="saveButtons">
-	  <button class="save" id="save">Save</button>
-	  <button class="saveAs" id="saveAs">Save As</button>
-	  <button class="delete" id="delete">Delete</button>
-	</div>
-	<form id="newSong" class="newSong">
-	  <input type="text" id="songName" class="songName">
-	  <input type="submit" id="new" class="new" value="new">
-	</form>
+	<div class="forward"></div>
       </div>
+      
+      <div class="stage">
+	<canvas id="sequencer-input" width="1200" height="300">
+	</canvas>
+      </div>
+
+      <div class="controls">
+	<div class="mediaControls">
+	  <div class="play"            id="play">Play</div>
+	  <div class="stop toggle"     id="stop">Stop</div>
+	  <div class="loop"            id="loop">Loop</div>
+	  <div class="erase btnShadow" id="erase">Erase</div>
+	</div>
+	<div class="timingControls">
+	  <div class="bpm btnShadow" id="bpm"></div>
+	  <div class="timeSignature btnShadow">
+	    <div class="threeFour toggle" id="3_4"></div>
+	    <div class="fourFour"         id="4_4"></div>
+	  </div>
+	</div>
+      </div>
+      <div class="bottom">
+	<div class="saveBox">
+	  <div class="files">
+	    <ul>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li class="selected">Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	      <li>Song Name</li>
+	    </ul>
+	  </div>
+	  <div class="saveButtons">
+	    <button class="save" id="save">Save</button>
+	    <button class="saveAs" id="saveAs">Save As</button>
+	    <button class="delete" id="delete">Delete</button>
+	  </div>
+	  <form id="newSong" class="newSong">
+	    <input type="text" id="songName" class="songName">
+	    <input type="submit" id="new" class="new" value="new">
+	  </form>
+	</div>
+      </div>
+
+      <canvas id="lightning-app" width="1200" height="300">
+      </canvas>
+      <br/>
+
+      <div id="transport-controls">
+      </div>
+
+      <p class="footer">
+	<em>Lightning</em>Make music on Linux lightning fast!<br />
+	v<span class="version" id="version">X.X</span>
+	rev<span class="revision" id="revision">xxx</span>
+      </p>
+
     </div>
-
-    <canvas id="lightning-app" width="1200" height="300">
-    </canvas>
-    <br/>
-
-    <div id="transport-controls">
-    </div>
-
-    <p class="footer">
-      <em>Lightning</em>Make music on Linux lightning fast!<br />
-      v<span class="version" id="version">X.X</span>
-      rev<span class="revision" id="revision">xxx</span>
-    </p>
 
   </div>
+  <div id="mouse-sample"></div>
 </body>
-
 </html>

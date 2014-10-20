@@ -40,4 +40,22 @@ $(function() {
     setTimeout(render, 1);
   }
 
+    // JG Added
+    $('#sample-triggers > ul li').click(function(evt) {
+	var sampleId = $(this).attr('class'),
+	$cursor = $('#mouse-sample');
+
+	$cursor.removeAttr('class')
+	    .addClass('displayBlock')
+	    .addClass(sampleId);
+
+	$('.stage').mousemove(function (evt) {
+    	    $cursor.css({
+    		left:  evt.pageX,
+    		top:   evt.pageY
+    	    });
+	});
+    });
+
+
 });
