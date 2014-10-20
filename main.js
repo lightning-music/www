@@ -41,6 +41,12 @@ $(function() {
   }
 
     // JG Added
+    console.log('here');
+    $(".files").scroller();
+    $(".stage").scroller({
+	horizontal: true
+    });
+
     $('#sample-triggers > ul li').click(function(evt) {
 	var sampleId = $(this).attr('class'),
 	$cursor = $('#mouse-sample');
@@ -56,6 +62,5 @@ $(function() {
     	    });
 	});
     });
-
 
 });
