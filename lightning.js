@@ -51,7 +51,7 @@ Lightning.prototype.listSamples = function(f) {
       f(new Error("error getting samples list"), null);
     },
     success: function(samples) {
-      f(null, samples);
+      f(null, JSON.parse(samples));
     }
   });
 };
@@ -62,6 +62,30 @@ Lightning.prototype.playSample = function(path, note, vel) {
     sample: path,
     number: note,
     velocity: vel
+  });
+};
+
+// strip the .wav extension from a sample path
+function stripExtension(path) {
+  var wi = path.lastIndexOf('.wav');
+  return path.substring(0, wi);
+}
+
+Lightning.prototype.setupSampleTriggers = function(f) {
+  var self = this;
+  this.listSamples(function(err, samples) {
+    if (err) {
+      return f(err);
+    }
+    samples.forEach(function(sample) {
+      var c = stripExtension(sample.path);
+      var el = $('li.' + c);
+      el.click(function(ev) {
+        self.playSample(sample.path, 60, 96);
+        ev.preventDefault();
+      });
+    });
+    return f(null);
   });
 };
 
@@ -78,12 +102,12 @@ Lightning.prototype.addNote = function(pos, sample, note, vel) {
 };
 
 Lightning.prototype.play = function() {
-  this.__patternEdit.send({
+  this.__patternPlay.send({
   });
 };
 
 Lightning.prototype.stop = function() {
-  this.__patternEdit.send({
+  this.__patternStop.send({
   });
 };
 

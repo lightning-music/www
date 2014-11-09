@@ -19,48 +19,53 @@ $(function() {
     el: '#sample-triggers'
   });
 
-  var sequencer = Lightning.Sequencer.create(canvas, ctx, {
-    id: 'sequencer-input'
-  });
+  // var sequencer = Lightning.Sequencer.create(canvas, ctx, {
+  //   id: 'sequencer-input'
+  // });
 
-  var transport = new Lightning.Views.Transport({
-    el: '#transport-controls'
-  });
+  // var transport = new Lightning.Views.Transport({
+  //   el: '#transport-controls'
+  // });
 
   // TODO: have classes be able to register themselves as click listeners
-  canvas.addEventListener('mousedown', function(event) {
-    var pos = mousePos(event);
-    console.log('clicked', pos.x, pos.y);
-    sequencer.click(pos);
-  });
+  // canvas.addEventListener('mousedown', function(event) {
+  //   var pos = mousePos(event);
+  //   console.log('clicked', pos.x, pos.y);
+  //   sequencer.click(pos);
+  // });
 
   // main render loop
-  function render() {
-    sequencer.draw(ctx);
-    setTimeout(render, 1);
-  }
+  // function render() {
+  //   sequencer.draw(ctx);
+  //   setTimeout(render, 1);
+  // }
 
-    // JG Added
-    console.log('here');
-    $(".files").scroller();
-    $(".stage").scroller({
+  // JG Added
+  $(".files").scroller();
+  $(".stage").scroller({
 	horizontal: true
-    });
+  });
 
+  function moveIcons() {
     $('#sample-triggers > ul li').click(function(evt) {
-	var sampleId = $(this).attr('class'),
-	$cursor = $('#mouse-sample');
+	  var sampleId = $(this).attr('class'),
+	      $cursor = $('#mouse-sample');
 
-	$cursor.removeAttr('class')
+	  $cursor.removeAttr('class')
 	    .addClass('displayBlock')
 	    .addClass(sampleId);
 
-	$('.stage').mousemove(function (evt) {
-    	    $cursor.css({
-    		left:  evt.pageX,
-    		top:   evt.pageY
-    	    });
-	});
+	  $('.stage').mousemove(function (evt) {
+        $cursor.css({
+    	  left:  evt.pageX,
+    	  top:   evt.pageY
+        });
+	  });
     });
+  }
+
+  console.log('setting up sample triggers');
+  // wire up sample icons to their backend calls
+  lightning.setupSampleTriggers(moveIcons);
 
 });
