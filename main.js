@@ -10,7 +10,7 @@ function getMousePosWithin(boundingRect) {
 
 $(function() {
   var lightning = Lightning.getInstance(),
-      canvas = document.getElementById('lightning-app'),
+      canvas = document.getElementById('sequencer-input'),
       ctx = canvas.getContext('2d'),
       boundingRect = canvas.getBoundingClientRect(),
       mousePos = getMousePosWithin(boundingRect);
@@ -40,8 +40,6 @@ $(function() {
     setTimeout(render, 1);
   }
 
-    // JG Added
-    console.log('here');
     $(".files").scroller();
     $(".stage").scroller({
 	horizontal: true
