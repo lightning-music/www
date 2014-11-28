@@ -20,15 +20,16 @@ $(function() {
     el: '#sample-triggers'
   });
 
-  var sequencer = Lightning.Sequencer.create(canvas, ctx, {
-    id: 'sequencer-input'
-  });
+  // var sequencer = Lightning.Sequencer.create(canvas, ctx, {
+  //   id: 'sequencer-input'
+  // });
 
-  var transport = new Lightning.Views.Transport({
-    el: '#transport-controls'
-  });
+  // var transport = new Lightning.Views.Transport({
+  //   el: '#transport-controls'
+  // });
 
   // TODO: have classes be able to register themselves as click listeners
+
   canvas.addEventListener('mousedown', function(event) {
     var pos = mousePos(event);
     if (sampleId !== null) {
@@ -47,17 +48,12 @@ $(function() {
     sequencer.click(pos);
   });
 
-  // main render loop
-  function render() {
-    sequencer.draw(ctx);
-    setTimeout(render, 1);
-  }
+  $(".files").scroller();
+  $(".stage").scroller({
+    horizontal: true
+  });
 
-    $(".files").scroller();
-    $(".stage").scroller({
-      horizontal: true
-    });
-
+  function moveIcons() {
     $('#sample-triggers > ul li').click(function(evt) {
       var $cursor = $('#mouse-sample');
       sampleId = $(this).attr('class');
@@ -80,5 +76,10 @@ $(function() {
         }
       });
     });
+  }
+
+  console.log('setting up sample triggers');
+  // wire up sample icons to their backend calls
+  lightning.setupSampleTriggers(moveIcons);
 
 });
