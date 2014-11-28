@@ -1,16 +1,16 @@
 html {
     min-height: 100vh;
-    background: #98e4f4; 
-    background: -moz-linear-gradient(top,  #98e4f4 0%, #17aaed 100%); 
-    background: -webkit-gradient(linear, left top, left bottom, 
-				 color-stop(0%,#98e4f4), 
+    background: #98e4f4;
+    background: -moz-linear-gradient(top,  #98e4f4 0%, #17aaed 100%);
+    background: -webkit-gradient(linear, left top, left bottom,
+				 color-stop(0%,#98e4f4),
 				 color-stop(100%,#17aaed));
     background: -webkit-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: -o-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: -ms-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: linear-gradient(to bottom,  #98e4f4 0%,#17aaed 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( 
-	startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 ); 
+    filter: progid:DXImageTransform.Microsoft.gradient(
+	startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 );
 }
 
 #app {
@@ -29,7 +29,7 @@ html {
     z-index: -9;
     width: 462px;
     height: 478px;
-    background: transparent url(../images/lightning.png) 
+    background: transparent url(../images/lightning.png)
     left top no-repeat;
 }
 #app::after {
@@ -40,7 +40,7 @@ html {
     z-index: -9;
     width: 282px;
     height: 449px;
-    background: transparent url(../images/lightning.png) 
+    background: transparent url(../images/lightning.png)
     right top no-repeat;
 }
 
@@ -106,6 +106,14 @@ h1 {
     height: 45px;
     display: inline-block;
 }
+.liveSample {
+    height: 47px;
+    width: 41px;
+    position: absolute;
+    background: transparent url(../images/sampleSprite.png)
+    0px top no-repeat;
+    z-index: 9;
+}
 .sampleList li {
     height: 47px;
     width: 41px;
@@ -113,7 +121,7 @@ h1 {
     display: inline-block;
     float: left;
     margin: 0 3px;
-    background: transparent url(../images/sampleSprite.png) 
+    background: transparent url(../images/sampleSprite.png)
     0px top no-repeat;
     cursor: pointer;
 }
@@ -145,10 +153,10 @@ h1 {
     display: block;
 }
 
-/* 
+/*
  * Due to the way the canvas overflow is handled, the drop shadow
  * cannot be on the canvas element otherwise it has abrupt edges.
- * Instead assigning the drop shadow to a pseudo class. 
+ * Instead assigning the drop shadow to a pseudo class.
 */
 .stage::after {
     content: " ";
@@ -205,21 +213,21 @@ h1 {
 
 .play {
     width: 95px;
-    background: transparent url(../images/mediaControls.png) 
+    background: transparent url(../images/mediaControls.png)
     0px top no-repeat;
 }
 .play.toggle { background-position: 0px bottom; }
 
 .stop {
     width: 93px;
-    background: transparent url(../images/mediaControls.png) 
+    background: transparent url(../images/mediaControls.png)
     -93px top no-repeat;
 }
 .stop.toggle { background-position: -93px bottom; }
 
 .loop {
     width: 102px;
-    background: transparent url(../images/mediaControls.png) 
+    background: transparent url(../images/mediaControls.png)
     -188px top no-repeat;
 }
 .loop.toggle { background-position: -188px bottom; }
@@ -245,7 +253,7 @@ h1 {
     height: 100%;
     position: relative;
     float: left;
-    cursor: pointer;    
+    cursor: pointer;
     background: transparent url(../images/buttonSprite.png)
     -227px top no-repeat;
 }
@@ -412,7 +420,7 @@ li.selected {
     position: fixed;
     left: -50px;
     bottom: -50px;
-    background: transparent url(../images/sampleSprite.png) 
+    background: transparent url(../images/sampleSprite.png)
     0px top no-repeat;
     display: none;
     z-index: 9;

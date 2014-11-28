@@ -2,20 +2,20 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,
 				  minimum-scale=1.0, user-scalable=no" />
   <meta name="viewport" content="width=device-width">
   <meta name="mobile-web-app-capable" content="yes">
   <title>.::Lightning::. Make Music on Linux Lightning Fast!</title>
-  <link rel="shortcut icon" type="image/x-icon" 
+  <link rel="shortcut icon" type="image/x-icon"
 	href="assets/images/favicon.ico">
-  <link href="http://fonts.googleapis.com/css?family=Coming+Soon" 
+  <link href="http://fonts.googleapis.com/css?family=Coming+Soon"
 	rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" 
+  <link rel="stylesheet" type="text/css"
 	href="assets/style/reset.css">
-  <link rel="stylesheet" type="text/css" 
+  <link rel="stylesheet" type="text/css"
 	href="assets/style/lightning.css">
-  <link rel="stylesheet" type="text/css" media="all" 
+  <link rel="stylesheet" type="text/css" media="all"
 	href="assets/style/jquery.fs.scroller.css">
 
   <script type="text/template" id="sample-trigger-template">
@@ -75,7 +75,7 @@
 	</div>
 	<div class="forward"></div>
       </div>
-      
+
       <div class="stage">
 	<canvas id="sequencer-input" width="1200" height="300">
 	</canvas>
@@ -146,5 +146,8 @@
 
   </div>
   <div id="mouse-sample"></div>
+  <script type="text/template" id="live-sample-template">
+    <span class="liveSample <%= sampleName %>" style="margin: <%= sampleMargins %>"></span>
+  </script>
 </body>
 </html>
