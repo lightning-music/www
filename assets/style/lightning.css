@@ -145,10 +145,10 @@ h1 {
 
 .stage {
     width: 100%;
-    height: 336px;
-    /* overflow: auto; */
-    /* overflow-y: hidden; */
-    /* -ms-overflow-y: hidden; */
+    height: 366px;
+    overflow: auto;
+    overflow-y: hidden;
+    -ms-overflow-y: hidden;
     margin: 0 auto;
     display: block;
 }
@@ -162,20 +162,60 @@ h1 {
     content: " ";
     display: block;
     width: 100%;
-    height: 300px;
-    margin: -350px auto 0 auto;
+    height: 330px;
+    margin: -380px auto 0 auto;
     z-index: -1;
     background: rgba(0,0,0,0.25);
     box-shadow: 0px 10px 15px rgba(0,0,0,0.25);
 }
 .stage::before {
     content: " ";
-    background: #fe9900 url(../images/cleff.png) top left no-repeat;
+    background: #fe9900 url(../images/cleff.png) left center no-repeat;
     display: block;
     position: absolute;
-    height: 300px;
+    height: 330px;
     width: 102px;
     z-index: 2;
+}
+
+.staff {
+  height: 330px;
+  width: 1500px;
+  background-color: #fe9900;
+}
+
+.cursor {
+  height: 330px;
+  width: 10px;
+  background: transparent url(../images/cursor.png) top left repeat-y;
+  display: block;
+  position: absolute;
+  z-index: 9;
+  margin-left: 110px;
+}
+
+#measure001 {
+  margin-left: 110px;
+}
+
+.measure {
+  position: relative;
+  float: left;
+  z-index: 9;
+  border: 1px solid rgba(0,0,0,.65);
+}
+
+.measure > div {
+  width: 50px;
+  height: 330px;
+  background: rgba(0,0,0,0.15);
+  position: relative;
+  float: left;
+  z-index: 9;
+}
+
+.measure > div:hover {
+  background: rgba(0,0,0,.35);
 }
 
 .controls {

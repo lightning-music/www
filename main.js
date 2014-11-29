@@ -11,7 +11,7 @@ function getMousePosWithin(boundingRect) {
 $(function() {
   var lightning = Lightning.getInstance(),
       canvas = document.getElementById('sequencer-input'),
-      ctx = canvas.getContext('2d'),
+      // ctx = canvas.getContext('2d'),
       boundingRect = canvas.getBoundingClientRect(),
       mousePos = getMousePosWithin(boundingRect),
       sampleId = null;
@@ -33,19 +33,22 @@ $(function() {
   canvas.addEventListener('mousedown', function(event) {
     var pos = mousePos(event);
     if (sampleId !== null) {
-      // The user has a note, so add it to the canvas using layerX/Y as these
-      // values contain the absolute position of the underlying canvas element
-      var template = _.template($('#live-sample-template').html(),
-      { sampleMargins : event.layerY + "px 0 0 " + event.layerX + "px",
-        sampleName : sampleId});
-      $('.scroller-content').prepend(template);
+      var beat = event.target.className,
+          measure = event.target.parentElement.id,
+          line = Math.round((event.layerY) / 20);
 
-      // console.log('clicked with NOTE: ' + sampleId, event.layerX, event.layerY);
+      // Add the note to the proper location
+      var template = _.template($('#live-sample-template').html(),
+          {
+            sampleMargins: (line * 20) + 'px 0 0 4px',
+            sampleName: sampleId
+          });
+      $('#' + measure + ' .' + beat).append(template);
     } else {
       // Do nothing as the user has not clicked a sample yet
     }
 
-    sequencer.click(pos);
+    // sequencer.click(pos);
   });
 
   $(".files").scroller();
