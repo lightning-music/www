@@ -35,12 +35,12 @@ $(function() {
     if (sampleId !== null) {
       var beat = event.target.className,
           measure = event.target.parentElement.id,
-          line = Math.round((event.layerY) / 20);
+          line = Math.round((event.layerY) / 33);
 
       // Add the note to the proper location
       var template = _.template($('#live-sample-template').html(),
           {
-            sampleMargins: (line * 20) + 'px 0 0 4px',
+            sampleMargins: (line * 33) + 'px 0 0 4px',
             sampleName: sampleId
           });
       $('#' + measure + ' .' + beat).append(template);

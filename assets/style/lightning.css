@@ -170,7 +170,7 @@ h1 {
 }
 .stage::before {
     content: " ";
-    background: #fe9900 url(../images/cleff.png) left center no-repeat;
+    background: transparent url(../images/cleff.png) left center no-repeat;
     display: block;
     position: absolute;
     height: 330px;
@@ -180,7 +180,6 @@ h1 {
 
 .staff {
   height: 330px;
-  width: 1500px;
   background-color: #fe9900;
 }
 
@@ -202,20 +201,14 @@ h1 {
   position: relative;
   float: left;
   z-index: 9;
-  border: 1px solid rgba(0,0,0,.65);
 }
 
 .measure > div {
   width: 50px;
   height: 330px;
-  background: rgba(0,0,0,0.15);
   position: relative;
   float: left;
   z-index: 9;
-}
-
-.measure > div:hover {
-  background: rgba(0,0,0,.35);
 }
 
 .controls {
@@ -465,6 +458,56 @@ li.selected {
     display: none;
     z-index: 9;
 }
+
+.addMeasure {
+  height: 100%;
+  width: 50px;
+  float: right;
+  background: rgba(255,255,255,.25);
+  cursor: pointer;
+}
+.addMeasure:hover {
+  background: rgba(255,255,255,.5);
+}
+
+.addMeasure span {
+  height: 38px;
+  width: 38px;
+  background: transparent url(../images/plus.png) left top no-repeat;
+  display: block;
+  margin-left: 6px;
+  opacity: .5;
+  margin-top: 139px;
+}
+
+.addMeasure:hover span {
+  opacity: 1;
+}
+
+.leger-line, .staff-line {
+  height: 2px;
+  background-color: #812600;
+  width: 100%;
+  display: block;
+  position: relative;
+  margin-top: 33px;
+}
+
+.leger-line {
+  opacity: .5;
+}
+
+.staff-lines {
+  position: absolute;
+}
+
+.staff-lines span:nth-child(1) {
+  margin-top: 22px;
+
+}
+
+
+
 
 .displayBlock {
     display: block !important;
