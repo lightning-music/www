@@ -1,10 +1,10 @@
-/* 
- * Scroller v3.0.4 - 2014-04-08 
- * A jQuery plugin for replacing default browser scrollbars. Part of the Formstone Library. 
- * http://formstone.it/scroller/ 
- * 
- * Copyright 2014 Ben Plum; MIT Licensed 
- */ 
+/*
+ * Scroller v3.0.4 - 2014-04-08
+ * A jQuery plugin for replacing default browser scrollbars. Part of the Formstone Library.
+ * http://formstone.it/scroller/
+ *
+ * Copyright 2014 Ben Plum; MIT Licensed
+ */
 
 	.scroller { overflow: hidden; overflow-x: hidden; overflow-y: hidden; position: relative; }
 	.scroller-content { height: 100%; overflow: auto; overflow-x: hidden; overflow-y: auto; position: relative; z-index: 1;
@@ -53,33 +53,33 @@
 
 :not(.scroller-horizontal) .scroller-track {
     width: 23px;
-    background: #fe9900 url(../images/vStripe.png) 
+    background: #fe9900 url(../img/vStripe.png)
     left top repeat-y !important;
 }
 
 .scroller-horizontal .scroller-track {
     border-radius: 12px;
-    background: #fe9900 url(../images/hStripe.png) 
+    background: #fe9900 url(../img/hStripe.png)
     left top repeat-x !important;
 }
 
 :not(.scroller-horizontal) .scroller-handle {
     width: 23px;
     right: 0;
-    background: url(../images/vHandle.png) left top repeat-y;
+    background: url(../img/vHandle.png) left top repeat-y;
     border: 0;
 }
 
 .scroller-horizontal .scroller-handle {
     height: 23px !important;
     top: 0px !important;
-    background: url(../images/hHandle.png) left top repeat-x;
+    background: url(../img/hHandle.png) left top repeat-x;
     border: 0px;
 }
 
 .scroller-handle::after {
     content: " ";
-    background: url(../images/hGrip.png) left top no-repeat;
+    background: url(../img/hGrip.png) left top no-repeat;
     height: 12px;
     width: 13px;
     display: block;
@@ -87,7 +87,7 @@
     margin: 5px auto 0 auto;
 }
 
-.files .scroller-handle::after { 
+.files .scroller-handle::after {
     top: 40%;
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);

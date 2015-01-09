@@ -8,15 +8,15 @@
   <meta name="mobile-web-app-capable" content="yes">
   <title>.::Lightning::. Make Music on Linux Lightning Fast!</title>
   <link rel="shortcut icon" type="image/x-icon"
-	href="assets/images/favicon.ico">
+    href="assets/images/favicon.ico">
   <link href="http://fonts.googleapis.com/css?family=Coming+Soon"
-	rel="stylesheet" type="text/css">
+	 rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css"
-	href="assets/style/reset.css">
+	 href="assets/css/reset.css">
   <link rel="stylesheet" type="text/css"
-	href="assets/style/lightning.css">
+	 href="assets/css/lightning.css">
   <link rel="stylesheet" type="text/css" media="all"
-	href="assets/style/jquery.fs.scroller.css">
+	 href="assets/css/jquery.fs.scroller.css">
 
   <script type="text/template" id="sample-trigger-template">
     <button class="sample-trigger" id="<%= path %>"><%= path %></button>
@@ -31,18 +31,18 @@
     <button class="sample-trigger" id="<%= path %>"><%= path %></button>
   </script>
 
-  <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="lodash.js"></script>
-  <script type="text/javascript" src="backbone-min.js"></script>
-  <script type="text/javascript" src="jquery.fs.scroller.min.js">
+  <script type="text/javascript" src="assets/libs/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="assets/libs/lodash.js"></script>
+  <script type="text/javascript" src="assets/libs/backbone-min.js"></script>
+  <script type="text/javascript" src="assets/libs/jquery.fs.scroller.min.js">
   </script>
-  <script type="text/javascript" src="ws.js"></script>
-  <script type="text/javascript" src="lightning.js"></script>
-  <script type="text/javascript" src="templates.js"></script>
-  <script type="text/javascript" src="models.js"></script>
-  <script type="text/javascript" src="views.js"></script>
-  <script type="text/javascript" src="sequencer.js"></script>
-  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="assets/js/ws.js"></script>
+  <script type="text/javascript" src="assets/js/lightning.js"></script>
+  <script type="text/javascript" src="assets/js/templates.js"></script>
+  <script type="text/javascript" src="assets/js/models.js"></script>
+  <script type="text/javascript" src="assets/js/views.js"></script>
+  <script type="text/javascript" src="assets/js/sequencer.js"></script>
+  <script type="text/javascript" src="assets/js/main.js"></script>
 </head>
 
 <body>
@@ -90,7 +90,7 @@
         </div>
 
         <div class="cursor"></div>
-        <div id="sequencer-input" class="staff" measures="9"
+        <div id="sequencer-input" class="staff" data-measures="9"
             style="width: 1510px;">
           <div class="measure" id="measure001">
             <div class="beat-1"></div>
