@@ -279,6 +279,9 @@ h1 {
     background: transparent url(../img/buttonSprite.png)
     0px top no-repeat;
 }
+.delMode * {
+    cursor: cell !important;
+}
 
 .timeSignature {
     height: 100%;
@@ -541,6 +544,20 @@ li.selected {
 
 .staff-lines {
     position: absolute;
+}
+.helpText {
+    height: 14px;
+    width: 300px;
+    padding: 10px;
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.6);
+    z-index: 999;
+    border-radius: 14px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
 }
 
 

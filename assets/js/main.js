@@ -10,7 +10,7 @@ function getMousePosWithin(boundingRect) {
 $(function() {
     var lightning = Lightning.getInstance(),
     canvas = document.getElementById('sequencer-input'),
-    sampleArr = new Array(), timeSig = '3_3',
+    sampleArr = new Array(), timeSig = '3_3', y = 0,
     boundingRect = canvas.getBoundingClientRect(),
     mousePos = getMousePosWithin(boundingRect),
     sampleId = null;
@@ -37,7 +37,8 @@ $(function() {
                     // Margins are offset to account for the tile image size,
                     // and for centering within the measure.
                     sampleMargins: (event.layerY - 20) + 'px 0 0 4px',
-                    sampleName: sampleId
+                    sampleName: sampleId,
+                    sampleRef: sampleId + '-' + y
                 });
 
                 // Add the sample to the DOM
@@ -53,6 +54,7 @@ $(function() {
 
                 // Add the sample to the song array
                 sampleArr.push({
+                    sampleRef: sampleId + '-' + y,
                     sample: sampleId,
                     timeSig: timeSig,
                     musicPos: {
@@ -65,6 +67,7 @@ $(function() {
                         leftMargin: 4
                     }
                 });
+                y++;
                 lightning.collectData(sampleArr);
             }
         } else {
@@ -124,6 +127,26 @@ $(function() {
         }
     });
 
+    $('.erase').click(function() {
+        $('.controls').addClass('delMode');
+        $('.stage').addClass('delMode');
+        // Show the help text
+        $('#helpText').fadeIn(500);
+
+        $('.liveSample').click(function(e) {
+            // Remove the element from the DOM
+            $(e.target).remove();
+            
+            var id = e.target.dataset.sampleRef;
+            for (var i=0; i < sampleArr.length; i++) {
+                if (sampleArr[i].sampleRef === id) {
+                    sampleArr.splice(i, 1);
+                }
+            }
+            lightning.collectData(sampleArr);
+        });
+    });
+
     function moveIcons() {
         $('#sample-triggers > ul li').click(function(evt) {
             var $cursor = $('#mouse-sample');
@@ -133,21 +156,30 @@ $(function() {
                 .addClass('displayBlock')
                 .addClass(sampleId);
 
+                // Show the help text
+                $('#helpText').fadeIn(500);
+
             $('.stage').mousemove(function (evt) {
                 $cursor.css({
                     left:  evt.pageX + 10,
                     top:   evt.pageY + 10
                 });
             });
-
-            $(document).keyup(function(e) {
-                if (e.keyCode == 27) { // Esc key
-                    sampleId = null;
-                    $cursor.removeAttr('class');
-                }
-            });
         });
     }
+
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // Esc key
+            sampleId = null;
+            // Reset the cursor state if necessary
+            $('#mouse-sample').removeAttr('class');
+            // Reset the delete mode state if necessary
+            $('.controls').removeClass('delMode');
+            $('.stage').removeClass('delMode');
+            // Hide the help text
+            $('#helpText').fadeOut(500);
+        }
+    });
 
     console.log('setting up sample triggers');
     // wire up sample icons to their backend calls
