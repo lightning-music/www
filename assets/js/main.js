@@ -1,4 +1,3 @@
-
 function getMousePosWithin(boundingRect) {
     return function(event) {
         return {
@@ -11,7 +10,7 @@ function getMousePosWithin(boundingRect) {
 $(function() {
     var lightning = Lightning.getInstance(),
     canvas = document.getElementById('sequencer-input'),
-    sampleArr = new Array();
+    sampleArr = new Array(), timeSig = '3_3',
     boundingRect = canvas.getBoundingClientRect(),
     mousePos = getMousePosWithin(boundingRect),
     sampleId = null;
@@ -25,10 +24,13 @@ $(function() {
     canvas.addEventListener('mousedown', function(event) {
         var pos = mousePos(event);
         if (sampleId !== null) {
-            var beat = event.target.className,
-                measure = event.target.parentElement.id,
+            var beatId = event.target.className,
+                measureId = event.target.parentElement.id,
                 lNum = Math.round(event.layerY / 32),
-                line = ((lNum > 0 && lNum < 3) || lNum > 7) ? 'll-' : 'sl-';
+                line = ((lNum > 0 && lNum < 3) || lNum > 7) ? 'll-' : 'sl-',
+                beat = beatId.charAt(beatId.length - 1),
+                measure = measureId.charAt(measureId.length - 1);
+
             if ((event.layerY / 32) > 0.5) {
                 template = _.template($('#live-sample-template').html(),
                 {
@@ -39,7 +41,7 @@ $(function() {
                 });
 
                 // Add the sample to the DOM
-                $('#' + measure + ' .' + beat).append(template);
+                $('#' + measureId + ' .' + beatId).append(template);
 
                 if (line == 'll-' && lNum < 8) {
                     line += lNum;
@@ -52,9 +54,10 @@ $(function() {
                 // Add the sample to the song array
                 sampleArr.push({
                     sample: sampleId,
+                    timeSig: timeSig,
                     musicPos: {
-                        measure: event.explicitOriginalTarget.offsetParent.id,
-                        beat: event.explicitOriginalTarget.className,
+                        measure: measure,
+                        beat: beat,
                         staffLine: line
                     },
                     htmlPos: {
@@ -62,12 +65,11 @@ $(function() {
                         leftMargin: 4
                     }
                 });
+                lightning.collectData(sampleArr);
             }
         } else {
             // Do nothing as the user has not clicked a sample yet
         }
-
-        // sequencer.click(pos);
     });
 
     $(".files").scroller();
@@ -75,14 +77,18 @@ $(function() {
         horizontal: true
     });
 
+    $('#timeSignature').click(function(e) {
+        timeSig = e.target.id;
+    })
+
     function moveIcons() {
         $('#sample-triggers > ul li').click(function(evt) {
             var $cursor = $('#mouse-sample');
             sampleId = $(this).attr('class');
 
             $cursor.removeAttr('class')
-            .addClass('displayBlock')
-            .addClass(sampleId);
+                .addClass('displayBlock')
+                .addClass(sampleId);
 
             $('.stage').mousemove(function (evt) {
                 $cursor.css({

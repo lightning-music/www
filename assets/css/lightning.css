@@ -200,9 +200,11 @@ h1 {
     position: relative;
     float: left;
     z-index: 9;
+    border: 1px solid red;
 }
 
 .measure > div {
+    border: 1px solid green;
     width: 50px;
     height: 330px;
     position: relative;
@@ -500,6 +502,23 @@ li.selected {
 
 
 
+.devMode {
+    display: inline-block;
+    height: 100%;
+    width: 235px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 99;
+    color: #02FF05;
+    font-family: monospace, monospace;
+    font-size: 12px;
+    overflow-y: auto;
+}
+.hide {
+    display: none !important;
+}
 .displayBlock {
     display: block !important;
 }
