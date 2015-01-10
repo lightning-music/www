@@ -3,14 +3,14 @@ html {
     background: #98e4f4;
     background: -moz-linear-gradient(top,  #98e4f4 0%, #17aaed 100%);
     background: -webkit-gradient(linear, left top, left bottom,
-				 color-stop(0%,#98e4f4),
-				 color-stop(100%,#17aaed));
+    			 color-stop(0%,#98e4f4),
+    			 color-stop(100%,#17aaed));
     background: -webkit-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: -o-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: -ms-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: linear-gradient(to bottom,  #98e4f4 0%,#17aaed 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(
-	startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 );
+    startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 );
 }
 
 #app {
@@ -45,8 +45,8 @@ html {
 }
 
 /*
- * Adjust the width value below to change the page size.
- * Every element below should respond accordingly.
+* Adjust the width value below to change the page size.
+* Every element below should respond accordingly.
 */
 .content {
     width: 80%;
@@ -110,8 +110,8 @@ h1 {
     height: 47px;
     width: 41px;
     position: absolute;
-    background: transparent url(../img/sampleSprite.png)
-    0px top no-repeat;
+    display: inline-block;
+    background: transparent url(../img/sampleSprite.png) 0px top no-repeat;
     z-index: 9;
 }
 .sampleList li {
@@ -121,8 +121,7 @@ h1 {
     display: inline-block;
     float: left;
     margin: 0 3px;
-    background: transparent url(../img/sampleSprite.png)
-    0px top no-repeat;
+    background: transparent url(../img/sampleSprite.png) 0px top no-repeat;
     cursor: pointer;
 }
 .violin {background-position: 0px top !important;}
@@ -154,9 +153,9 @@ h1 {
 }
 
 /*
- * Due to the way the canvas overflow is handled, the drop shadow
- * cannot be on the canvas element otherwise it has abrupt edges.
- * Instead assigning the drop shadow to a pseudo class.
+* Due to the way the canvas overflow is handled, the drop shadow
+* cannot be on the canvas element otherwise it has abrupt edges.
+* Instead assigning the drop shadow to a pseudo class.
 */
 .stage::after {
     content: " ";
@@ -179,36 +178,36 @@ h1 {
 }
 
 .staff {
-  height: 330px;
-  background-color: #fe9900;
+    height: 330px;
+    background-color: #fe9900;
 }
 
 .cursor {
-  height: 330px;
-  width: 10px;
-  background: transparent url(../img/cursor.png) top left repeat-y;
-  display: block;
-  position: absolute;
-  z-index: 9;
-  margin-left: 110px;
+    height: 330px;
+    width: 10px;
+    background: transparent url(../img/cursor.png) top left repeat-y;
+    display: block;
+    position: absolute;
+    z-index: 9;
+    margin-left: 110px;
 }
 
 #measure001 {
-  margin-left: 110px;
+    margin-left: 110px;
 }
 
 .measure {
-  position: relative;
-  float: left;
-  z-index: 9;
+    position: relative;
+    float: left;
+    z-index: 9;
 }
 
 .measure > div {
-  width: 50px;
-  height: 330px;
-  position: relative;
-  float: left;
-  z-index: 9;
+    width: 50px;
+    height: 330px;
+    position: relative;
+    float: left;
+    z-index: 9;
 }
 
 .controls {
@@ -246,22 +245,19 @@ h1 {
 
 .play {
     width: 95px;
-    background: transparent url(../img/mediaControls.png)
-    0px top no-repeat;
+    background: transparent url(../img/mediaControls.png) 0px top no-repeat;
 }
 .play.toggle { background-position: 0px bottom; }
 
 .stop {
     width: 93px;
-    background: transparent url(../img/mediaControls.png)
-    -93px top no-repeat;
+    background: transparent url(../img/mediaControls.png) -93px top no-repeat;
 }
 .stop.toggle { background-position: -93px bottom; }
 
 .loop {
     width: 102px;
-    background: transparent url(../img/mediaControls.png)
-    -188px top no-repeat;
+    background: transparent url(../img/mediaControls.png) -188px top no-repeat;
 }
 .loop.toggle { background-position: -188px bottom; }
 
@@ -460,45 +456,45 @@ li.selected {
 }
 
 .addMeasure {
-  height: 100%;
-  width: 50px;
-  float: right;
-  background: rgba(255,255,255,.25);
-  cursor: pointer;
+    height: 100%;
+    width: 50px;
+    float: right;
+    background: rgba(255,255,255,.25);
+    cursor: pointer;
 }
 .addMeasure:hover {
-  background: rgba(255,255,255,.5);
+    background: rgba(255,255,255,.5);
 }
 
 .addMeasure span {
-  height: 38px;
-  width: 38px;
-  background: transparent url(../img/plus.png) left top no-repeat;
-  display: block;
-  margin-left: 6px;
-  opacity: .5;
-  margin-top: 139px;
+    height: 38px;
+    width: 38px;
+    background: transparent url(../img/plus.png) left top no-repeat;
+    display: block;
+    margin-left: 6px;
+    opacity: .5;
+    margin-top: 139px;
 }
 
 .addMeasure:hover span {
-  opacity: 1;
+    opacity: 1;
 }
 
 .leger-line, .staff-line {
-  height: 2px;
-  background-color: #812600;
-  width: 100%;
-  display: block;
-  position: relative;
-  margin: 31px 0;
+    height: 2px;
+    background-color: #812600;
+    width: 100%;
+    display: block;
+    position: relative;
+    margin: 31px 0;
 }
 
 .leger-line {
-  opacity: .5;
+    opacity: .5;
 }
 
 .staff-lines {
-  position: absolute;
+    position: absolute;
 }
 
 

@@ -20,30 +20,22 @@ $(function() {
     el: '#sample-triggers'
   });
 
-  // var sequencer = Lightning.Sequencer.create(canvas, ctx, {
-  //   id: 'sequencer-input'
-  // });
-
-  // var transport = new Lightning.Views.Transport({
-  //   el: '#transport-controls'
-  // });
-
   // TODO: have classes be able to register themselves as click listeners
 
   canvas.addEventListener('mousedown', function(event) {
     var pos = mousePos(event);
     if (sampleId !== null) {
-      var beat = event.target.className,
-          measure = event.target.parentElement.id,
-          line = Math.round((event.layerY) / 33);
+        var beat = event.target.className,
+            measure = event.target.parentElement.id,
+            template = _.template($('#live-sample-template').html(),
+                {
+                    // Margins are offset to account for the tile image size,
+                    // and for centering within the measure.
+                    sampleMargins: (event.layerY - 20) + 'px 0 0 4px',
+                    sampleName: sampleId
+                });
 
-      // Add the note to the proper location
-      var template = _.template($('#live-sample-template').html(),
-          {
-            sampleMargins: (line * 33) + 'px 0 0 4px',
-            sampleName: sampleId
-          });
-      $('#' + measure + ' .' + beat).append(template);
+        $('#' + measure + ' .' + beat).append(template);
     } else {
       // Do nothing as the user has not clicked a sample yet
     }
