@@ -288,26 +288,62 @@ h1 {
     margin-right: 15px;
 }
 
-.threeFour, .fourFour {
+.threeFourImg, .fourFourImg {
     height: 100%;
     position: relative;
     float: left;
-    cursor: pointer;
-    background: transparent url(../img/buttonSprite.png)
-    -227px top no-repeat;
+    background: transparent url(../img/buttonSprite.png) -227px top no-repeat;
 }
 
-.threeFour {
+.threeFourImg {
     width: 57px;
 }
-.threeFour.toggle { background-position: -227px bottom;}
+.threeFourImg.toggle { background-position: -227px bottom;}
 
-.fourFour {
+.fourFourImg {
     width: 61px;
     margin-left: -23px;
     background-position: -284px top;
 }
-.fourFour.toggle { background-position: -284px bottom;}
+
+
+
+#timeSignature.btnShadow { cursor: default; }
+.three-four div, .four-four div {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+.three-four, .four-four {
+    height: 35px;
+    width: 57px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    margin-top: -35px;
+}
+.four-four {
+    width: 61px;
+    margin-left: 35px;
+}
+.three-four > div {
+    margin-left: -10px;
+    -webkit-transform: skew(30deg);
+       -moz-transform: skew(30deg);
+         -o-transform: skew(30deg);
+}
+.four-four > div {
+    margin-left: 10px;
+    -webkit-transform: skew(30deg);
+       -moz-transform: skew(30deg);
+         -o-transform: skew(30deg);
+}
+
+
+
+
+
+.fourFourImg.toggle { background-position: -284px bottom;}
 
 .btnShadow, button {
     border: 0;

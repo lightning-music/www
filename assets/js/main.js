@@ -83,31 +83,45 @@ $(function() {
             seqLength = seq.width(),
             staffLength = staff.width();
 
-        timeSig = e.target.id;
-        if (timeSig == '4_4') {
-            $('.measure').each(function() {
-                $(this).find('.beat-4').removeClass('hide');
-                i++;
-            });
-            // Adjust the sequencer length
-            seqLength = seqLength + (i * 50);
-            staffLength = staffLength + (i * 50);
-        } else {
-            $('.measure').each(function() {
-                $(this).find('.beat-4').addClass('hide');
-                i++;
-            });
-            // Adjust the sequencer length
-            seqLength = seqLength - (i * 50);
-            staffLength = staffLength - (i * 50);
-        }
-        seq.width(seqLength);
-        staff.width(staffLength);
-        // Reset the scroll bar
-        $(".stage").scroller("reset");
+        timeSig = e.target.parentElement.id;
 
-        // Hand the data off
-        lightning.collectData({timeSig});
+        // Ensure the user didn't click out of range
+        if (timeSig != 'timeSignature') {
+            if (timeSig == '4_4') {
+                if ($('#measure001 .beat-4').hasClass('hide')){
+                    // Toggle the button states
+                    $('.threeFourImg').removeClass('toggle');
+                    $('.fourFourImg').addClass('toggle');
+                    $('.measure').each(function() {
+                        $(this).find('.beat-4').removeClass('hide');
+                        i++;
+                    });
+                    // Adjust the sequencer length
+                    seqLength = (i > 1) ? seqLength + (i * 50) : seqLength;
+                    staffLength = (i > 1) ? staffLength + (i * 50) : staffLength;
+                }
+            } else {
+                if (!$('#measure001 .beat-4').hasClass('hide')){
+                    // Toggle the button states
+                    $('.threeFourImg').addClass('toggle');
+                    $('.fourFourImg').removeClass('toggle');
+                    $('.measure').each(function() {
+                        $(this).find('.beat-4').addClass('hide');
+                        i++;
+                    });
+                    // Adjust the sequencer length
+                    seqLength = (i > 1) ? seqLength - (i * 50) : seqLength;
+                    staffLength = (i > 1) ? staffLength - (i * 50) : staffLength;
+                }
+            }
+            seq.width(seqLength);
+            staff.width(staffLength);
+            // Reset the scroll bar
+            $(".stage").scroller("reset");
+
+            // Hand the data off
+            lightning.collectData(new Array(timeSig));
+        }
     });
 
     function moveIcons() {
