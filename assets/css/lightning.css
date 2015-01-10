@@ -200,11 +200,19 @@ h1 {
     position: relative;
     float: left;
     z-index: 9;
-    border: 1px solid red;
 }
+/* Uncomment the following lines to visually see the beats on the sequencer */
+/*
+.beat-1, .beat-2, .beat-3, .beat-4 {
+    opacity: .25;
+}
+.beat-1{background: red;}
+.beat-2{background: blue;}
+.beat-3{background: green;}
+.beat-4{background: black;}
+*/
 
 .measure > div {
-    border: 1px solid green;
     width: 50px;
     height: 330px;
     position: relative;

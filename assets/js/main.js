@@ -78,8 +78,37 @@ $(function() {
     });
 
     $('#timeSignature').click(function(e) {
+        var i = 1, seq = $('#sequencer-input'),
+            staff = $('.staff-lines'),
+            seqLength = seq.width(),
+            staffLength = staff.width();
+
         timeSig = e.target.id;
-    })
+        if (timeSig == '4_4') {
+            $('.measure').each(function() {
+                $(this).find('.beat-4').removeClass('hide');
+                i++;
+            });
+            // Adjust the sequencer length
+            seqLength = seqLength + (i * 50);
+            staffLength = staffLength + (i * 50);
+        } else {
+            $('.measure').each(function() {
+                $(this).find('.beat-4').addClass('hide');
+                i++;
+            });
+            // Adjust the sequencer length
+            seqLength = seqLength - (i * 50);
+            staffLength = staffLength - (i * 50);
+        }
+        seq.width(seqLength);
+        staff.width(staffLength);
+        // Reset the scroll bar
+        $(".stage").scroller("reset");
+
+        // Hand the data off
+        lightning.collectData({timeSig});
+    });
 
     function moveIcons() {
         $('#sample-triggers > ul li').click(function(evt) {
