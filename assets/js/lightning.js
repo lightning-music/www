@@ -115,6 +115,7 @@ Lightning.prototype.collectData = function(data) {
     // Not completely sure what to do with this data for now, so
     // just returning it to the screen
     $('.devMode').removeClass('hide').html(JSON.stringify(data, null, 4));
+    $('.devModeToggle').removeClass('hide');
 }
 
 Lightning.getInstance = (function() {

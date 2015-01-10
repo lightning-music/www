@@ -136,7 +136,7 @@ $(function() {
         $('.liveSample').click(function(e) {
             // Remove the element from the DOM
             $(e.target).remove();
-            
+
             var id = e.target.dataset.sampleRef;
             for (var i=0; i < sampleArr.length; i++) {
                 if (sampleArr[i].sampleRef === id) {
@@ -145,6 +145,17 @@ $(function() {
             }
             lightning.collectData(sampleArr);
         });
+    });
+
+    $('.devModeToggle').click(function() {
+        var devMode = $('.devMode'), toggle = $('.devModeToggle');
+        if (devMode.hasClass('hide')) {
+            devMode.removeClass('hide');
+            toggle.removeClass('docked').html('<<');
+        } else {
+            devMode.addClass('hide');
+            toggle.addClass('docked').html('>>');
+        }
     });
 
     function moveIcons() {
