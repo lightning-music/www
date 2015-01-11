@@ -147,6 +147,49 @@ $(function() {
         });
     });
 
+    $('#play').click(function() {
+        var endPos = $('.staff-lines').width(), cursor =$('[data-cursor=true]'),
+            startPos = cursor.css('margin-left'),
+            startPosNum = startPos.replace('px', '');
+            totalTime = 5000, distToTravel = endPos + startPosNum,
+            screenSize = $('.scroller-bar').width(),
+            // How many screens fit into the total distance?
+            screenNum = distToTravel / screenSize,
+            // How long does it take for the cursor to complete one screen?
+            screenTime = Math.round(totalTime / 1.8);
+
+        // console.log('Screen Num:' + screenNum);
+        // console.log('Start position: ' + startPos);
+        // console.log('Length of screen: ' + screenSize);
+        // console.log('End position: ' + endPos);
+        // console.log('Time to traverse 1 screen = ' + screenTime);
+        // console.log('Total time = ' + totalTime);
+        // console.log(Date.now());
+        var screenDist = $('.scroller-bar').width() - startPosNum,
+            speed = endPos / totalTime,
+            cursorStartTime = screenDist / speed;
+
+        console.log('what is my speed: ' + speed + 'ppm');
+        console.log('distance between staff & edge: ' + screenDist);
+        console.log('At what time does the cursor cross the edge: ' + cursorStartTime);
+
+
+        cursor.animate({
+            marginLeft: "+=" + endPos
+        }, totalTime, function() {
+            // Animation complete.
+            cursor.css('margin-left', startPos);
+        });
+
+        // Wait for the cursor to get to position where we need
+        // to start scrolling
+        setTimeout(function(){
+            console.log('WTF is the position of the cursor now: ' + cursor.css('margin-left'));
+            console.log('Its ready!!!!!! ' + Date.now());
+        }, cursorStartTime);
+
+    });
+
     $('.devModeToggle').click(function() {
         var devMode = $('.devMode'), toggle = $('.devModeToggle');
         if (devMode.hasClass('hide')) {
