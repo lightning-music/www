@@ -116,7 +116,11 @@ Lightning.prototype.collectData = function(data) {
     // just returning it to the screen
     $('.devMode').removeClass('hide').html(JSON.stringify(data, null, 4));
     $('.devModeToggle').removeClass('hide');
-}
+};
+
+Lightning.prototype.followViewport = function() {
+    
+};
 
 Lightning.getInstance = (function() {
     var INSTANCE;

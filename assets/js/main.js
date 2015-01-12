@@ -151,32 +151,17 @@ $(function() {
         var endPos = $('.staff-lines').width(), cursor =$('[data-cursor=true]'),
             startPos = cursor.css('margin-left'),
             startPosNum = startPos.replace('px', '');
-            totalTime = 5000, distToTravel = endPos + startPosNum,
-            screenSize = $('.scroller-bar').width(),
-            // How many screens fit into the total distance?
-            screenNum = distToTravel / screenSize,
-            // How long does it take for the cursor to complete one screen?
-            screenTime = Math.round(totalTime / 1.8);
-
-        // console.log('Screen Num:' + screenNum);
-        // console.log('Start position: ' + startPos);
-        // console.log('Length of screen: ' + screenSize);
-        // console.log('End position: ' + endPos);
-        // console.log('Time to traverse 1 screen = ' + screenTime);
-        // console.log('Total time = ' + totalTime);
-        // console.log(Date.now());
-        var screenDist = $('.scroller-bar').width() - startPosNum,
+            totalTime = 5000,
+            // Shorten the distance of the screen so the viewport moves before
+            // the cursor reaches the edge.
+            screenDist = ($('.scroller-bar').width() - startPosNum) - 100,
             speed = endPos / totalTime,
             cursorStartTime = screenDist / speed;
 
-        console.log('what is my speed: ' + speed + 'ppm');
-        console.log('distance between staff & edge: ' + screenDist);
-        console.log('At what time does the cursor cross the edge: ' + cursorStartTime);
-
-
+        // Start moving the cursor towards the end
         cursor.animate({
             marginLeft: "+=" + endPos
-        }, totalTime, function() {
+        }, totalTime, "linear", function() {
             // Animation complete.
             cursor.css('margin-left', startPos);
         });
@@ -186,6 +171,11 @@ $(function() {
         setTimeout(function(){
             console.log('WTF is the position of the cursor now: ' + cursor.css('margin-left'));
             console.log('Its ready!!!!!! ' + Date.now());
+            // Start moving the viewport...
+            var remainingTime = totalTime - (
+                    (cursor.css('margin-left').replace('px', '')) * 1
+                );
+            $(".stage").scroller("scroll", endPos, remainingTime);
         }, cursorStartTime);
 
     });
