@@ -203,8 +203,10 @@ $(function() {
                 .addClass('displayBlock')
                 .addClass(sampleId);
 
-                // Show the help text
-                $('#helpText').fadeIn(500);
+            // Show the help text
+            $('#helpText').fadeIn(500);
+            // Set the sequencer it input mode for correct css
+            $('#sequencer-input').addClass('addNoteMode');
 
             $('.stage').mousemove(function (evt) {
                 $cursor.css({

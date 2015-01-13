@@ -113,6 +113,7 @@ h1 {
     display: inline-block;
     background: transparent url(../img/sampleSprite.png) 0px top no-repeat;
     z-index: 9;
+    cursor: default !important;
 }
 .sampleList li {
     height: 47px;
@@ -558,6 +559,9 @@ li.selected {
     color: #fff;
     text-align: center;
     font-weight: bold;
+}
+.addNoteMode {
+    cursor: pointer;
 }
 .pace-cover {
     height: 100vh;

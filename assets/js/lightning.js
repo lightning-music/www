@@ -82,7 +82,7 @@ Lightning.prototype.setupSampleTriggers = function(f) {
             var el = $('li.' + c);
             el.click(function(ev) {
                 self.playSample(sample.path, 60, 96);
-                console.log('here');
+                console.log('here: ' + sample.path);
                 ev.preventDefault();
             });
         });
