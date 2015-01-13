@@ -80,6 +80,10 @@ $(function() {
         horizontal: true
     });
 
+    Pace.on("done", function(){
+        $(".pace-cover").fadeOut(2000);
+    });
+
     $('#timeSignature').click(function(e) {
         var i = 1, seq = $('#sequencer-input'),
             staff = $('.staff-lines'),

@@ -14,6 +14,7 @@
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
     <link href="http://fonts.googleapis.com/css?family=Coming+Soon" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/pace.css">
     <link rel="stylesheet" type="text/css" href="assets/css/lightning.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/css/jquery.fs.scroller.css">
     <!-- ================== END BASE CSS STYLE ================== -->
@@ -30,7 +31,7 @@
     <script type="text/template" id="sample-trigger-template">
     <button class="sample-trigger" id="<%= path %>"><%= path %></button>
     </script>
-
+    <script type="text/javascript" src="assets/libs/pace.min.js"></script>
     <!-- ================== BEGIN BASE JS ================== -->
     <script type="text/javascript" src="assets/libs/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="assets/libs/lodash.js"></script>
@@ -49,6 +50,7 @@
 </head>
 
 <body>
+    <div class="pace-cover"></div>
     <div id="app">
         <!-- begin #content -->
         <div class="content" id="content">
