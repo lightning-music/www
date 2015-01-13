@@ -82,6 +82,7 @@ Lightning.prototype.setupSampleTriggers = function(f) {
             var el = $('li.' + c);
             el.click(function(ev) {
                 self.playSample(sample.path, 60, 96);
+                console.log('here');
                 ev.preventDefault();
             });
         });
@@ -119,7 +120,7 @@ Lightning.prototype.collectData = function(data) {
 };
 
 Lightning.prototype.followViewport = function() {
-    
+
 };
 
 Lightning.getInstance = (function() {

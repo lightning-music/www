@@ -160,7 +160,7 @@ $(function() {
 
         // Start moving the cursor towards the end
         cursor.animate({
-            marginLeft: "+=" + endPos
+            marginLeft: "+=" + (endPos - 115)
         }, totalTime, "linear", function() {
             // Animation complete.
             cursor.css('margin-left', startPos);
@@ -172,10 +172,11 @@ $(function() {
             console.log('WTF is the position of the cursor now: ' + cursor.css('margin-left'));
             console.log('Its ready!!!!!! ' + Date.now());
             // Start moving the viewport...
-            var remainingTime = totalTime - (
-                    (cursor.css('margin-left').replace('px', '')) * 1
+            var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
+                remainingTime = totalTime - (
+                    (cursorPos * .05)
                 );
-            $(".stage").scroller("scroll", endPos, remainingTime);
+            $(".stage").scroller("scroll", ((endPos - startPosNum)-50), remainingTime);
         }, cursorStartTime);
 
     });
