@@ -169,14 +169,12 @@ $(function() {
         // Wait for the cursor to get to position where we need
         // to start scrolling
         setTimeout(function(){
-            console.log('WTF is the position of the cursor now: ' + cursor.css('margin-left'));
-            console.log('Its ready!!!!!! ' + Date.now());
             // Start moving the viewport...
             var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
                 remainingTime = totalTime - (
                     (cursorPos * .05)
                 );
-            $(".stage").scroller("scroll", ((endPos - startPosNum)-50), remainingTime);
+            $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
         }, cursorStartTime);
 
     });
