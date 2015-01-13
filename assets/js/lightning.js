@@ -82,12 +82,37 @@ Lightning.prototype.setupSampleTriggers = function(f) {
             var el = $('li.' + c);
             el.click(function(ev) {
                 self.playSample(sample.path, 60, 96);
-                console.log('here: ' + sample.path);
                 ev.preventDefault();
             });
         });
         return f(null);
     });
+};
+
+Lightning.prototype.dynamicSort = function(property) {
+    return function (obj1,obj2) {
+        return obj1[property] > obj2[property] ? 1
+        : obj1[property] < obj2[property] ? -1 : 0;
+    }
+}
+
+Lightning.prototype.arrangePlayback = function() {
+    var props = arguments;
+    return function (obj1, obj2) {
+        var i = 0, result = 0, numberOfProperties = props.length;
+        while(result === 0 && i < numberOfProperties) {
+            result = lightning.dynamicSort(props[i])(obj1, obj2);
+            i++;
+        }
+        return result;
+    }
+}
+
+Lightning.prototype.playback = function(sArr) {
+    var self = this;
+    sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
+    // self.playSample("cow.wav", 60, 96);
+    // console.dir(sArr);
 };
 
 Lightning.prototype.addNote = function(pos, sample, note, vel) {
@@ -117,10 +142,6 @@ Lightning.prototype.collectData = function(data) {
     // just returning it to the screen
     $('.devMode').removeClass('hide').html(JSON.stringify(data, null, 4));
     $('.devModeToggle').removeClass('hide');
-};
-
-Lightning.prototype.followViewport = function() {
-
 };
 
 Lightning.getInstance = (function() {

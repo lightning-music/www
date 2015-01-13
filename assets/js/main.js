@@ -57,11 +57,9 @@ $(function() {
                     sampleRef: sampleId + '-' + y,
                     sample: sampleId,
                     timeSig: timeSig,
-                    musicPos: {
-                        measure: measure,
-                        beat: beat,
-                        staffLine: line
-                    },
+                    measure: measure,
+                    beat: beat,
+                    staffLine: line,
                     htmlPos: {
                         topMargin: event.layerY - 20,
                         leftMargin: 4
@@ -168,7 +166,11 @@ $(function() {
         }, totalTime, "linear", function() {
             // Animation complete.
             cursor.css('margin-left', startPos);
+            $(".stage").scroller('scroll', 0);
         });
+
+        // Start the playback
+        lightning.playback(sampleArr);
 
         // Wait for the cursor to get to position where we need
         // to start scrolling
@@ -227,6 +229,8 @@ $(function() {
             $('.stage').removeClass('delMode');
             // Hide the help text
             $('#helpText').fadeOut(500);
+            // Take sequencer out of Add Note mode
+            $('#sequencer-input').removeClass('addNoteMode');
         }
     });
 
