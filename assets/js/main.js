@@ -170,7 +170,7 @@ $(function() {
         });
 
         // Start the playback
-        lightning.playback(sampleArr);
+        lightning.playback(sampleArr, totalTime, timeSig);
 
         // Wait for the cursor to get to position where we need
         // to start scrolling

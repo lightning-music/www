@@ -108,11 +108,30 @@ Lightning.prototype.arrangePlayback = function() {
     }
 }
 
-Lightning.prototype.playback = function(sArr) {
-    var self = this;
+Lightning.prototype.playback = function(sArr, time, timeSig) {
+    var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
-    // self.playSample("cow.wav", 60, 96);
-    // console.dir(sArr);
+    for (var i=0; i<sArr.length; i++) {
+        var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
+            cursorPos, sample = sArr[i].sample;
+        var test = lightning.sendNoteToServer(calcTime, sample, self);
+    };
+};
+
+Lightning.prototype.sendNoteToServer = function(calcTime, sample, self) {
+    var cursor =$('[data-cursor=true]');
+    function myStopFunction() {
+        clearInterval(myVar);
+    }
+
+    var myVar = setInterval(function() {
+        cursorPos = (cursor.css('margin-left').replace('px', '')) * 1;
+        if (cursorPos > (calcTime + 50)) {
+            self.playSample(sample + ".wav", 60, 96);
+            myStopFunction();
+            return;
+        }
+    }, 50);
 };
 
 Lightning.prototype.addNote = function(pos, sample, note, vel) {
