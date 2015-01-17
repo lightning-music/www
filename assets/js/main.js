@@ -63,7 +63,8 @@ $(function() {
                     htmlPos: {
                         topMargin: event.layerY - 20,
                         leftMargin: 4
-                    }
+                    },
+                    addtlSamples: new Array()
                 });
                 y++;
                 lightning.collectData(sampleArr);

@@ -89,6 +89,53 @@ Lightning.prototype.setupSampleTriggers = function(f) {
     });
 };
 
+Lightning.prototype.stackNotes = function(samples) {
+    var result = new Array(), dropped = '---';
+    for (var i=0; i<samples.length; i++) {
+        console.log('beginning of for loop: ' + i);
+        console.dir(samples);
+        var cSample = samples[i], nSample = samples[i+1];
+        if (cSample && nSample && cSample.sample != dropped) {
+            if (cSample.beat == nSample.beat &&
+                cSample.measure == nSample.measure) {
+                // Found a match
+
+                // Figure out a way to add it to a new array that can be appended
+                // to the end of the samples array.
+                cSample.addtlSamples.push(nSample.sample);
+
+                // Add this to the output array
+                result.push(cSample);
+                // Set the next sample to a specific value so it'll be skipped
+                nSample.sample = dropped;
+
+                // Since we found a match, lets look at the rest of the array
+                for (var y=i+2; y<samples.length; y++) {
+                    if (samples[y+1]) {
+                        var thisSample = samples[y], nextSample = samples[y+1];
+                        if (thisSample && nextSample && thisSample.sample != dropped) {
+                            if (thisSample.beat == nextSample.beat &&
+                                thisSample.measure == nextSample.measure) {
+                                result[i].addtlSamples.push(nextSample.sample);
+                                nextSample.sample = dropped;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+            }
+        } else if (cSample.sample != '---') {
+            result.push(cSample);
+        }
+    };
+
+    console.log('What\'s the output???');
+    console.dir(result);
+};
+
 Lightning.prototype.dynamicSort = function(property) {
     return function (obj1,obj2) {
         return obj1[property] > obj2[property] ? 1
@@ -111,10 +158,11 @@ Lightning.prototype.arrangePlayback = function() {
 Lightning.prototype.playback = function(sArr, time, timeSig) {
     var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
+    // lightning.stackNotes(sArr);
     for (var i=0; i<sArr.length; i++) {
         var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
             cursorPos, sample = sArr[i].sample;
-        var test = lightning.sendNoteToServer(calcTime, sample, self);
+        var run = lightning.sendNoteToServer(calcTime, sample, self);
     };
 };
 
