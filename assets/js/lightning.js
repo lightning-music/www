@@ -89,51 +89,42 @@ Lightning.prototype.setupSampleTriggers = function(f) {
     });
 };
 
-Lightning.prototype.stackNotes = function(samples) {
-    var result = new Array(), dropped = '---';
-    for (var i=0; i<samples.length; i++) {
-        console.log('beginning of for loop: ' + i);
-        console.dir(samples);
-        var cSample = samples[i], nSample = samples[i+1];
-        if (cSample && nSample && cSample.sample != dropped) {
-            if (cSample.beat == nSample.beat &&
-                cSample.measure == nSample.measure) {
-                // Found a match
+Lightning.prototype.collectMultiple = function(arr) {
+    var abort = '---', dupArr = arr, finalArr = new Array();
 
-                // Figure out a way to add it to a new array that can be appended
-                // to the end of the samples array.
-                cSample.addtlSamples.push(nSample.sample);
-
-                // Add this to the output array
-                result.push(cSample);
-                // Set the next sample to a specific value so it'll be skipped
-                nSample.sample = dropped;
-
-                // Since we found a match, lets look at the rest of the array
-                for (var y=i+2; y<samples.length; y++) {
-                    if (samples[y+1]) {
-                        var thisSample = samples[y], nextSample = samples[y+1];
-                        if (thisSample && nextSample && thisSample.sample != dropped) {
-                            if (thisSample.beat == nextSample.beat &&
-                                thisSample.measure == nextSample.measure) {
-                                result[i].addtlSamples.push(nextSample.sample);
-                                nextSample.sample = dropped;
-                            }
-                        }
-                    }
+    var findMatches = function(beat, measure, sampleRef) {
+        var output = new Array();
+        for (var i=0; i<dupArr.length; i++) {
+            if (dupArr[i].sample != abort) {
+                // Holy shit, it never made it to the comparison of the last 2 elements (piano crow)
+                if (dupArr[i].beat == beat && dupArr[i].measure == measure &&
+                    (dupArr[i].sampleRef != sampleRef)) {
+                    output.push(dupArr[i].sample);
+                    dupArr[i].sample = abort;
                 }
-
-
-
-
             }
-        } else if (cSample.sample != '---') {
-            result.push(cSample);
         }
+        return output;
     };
 
-    console.log('What\'s the output???');
-    console.dir(result);
+    var y = 0;
+    for (var i=0; i<arr.length; i++) {
+        y++;
+        if (arr[i] && arr[y] && arr[i].sample != abort) {
+            // Look for a match
+            var matches = findMatches(arr[i].beat, arr[i].measure, arr[i].sampleRef);
+
+            for (var x=0; x<matches.length; x++) {
+                arr[i].addtlSamples.push(matches[x]);
+            }
+
+            finalArr.push(arr[i]);
+        } else if (arr[i] && arr[i].sample != abort) {
+            finalArr.push(arr[i]);
+        }
+    }
+
+    return finalArr;
 };
 
 Lightning.prototype.dynamicSort = function(property) {
@@ -158,12 +149,18 @@ Lightning.prototype.arrangePlayback = function() {
 Lightning.prototype.playback = function(sArr, time, timeSig) {
     var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
-    // lightning.stackNotes(sArr);
-    for (var i=0; i<sArr.length; i++) {
-        var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
-            cursorPos, sample = sArr[i].sample;
-        var run = lightning.sendNoteToServer(calcTime, sample, self);
-    };
+
+    // DEBUGGING
+    $('.devMode').html('');
+    lightning.collectData(sArr)
+
+    sArr = lightning.collectMultiple(sArr);
+    console.dir(sArr);
+    // for (var i=0; i<sArr.length; i++) {
+    //     var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
+    //         cursorPos, sample = sArr[i].sample;
+    //     var run = lightning.sendNoteToServer(calcTime, sample, self);
+    // };
 };
 
 Lightning.prototype.sendNoteToServer = function(calcTime, sample, self) {

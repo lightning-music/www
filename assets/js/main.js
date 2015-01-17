@@ -80,7 +80,7 @@ $(function() {
     });
 
     Pace.on("done", function(){
-        $(".pace-cover").fadeOut(2000);
+        $(".pace-cover").fadeOut(1000);
     });
 
     $('#timeSignature').click(function(e) {
