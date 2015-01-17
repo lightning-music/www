@@ -150,21 +150,17 @@ Lightning.prototype.playback = function(sArr, time, timeSig) {
     var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
 
-    // DEBUGGING
-    $('.devMode').html('');
-    lightning.collectData(sArr)
-
     sArr = lightning.collectMultiple(sArr);
-    console.dir(sArr);
-    // for (var i=0; i<sArr.length; i++) {
-    //     var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
-    //         cursorPos, sample = sArr[i].sample;
-    //     var run = lightning.sendNoteToServer(calcTime, sample, self);
-    // };
+    for (var i=0; i<sArr.length; i++) {
+        var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
+            cursorPos, sample = sArr[i].sample;
+        var run = lightning.sendNoteToServer(calcTime, sample, sArr[i].addtlSamples, self);
+    };
 };
 
-Lightning.prototype.sendNoteToServer = function(calcTime, sample, self) {
+Lightning.prototype.sendNoteToServer = function(calcTime, sample, addtl, self) {
     var cursor =$('[data-cursor=true]');
+
     function myStopFunction() {
         clearInterval(myVar);
     }
@@ -173,6 +169,9 @@ Lightning.prototype.sendNoteToServer = function(calcTime, sample, self) {
         cursorPos = (cursor.css('margin-left').replace('px', '')) * 1;
         if (cursorPos > (calcTime + 50)) {
             self.playSample(sample + ".wav", 60, 96);
+            for (var i=0; i<addtl.length; i++) {
+                self.playSample(addtl[i] + ".wav", 60, 96);
+            }
             myStopFunction();
             return;
         }
