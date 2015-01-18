@@ -131,6 +131,7 @@ $(function() {
     });
 
     $('.erase').click(function() {
+        lightning.toggleBtns('erase');
         $('.controls').addClass('delMode');
         $('.stage').addClass('delMode');
         // Show the help text
@@ -161,6 +162,8 @@ $(function() {
             speed = endPos / totalTime,
             cursorStartTime = screenDist / speed;
 
+        lightning.toggleBtns('play');
+
         // Start moving the cursor towards the end
         cursor.animate({
             marginLeft: "+=" + (endPos - 115)
@@ -168,6 +171,8 @@ $(function() {
             // Animation complete.
             cursor.css('margin-left', startPos);
             $(".stage").scroller('scroll', 0);
+            // Switch the buttons back to default
+            lightning.toggleBtns('stop');
         });
 
         // Start the playback
@@ -232,6 +237,8 @@ $(function() {
             $('#helpText').fadeOut(500);
             // Take sequencer out of Add Note mode
             $('#sequencer-input').removeClass('addNoteMode');
+            // Reset the buttons
+            lightning.toggleBtns('stop');
         }
     });
 

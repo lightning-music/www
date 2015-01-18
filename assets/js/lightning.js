@@ -89,6 +89,16 @@ Lightning.prototype.setupSampleTriggers = function(f) {
     });
 };
 
+Lightning.prototype.toggleBtns = function(on) {
+    $('.mediaControls div').each(function() {
+        if ($(this).attr('id') == on) {
+            $(this).addClass('toggle');
+        } else {
+            $(this).removeClass('toggle');
+        }
+    });
+};
+
 Lightning.prototype.collectMultiple = function(arr) {
     var abort = '---', dupArr = arr, finalArr = new Array();
 

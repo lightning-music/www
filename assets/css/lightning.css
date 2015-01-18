@@ -277,9 +277,9 @@ h1 {
     position: relative;
     float: right;
     margin-right: 40px;
-    background: transparent url(../img/buttonSprite.png)
-    0px top no-repeat;
+    background: transparent url(../img/buttonSprite.png) 0px top no-repeat;
 }
+.erase.toggle { background-position: 0px bottom; }
 .delMode * {
     cursor: cell !important;
 }
