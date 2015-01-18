@@ -188,27 +188,12 @@ Lightning.prototype.sendNoteToServer = function(calcTime, sample, addtl, self) {
     }, 50);
 };
 
-Lightning.prototype.startVP = function() {
-    
-};
-
-Lightning.prototype.moveVP = function(type, endPos, startPosNum, totalTime, cursorStartTime, cursor) {
-    function stopVP() {
-        clearTimeout(vpScroll);
-    }
-    if (type == 'stop') {
-        console.log('going to try to stop this bastard!');
-        stopVP();
-    } else if (type == 'start') {
-        var vpScroll = setTimeout(function(){
-            // Start moving the viewport...
-            var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
-            remainingTime = totalTime - (
-                (cursorPos * .05)
-            );
-            $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
-        }, cursorStartTime);
-    }
+Lightning.prototype.stopPlayback = function(c, v, s) {
+    c.stop();
+    clearTimeout(v);
+    c.css('margin-left', s);
+    lightning.toggleBtns('stop');
+    $(".stage").scroller("scroll", 0);
 };
 
 Lightning.prototype.addNote = function(pos, sample, note, vel) {

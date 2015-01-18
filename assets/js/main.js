@@ -9,11 +9,11 @@ function getMousePosWithin(boundingRect) {
 
 $(function() {
     var lightning = Lightning.getInstance(),
-    canvas = document.getElementById('sequencer-input'),
-    sampleArr = new Array(), timeSig = '3_3', y = 0,
-    boundingRect = canvas.getBoundingClientRect(),
-    mousePos = getMousePosWithin(boundingRect),
-    sampleId = null;
+        canvas = document.getElementById('sequencer-input'),
+        sampleArr = new Array(), timeSig = '3_3', y = 0,
+        boundingRect = canvas.getBoundingClientRect(),
+        mousePos = getMousePosWithin(boundingRect),
+        sampleId = null, cursor =$('[data-cursor=true]');
 
     var trigs = new Lightning.Views.SampleTriggers({
         el: '#sample-triggers'
@@ -152,7 +152,7 @@ $(function() {
     });
 
     $('#play').click(function() {
-        var endPos = $('.staff-lines').width(), cursor =$('[data-cursor=true]'),
+        var endPos = $('.staff-lines').width(),
             startPos = cursor.css('margin-left'),
             startPosNum = startPos.replace('px', '');
             totalTime = 5000,
@@ -180,7 +180,7 @@ $(function() {
 
         // Wait for the cursor to get to position where we need
         // to start scrolling
-        setTimeout(function(){
+        var moveVP = setTimeout(function(){
             // Start moving the viewport...
             var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
                 remainingTime = totalTime - (
@@ -189,18 +189,21 @@ $(function() {
             $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
         }, cursorStartTime);
 
+        $('#stop').click(function() {
+            lightning.stopPlayback(cursor, moveVP, startPos);
+        });
     });
 
-    $('.devModeToggle').click(function() {
-        var devMode = $('.devMode'), toggle = $('.devModeToggle');
-        if (devMode.hasClass('hide')) {
-            devMode.removeClass('hide');
-            toggle.removeClass('docked').html('<<');
-        } else {
-            devMode.addClass('hide');
-            toggle.addClass('docked').html('>>');
-        }
-    });
+    // $('.devModeToggle').click(function() {
+    //     var devMode = $('.devMode'), toggle = $('.devModeToggle');
+    //     if (devMode.hasClass('hide')) {
+    //         devMode.removeClass('hide');
+    //         toggle.removeClass('docked').html('<<');
+    //     } else {
+    //         devMode.addClass('hide');
+    //         toggle.addClass('docked').html('>>');
+    //     }
+    // });
 
     function moveIcons() {
         $('#sample-triggers > ul li').click(function(evt) {
