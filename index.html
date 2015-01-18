@@ -51,7 +51,7 @@
 
 <body>
     <div class="pace-cover"></div>
-    <div id="app">
+    <div id="lightning">
         <!-- begin #content -->
         <div class="content" id="content">
             <h1>Lightning</h1>
@@ -93,9 +93,9 @@
                     <span id="leger-line-3" class="leger-line"></span>
                     <span id="leger-line-4" class="leger-line"></span>
                 </div>
-
                 <div class="cursor" data-cursor="true"></div>
-                <div id="sequencer-input" class="staff" data-measures="9" style="width: 1510px;">
+                <div id="measure-count" class="hide">9</div>
+                <div id="sequencer-input" class="staff" style="width: 1510px;">
                     <div class="measure" id="measure001">
                         <div class="beat-1"></div>
                         <div class="beat-2"></div>
@@ -150,7 +150,7 @@
                         <div class="beat-3"></div>
                         <div class="beat-4 hide"></div>
                     </div>
-
+                    <div class="extraMeasures" id="extraMeasures"></div>
                     <div class="addMeasure">
                         <span></span>
                     </div>
@@ -161,6 +161,7 @@
                         <div class="beat-1"></div>
                         <div class="beat-2"></div>
                         <div class="beat-3"></div>
+                        <div class="beat-4 hide"></div>
                     </div>
                 </script>
             </div>
@@ -236,7 +237,6 @@
 
     </div>
     <div id="mouse-sample"></div>
-    <!-- <div id="helpText" class="helpText" style="display:none;">Hit "ESC" to exit this mode</div> -->
     <script type="text/template" id="live-sample-template">
         <span class="liveSample <%= sampleName %>" style="margin: <%= sampleMargins %>"
             data-sample-ref="<%= sampleRef %>"></span>

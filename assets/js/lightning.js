@@ -170,11 +170,11 @@ Lightning.prototype.playback = function(sArr, time, timeSig) {
     for (var i=0; i<sArr.length; i++) {
         var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
             cursorPos, sample = sArr[i].sample;
-        var run = lightning.sendNoteToServer(calcTime, sample, sArr[i].addtlSamples, self);
+        var run = lightning.sendSamples(calcTime, sample, sArr[i].addtlSamples, self);
     };
 };
 
-Lightning.prototype.sendNoteToServer = function(calcTime, sample, addtl, self) {
+Lightning.prototype.sendSamples = function(calcTime, sample, addtl, self) {
     var cursor =$('[data-cursor=true]');
 
     function myStopFunction() {

@@ -13,14 +13,14 @@ html {
     startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 );
 }
 
-#app {
+#lightning {
     min-height: 100vh;
     background: transparent url(../img/starburst.svg) left top;
     background-size: 100% 100%;
     overflow: hidden;
 }
 
-#app::before {
+#lightning::before {
     content: " ";
     position: absolute;
     bottom: 2%;
@@ -32,7 +32,7 @@ html {
     background: transparent url(../img/lightning.png)
     left top no-repeat;
 }
-#app::after {
+#lightning::after {
     content: " ";
     position: absolute;
     top: 3%;
@@ -202,6 +202,12 @@ h1 {
     float: left;
     z-index: 9;
 }
+.extraMeasures {
+    height: 330px;
+    position: relative;
+    float: left;
+}
+
 /* Uncomment the following lines to visually see the beats on the sequencer */
 /*
 .beat-1, .beat-2, .beat-3, .beat-4 {
@@ -381,7 +387,7 @@ input[type=range] {
 }
 @-moz-document url-prefix() {
     input[type=range] {
-        margin: 6px 0px 0px 14px;        
+        margin: 6px 0px 0px 14px;
     }
 }
 

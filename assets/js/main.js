@@ -23,7 +23,27 @@ $(function() {
 
     canvas.addEventListener('mousedown', function(event) {
         var pos = mousePos(event);
-        if (sampleId !== null) {
+        if (event.srcElement.className == 'addMeasure') {
+            var measureId = ($('#measure-count').html())*1,
+                seqWidth = $('#sequencer-input').width(),
+                staffWidth = $('.staff-lines').width(),
+                mWidth = $('#measure001').width(),
+                measureTpl = _.template($('#measure-template').html(),
+                {
+                    measureId: measureId
+                });
+
+            // Add the sample to the DOM
+            $('#extraMeasures').append(measureTpl);
+            // Update the data-measures count
+            $('#measure-count').html(measureId+1);
+            $('#sequencer-input').css('width', (seqWidth + mWidth) + 'px');
+            $('.staff-lines').width((staffWidth + mWidth) + 'px');
+            $(".stage").scroller("reset");
+
+        } if (sampleId !== null) {
+            // User didn't click on addMeasure, the only other thing they could
+            // have clicked on is it's parent element... #sequencer-input
             var beatId = event.target.className,
                 measureId = event.target.parentElement.id,
                 lNum = Math.round(event.layerY / 32),
@@ -32,7 +52,7 @@ $(function() {
                 measure = measureId.charAt(measureId.length - 1);
 
             if ((event.layerY / 32) > 0.5) {
-                template = _.template($('#live-sample-template').html(),
+                var sampleTpl = _.template($('#live-sample-template').html(),
                 {
                     // Margins are offset to account for the tile image size,
                     // and for centering within the measure.
@@ -42,7 +62,7 @@ $(function() {
                 });
 
                 // Add the sample to the DOM
-                $('#' + measureId + ' .' + beatId).append(template);
+                $('#' + measureId + ' .' + beatId).append(sampleTpl);
 
                 if (line == 'll-' && lNum < 8) {
                     line += lNum;
@@ -80,7 +100,7 @@ $(function() {
     });
 
     Pace.on("done", function(){
-        $(".pace-cover").fadeOut(1000);
+        $(".pace-cover").fadeOut(500);
     });
 
     $('input[type=range]').change(function(){
@@ -160,7 +180,7 @@ $(function() {
             startPosNum = startPos.replace('px', ''),
             // BPM Range 358 - 600
             bpm = $('#totalBPM').val(),
-            measures = ($('#sequencer-input').attr('data-measures')) * 1,
+            measures = ($('#measure-count').html()) * 1,
             beatNum = (timeSig == '3_3') ? 3 : 4,
             totalTime = ((measures * beatNum) / bpm) * 60000,
             // Shorten the distance of the screen so the viewport moves before
