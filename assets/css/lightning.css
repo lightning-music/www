@@ -125,22 +125,22 @@ h1 {
     background: transparent url(../img/sampleSprite.png) 0px top no-repeat;
     cursor: pointer;
 }
-.violin {background-position: 0px top !important;}
-.cat {background-position: -48px top !important;}
+.bass {background-position: 0px top !important;}
+.meow {background-position: -48px top !important;}
 .cow {background-position: -96px top !important;}
 .guitar {background-position: -145px top !important;}
 .gong {background-position: -193px top !important;}
-.duck {background-position: -242px top !important;}
-.drum {background-position: -294px top !important;}
+.quack {background-position: -242px top !important;}
+.tomtom {background-position: -294px top !important;}
 .triangle {background-position: -342px top !important;}
-.dog {background-position: -390px top !important;}
+.bark {background-position: -390px top !important;}
 .pig {background-position: -438px top !important;}
 .sheep {background-position: -488px top !important;}
 .piano {background-position: -536px top !important;}
 .crow {background-position: -586px top !important;}
-.beep {background-position: -634px top !important;}
-.mouthHarp {background-position: -682px top !important;}
-.squeek {background-position: -734px top !important;}
+.blip {background-position: -634px top !important;}
+.mouth_harp {background-position: -682px top !important;}
+.squeaky-dog-toy {background-position: -734px top !important;}
 /* ******** SAMPLES END ******** */
 
 .stage {
