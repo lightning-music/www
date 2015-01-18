@@ -576,7 +576,7 @@ li.selected {
 
 
 
-
+/*
 .devMode {
     display: inline-block;
     height: 100%;
@@ -614,7 +614,10 @@ li.selected {
     border-bottom-left-radius: 0px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-}
+}*/
+
+
+
 .hide {
     display: none !important;
 }

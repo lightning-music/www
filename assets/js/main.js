@@ -67,7 +67,7 @@ $(function() {
                     addtlSamples: new Array()
                 });
                 y++;
-                lightning.collectData(sampleArr);
+                // lightning.collectData(sampleArr);
             }
         } else {
             // Do nothing as the user has not clicked a sample yet
@@ -126,7 +126,7 @@ $(function() {
             $(".stage").scroller("reset");
 
             // Hand the data off
-            lightning.collectData(new Array(timeSig));
+            // lightning.collectData(new Array(timeSig));
         }
     });
 
@@ -147,7 +147,7 @@ $(function() {
                     sampleArr.splice(i, 1);
                 }
             }
-            lightning.collectData(sampleArr);
+            // lightning.collectData(sampleArr);
         });
     });
 
