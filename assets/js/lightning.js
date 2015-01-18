@@ -245,7 +245,7 @@ Lightning.prototype.updateUI = function(t) {
             //default code block
             break;
     }
-}
+};
 
 Lightning.prototype.stopPlayback = function(c, v, s) {
     c.stop();

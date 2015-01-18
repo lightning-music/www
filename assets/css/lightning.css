@@ -358,11 +358,14 @@ h1 {
 }
 
 .bpm {
-    width: 369px;
+    width: 355px;
     height: 100%;
     background: #f64801;
     position: relative;
     float: right;
+    color: #fff;
+    text-align: right;
+    padding-right: 14px;
 }
 
 .bottom {
@@ -574,6 +577,19 @@ li.selected {
 }
 .disabled {
     cursor: default !important;
+}
+
+.totalBPM {
+    width: 52px;
+    font-family: 'Coming Soon', sans-serif;
+    background: #f64801;
+    color: #fff;
+    font-weight: bold;
+    font-size: 17px;
+    border: 0;
+    margin-top: 5px;
+    height: 20px;
+    text-align: right;
 }
 
 

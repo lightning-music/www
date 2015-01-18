@@ -157,8 +157,12 @@ $(function() {
     $('#play').click(function() {
         var endPos = $('.staff-lines').width(),
             startPos = cursor.css('margin-left'),
-            startPosNum = startPos.replace('px', '');
-            totalTime = 5000,
+            startPosNum = startPos.replace('px', ''),
+            // BPM Range 358 - 600
+            bpm = $('#totalBPM').val(),
+            measures = ($('#sequencer-input').attr('data-measures')) * 1,
+            beatNum = (timeSig == '3_3') ? 3 : 4,
+            totalTime = ((measures * beatNum) / bpm) * 60000,
             // Shorten the distance of the screen so the viewport moves before
             // the cursor reaches the edge.
             screenDist = ($('.scroller-bar').width() - startPosNum) - 100,
