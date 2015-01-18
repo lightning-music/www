@@ -83,6 +83,10 @@ $(function() {
         $(".pace-cover").fadeOut(1000);
     });
 
+    $('input[type=range]').change(function(){
+        $('input#totalBPM').val($(this).val());
+    });
+
     $('#timeSignature').click(function(e) {
         if (!$(this).hasClass('disabled')) {
             var i = 1, seq = $('#sequencer-input'),
