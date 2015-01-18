@@ -167,6 +167,7 @@ Lightning.prototype.playback = function(sArr, time, timeSig) {
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
 
     sArr = lightning.collectMultiple(sArr);
+    console.dir(sArr);
     for (var i=0; i<sArr.length; i++) {
         var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
             cursorPos, sample = sArr[i].sample;
