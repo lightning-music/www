@@ -499,8 +499,7 @@ li.selected {
     position: fixed;
     left: -50px;
     bottom: -50px;
-    background: transparent url(../img/sampleSprite.png)
-    0px top no-repeat;
+    background: transparent url(../img/sampleSprite.png) 999px top no-repeat;
     display: none;
     z-index: 9;
 }
@@ -572,6 +571,9 @@ li.selected {
     top: 0;
     left: 0;
     z-index: 9999;
+}
+.disabled {
+    cursor: default !important;
 }
 
 

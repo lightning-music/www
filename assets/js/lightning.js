@@ -90,13 +90,19 @@ Lightning.prototype.setupSampleTriggers = function(f) {
 };
 
 Lightning.prototype.toggleBtns = function(on) {
-    $('.mediaControls div').each(function() {
-        if ($(this).attr('id') == on) {
-            $(this).addClass('toggle');
-        } else {
-            $(this).removeClass('toggle');
+    // Check to make sure the button exists
+    if (on == 'play' ||
+        on == 'stop' ||
+        on == 'loop' ||
+        on == 'erase') {
+            $('.mediaControls div').each(function() {
+                if ($(this).attr('id') == on) {
+                    $(this).addClass('toggle');
+                } else {
+                    $(this).removeClass('toggle');
+                }
+            });
         }
-    });
 };
 
 Lightning.prototype.collectMultiple = function(arr) {
@@ -187,6 +193,59 @@ Lightning.prototype.sendNoteToServer = function(calcTime, sample, addtl, self) {
         }
     }, 50);
 };
+
+Lightning.prototype.hideMouseSample = function() {
+    $('#mouse-sample').removeAttr('class').removeClass('displayBlock');
+    $('#sequencer-input').removeClass('addNoteMode');
+};
+
+Lightning.prototype.deleteMode = function(d) {
+    if (d) {
+        $('#sequencer-input').addClass('delMode');
+    } else {
+        $('#sequencer-input').removeClass('delMode');
+    }
+
+};
+
+Lightning.prototype.updateUI = function(t) {
+    lightning.toggleBtns(t);
+
+    function disableMode(b) {
+        if (b) {
+            $('#loop').addClass('disabled');
+            $('#erase').addClass('disabled');
+            $('#timeSignature').addClass('disabled');
+            $('.sampleList > li').each(function() {$(this).addClass('disabled'); });
+        } else {
+            $('#loop').removeClass('disabled');
+            $('#erase').removeClass('disabled');
+            $('#timeSignature').removeClass('disabled');
+            $('.sampleList > li').each(function() {$(this).removeClass('disabled'); });
+        }
+    };
+
+    switch(t) {
+        case 'play':
+            lightning.deleteMode(false);
+            disableMode(true);
+            break;
+        case 'erase':
+            lightning.deleteMode(true);
+            break;
+        case 'stop':
+            lightning.deleteMode(false);
+            disableMode(false);
+            break;
+        case 'add-sample':
+            lightning.deleteMode(false);
+            $('#sequencer-input').addClass('addNoteMode');
+            break;
+        default:
+            //default code block
+            break;
+    }
+}
 
 Lightning.prototype.stopPlayback = function(c, v, s) {
     c.stop();

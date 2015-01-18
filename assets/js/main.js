@@ -84,71 +84,74 @@ $(function() {
     });
 
     $('#timeSignature').click(function(e) {
-        var i = 1, seq = $('#sequencer-input'),
-            staff = $('.staff-lines'),
-            seqLength = seq.width(),
-            staffLength = staff.width();
+        if (!$(this).hasClass('disabled')) {
+            var i = 1, seq = $('#sequencer-input'),
+                staff = $('.staff-lines'),
+                seqLength = seq.width(),
+                staffLength = staff.width();
 
-        timeSig = e.target.parentElement.id;
+            timeSig = e.target.parentElement.id;
 
-        // Ensure the user didn't click out of range
-        if (timeSig != 'timeSignature') {
-            if (timeSig == '4_4') {
-                if ($('#measure001 .beat-4').hasClass('hide')){
-                    // Toggle the button states
-                    $('.threeFourImg').removeClass('toggle');
-                    $('.fourFourImg').addClass('toggle');
-                    $('.measure').each(function() {
-                        $(this).find('.beat-4').removeClass('hide');
-                        i++;
-                    });
-                    // Adjust the sequencer length
-                    seqLength = (i > 1) ? seqLength + (i * 50) : seqLength;
-                    staffLength = (i > 1) ? staffLength + (i * 50) : staffLength;
+            // Ensure the user didn't click out of range
+            if (timeSig != 'timeSignature') {
+                if (timeSig == '4_4') {
+                    if ($('#measure001 .beat-4').hasClass('hide')){
+                        // Toggle the button states
+                        $('.threeFourImg').removeClass('toggle');
+                        $('.fourFourImg').addClass('toggle');
+                        $('.measure').each(function() {
+                            $(this).find('.beat-4').removeClass('hide');
+                            i++;
+                        });
+                        // Adjust the sequencer length
+                        seqLength = (i > 1) ? seqLength + (i * 50) : seqLength;
+                        staffLength = (i > 1) ? staffLength + (i * 50) : staffLength;
+                    }
+                } else {
+                    if (!$('#measure001 .beat-4').hasClass('hide')){
+                        // Toggle the button states
+                        $('.threeFourImg').addClass('toggle');
+                        $('.fourFourImg').removeClass('toggle');
+                        $('.measure').each(function() {
+                            $(this).find('.beat-4').addClass('hide');
+                            i++;
+                        });
+                        // Adjust the sequencer length
+                        seqLength = (i > 1) ? seqLength - (i * 50) : seqLength;
+                        staffLength = (i > 1) ? staffLength - (i * 50) : staffLength;
+                    }
                 }
-            } else {
-                if (!$('#measure001 .beat-4').hasClass('hide')){
-                    // Toggle the button states
-                    $('.threeFourImg').addClass('toggle');
-                    $('.fourFourImg').removeClass('toggle');
-                    $('.measure').each(function() {
-                        $(this).find('.beat-4').addClass('hide');
-                        i++;
-                    });
-                    // Adjust the sequencer length
-                    seqLength = (i > 1) ? seqLength - (i * 50) : seqLength;
-                    staffLength = (i > 1) ? staffLength - (i * 50) : staffLength;
-                }
+                seq.width(seqLength);
+                staff.width(staffLength);
+                // Reset the scroll bar
+                $(".stage").scroller("reset");
+
+                // Hand the data off
+                // lightning.collectData(new Array(timeSig));
             }
-            seq.width(seqLength);
-            staff.width(staffLength);
-            // Reset the scroll bar
-            $(".stage").scroller("reset");
-
-            // Hand the data off
-            // lightning.collectData(new Array(timeSig));
         }
     });
 
     $('.erase').click(function() {
-        lightning.toggleBtns('erase');
-        $('.controls').addClass('delMode');
-        $('.stage').addClass('delMode');
-        // Show the help text
-        $('#helpText').fadeIn(500);
+        // Make sure the button's not disabled first
+        if (!$(this).hasClass('disabled')) {
+            lightning.updateUI('erase');
 
-        $('.liveSample').click(function(e) {
-            // Remove the element from the DOM
-            $(e.target).remove();
+            lightning.hideMouseSample();
 
-            var id = e.target.dataset.sampleRef;
-            for (var i=0; i < sampleArr.length; i++) {
-                if (sampleArr[i].sampleRef === id) {
-                    sampleArr.splice(i, 1);
+            $('.liveSample').click(function(e) {
+                // Remove the element from the DOM
+                $(e.target).remove();
+
+                var id = e.target.dataset.sampleRef;
+                for (var i=0; i < sampleArr.length; i++) {
+                    if (sampleArr[i].sampleRef === id) {
+                        sampleArr.splice(i, 1);
+                    }
                 }
-            }
-            // lightning.collectData(sampleArr);
-        });
+                // lightning.collectData(sampleArr);
+            });
+        }
     });
 
     $('#play').click(function() {
@@ -162,7 +165,8 @@ $(function() {
             speed = endPos / totalTime,
             cursorStartTime = screenDist / speed;
 
-        lightning.toggleBtns('play');
+        // Disable certain buttons
+        lightning.updateUI('play');
 
         // Start moving the cursor towards the end
         cursor.animate({
@@ -172,7 +176,7 @@ $(function() {
             cursor.css('margin-left', startPos);
             $(".stage").scroller('scroll', 0);
             // Switch the buttons back to default
-            lightning.toggleBtns('stop');
+            lightning.updateUI('stop');
         });
 
         // Start the playback
@@ -207,41 +211,38 @@ $(function() {
 
     function moveIcons() {
         $('#sample-triggers > ul li').click(function(evt) {
-            var $cursor = $('#mouse-sample');
-            sampleId = $(this).attr('class');
+            if (!$(this).hasClass('disabled')) {
+                var $cursor = $('#mouse-sample');
+                sampleId = $(this).attr('class');
 
-            $cursor.removeAttr('class')
-                .addClass('displayBlock')
-                .addClass(sampleId);
+                lightning.updateUI('add-sample');
 
-            // Show the help text
-            $('#helpText').fadeIn(500);
-            // Set the sequencer it input mode for correct css
-            $('#sequencer-input').addClass('addNoteMode');
+                $cursor.removeAttr('class')
+                    .addClass('displayBlock')
+                    .addClass(sampleId);
 
-            $('.stage').mousemove(function (evt) {
-                $cursor.css({
-                    left:  evt.pageX + 10,
-                    top:   evt.pageY + 10
+                $('.stage #sequencer-input').mousemove(function (evt) {
+                    $cursor.removeClass('hide').addClass('displayBlock');
+                    $cursor.css({
+                        left:  evt.pageX + 10,
+                        top:   evt.pageY + 10
+                    });
+                }).mouseleave(function() {
+                    // Hide the sample as this could be confusing to the user
+                    $cursor.removeClass('displayBlock').addClass('hide');
                 });
-            });
+            }
         });
     }
 
     $(document).keyup(function(e) {
         if (e.keyCode == 27) { // Esc key
             sampleId = null;
-            // Reset the cursor state if necessary
-            $('#mouse-sample').removeAttr('class');
+            lightning.hideMouseSample();
             // Reset the delete mode state if necessary
-            $('.controls').removeClass('delMode');
-            $('.stage').removeClass('delMode');
+            lightning.updateUI('stop');
             // Hide the help text
             $('#helpText').fadeOut(500);
-            // Take sequencer out of Add Note mode
-            $('#sequencer-input').removeClass('addNoteMode');
-            // Reset the buttons
-            lightning.toggleBtns('stop');
         }
     });
 
