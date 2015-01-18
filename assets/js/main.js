@@ -129,9 +129,6 @@ $(function() {
                 staff.width(staffLength);
                 // Reset the scroll bar
                 $(".stage").scroller("reset");
-
-                // Hand the data off
-                // lightning.collectData(new Array(timeSig));
             }
         }
     });
@@ -153,7 +150,6 @@ $(function() {
                         sampleArr.splice(i, 1);
                     }
                 }
-                // lightning.collectData(sampleArr);
             });
         }
     });
@@ -206,17 +202,6 @@ $(function() {
         });
     });
 
-    // $('.devModeToggle').click(function() {
-    //     var devMode = $('.devMode'), toggle = $('.devModeToggle');
-    //     if (devMode.hasClass('hide')) {
-    //         devMode.removeClass('hide');
-    //         toggle.removeClass('docked').html('<<');
-    //     } else {
-    //         devMode.addClass('hide');
-    //         toggle.addClass('docked').html('>>');
-    //     }
-    // });
-
     function moveIcons() {
         $('#sample-triggers > ul li').click(function(evt) {
             if (!$(this).hasClass('disabled')) {
@@ -224,6 +209,7 @@ $(function() {
                 sampleId = $(this).attr('class');
 
                 lightning.updateUI('add-sample');
+                lightning.releaseEraser();
 
                 $cursor.removeAttr('class')
                     .addClass('displayBlock')
@@ -247,10 +233,8 @@ $(function() {
         if (e.keyCode == 27) { // Esc key
             sampleId = null;
             lightning.hideMouseSample();
-            // Reset the delete mode state if necessary
+            lightning.releaseEraser();
             lightning.updateUI('stop');
-            // Hide the help text
-            $('#helpText').fadeOut(500);
         }
     });
 
