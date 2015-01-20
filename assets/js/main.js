@@ -182,7 +182,6 @@ $(function() {
             var endPos = $('.staff-lines').width(),
                 startPos = cursor.css('margin-left'),
                 startPosNum = startPos.replace('px', ''),
-                // BPM Range 358 - 600
                 bpm = $('#totalBPM').val(),
                 measures = ($('#measure-count').html()) * 1,
                 beatNum = (timeSig == '3_3') ? 3 : 4,
@@ -194,36 +193,41 @@ $(function() {
                 cursorStartTime = screenDist / speed;
 
             // Disable certain buttons
-            lightning.updateUI('play');
+            var btn = (loop) ? lightning.updateUI('loop') : lightning.updateUI('play');
 
-            // Start moving the cursor towards the end
-            cursor.animate({
-                marginLeft: "+=" + (endPos - 115)
-            }, totalTime, "linear", function() {
-                // Animation complete.
-                cursor.css('margin-left', startPos);
-                $(".stage").scroller('scroll', 0);
-                // Switch the buttons back to default
-                lightning.updateUI('stop');
-            });
+            function animateCursor() {
+                cursor.animate({
+                    marginLeft: "+=" + (endPos - 115)
+                }, totalTime, "linear", function() {
+                    // Animation complete.
+                    cursor.css('margin-left', startPos);
+                    $(".stage").scroller('scroll', 0);
+                    // Switch the buttons back to default
+                    var btnStop = (loop) ? '' : lightning.updateUI('stop');
+                });
+            };
+            function playbackSamples() {
+                lightning.playback(sampleArr, totalTime, timeSig);
+            };
+            function animateVP() {
+                var moveVP = setTimeout(function(){
+                    // Start moving the viewport...
+                    var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
+                    remainingTime = totalTime - (
+                        (cursorPos * .05)
+                    );
+                    $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
+                }, cursorStartTime);
 
-            // Start the playback
-            lightning.playback(sampleArr, totalTime, timeSig);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                $('#stop').click(function() {
+                    lightning.stopPlayback(cursor, moveVP, startPos);
+                });
+            };
+            function runAnim() {
+                animateCursor();
+                playbackSamples();
+                animateVP();
+            };
 
 
             ///////////////////////////////////////////////////////////
@@ -232,20 +236,16 @@ $(function() {
             //BELOW, BUT NEED TO FIGURE A WAY OUT TO SET IT TO LOOP IF LOOP=TRUE
             ///////////////////////////////////////////////////////////
 
-            // Wait for the cursor to get to position where we need
-            // to start scrolling
-            var moveVP = setTimeout(function(){
-                // Start moving the viewport...
-                var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
-                remainingTime = totalTime - (
-                    (cursorPos * .05)
-                );
-                $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
-            }, cursorStartTime);
+            if (loop) {
+                runAnim();
+                setInterval(function(){
+                    runAnim();
+                }, totalTime);
+            } else {
+                runAnim();
+            }
 
-            $('#stop').click(function() {
-                lightning.stopPlayback(cursor, moveVP, startPos);
-            });
+
         };
 
     });

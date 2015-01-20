@@ -178,7 +178,7 @@ Lightning.prototype.sendSamples = function(calcTime, sample, addtl, self) {
     var cursor =$('[data-cursor=true]');
 
     function stopSample() {
-        clearInterval(myVar);
+        clearInterval(sendSample);
     }
 
     var sendSample = setInterval(function() {
