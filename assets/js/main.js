@@ -227,9 +227,9 @@ $(function() {
 
 
             ///////////////////////////////////////////////////////////
-            TRYING TO FIGURE OUT WHAT TO DO WITH THE FOLLOWING BIT OF CODE IN
-            THE CASE WHERE THE USER CLICKED LOOP. PLAYING THROUGH ONCE IS SETUP
-            BELOW, BUT NEED TO FIGURE A WAY OUT TO SET IT TO LOOP IF LOOP=TRUE
+            //TRYING TO FIGURE OUT WHAT TO DO WITH THE FOLLOWING BIT OF CODE IN
+            //THE CASE WHERE THE USER CLICKED LOOP. PLAYING THROUGH ONCE IS SETUP
+            //BELOW, BUT NEED TO FIGURE A WAY OUT TO SET IT TO LOOP IF LOOP=TRUE
             ///////////////////////////////////////////////////////////
 
             // Wait for the cursor to get to position where we need
