@@ -173,53 +173,81 @@ $(function() {
             });
         }
     });
+    // canvas.addEventListener('mousedown', function(event) {
+    $('#mediaControls .playable').click(function(e) {
+        var loop = (e.target.id == 'loop') ? true : false;
+        playback();
 
-    $('#play').click(function() {
-        var endPos = $('.staff-lines').width(),
-            startPos = cursor.css('margin-left'),
-            startPosNum = startPos.replace('px', ''),
-            // BPM Range 358 - 600
-            bpm = $('#totalBPM').val(),
-            measures = ($('#measure-count').html()) * 1,
-            beatNum = (timeSig == '3_3') ? 3 : 4,
-            totalTime = ((measures * beatNum) / bpm) * 60000,
-            // Shorten the distance of the screen so the viewport moves before
-            // the cursor reaches the edge.
-            screenDist = ($('.scroller-bar').width() - startPosNum) - 100,
-            speed = endPos / totalTime,
-            cursorStartTime = screenDist / speed;
+        function playback() {
+            var endPos = $('.staff-lines').width(),
+                startPos = cursor.css('margin-left'),
+                startPosNum = startPos.replace('px', ''),
+                // BPM Range 358 - 600
+                bpm = $('#totalBPM').val(),
+                measures = ($('#measure-count').html()) * 1,
+                beatNum = (timeSig == '3_3') ? 3 : 4,
+                totalTime = ((measures * beatNum) / bpm) * 60000,
+                // Shorten the distance of the screen so the viewport moves before
+                // the cursor reaches the edge.
+                screenDist = ($('.scroller-bar').width() - startPosNum) - 100,
+                speed = endPos / totalTime,
+                cursorStartTime = screenDist / speed;
 
-        // Disable certain buttons
-        lightning.updateUI('play');
+            // Disable certain buttons
+            lightning.updateUI('play');
 
-        // Start moving the cursor towards the end
-        cursor.animate({
-            marginLeft: "+=" + (endPos - 115)
-        }, totalTime, "linear", function() {
-            // Animation complete.
-            cursor.css('margin-left', startPos);
-            $(".stage").scroller('scroll', 0);
-            // Switch the buttons back to default
-            lightning.updateUI('stop');
-        });
+            // Start moving the cursor towards the end
+            cursor.animate({
+                marginLeft: "+=" + (endPos - 115)
+            }, totalTime, "linear", function() {
+                // Animation complete.
+                cursor.css('margin-left', startPos);
+                $(".stage").scroller('scroll', 0);
+                // Switch the buttons back to default
+                lightning.updateUI('stop');
+            });
 
-        // Start the playback
-        lightning.playback(sampleArr, totalTime, timeSig);
+            // Start the playback
+            lightning.playback(sampleArr, totalTime, timeSig);
 
-        // Wait for the cursor to get to position where we need
-        // to start scrolling
-        var moveVP = setTimeout(function(){
-            // Start moving the viewport...
-            var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ///////////////////////////////////////////////////////////
+            TRYING TO FIGURE OUT WHAT TO DO WITH THE FOLLOWING BIT OF CODE IN
+            THE CASE WHERE THE USER CLICKED LOOP. PLAYING THROUGH ONCE IS SETUP
+            BELOW, BUT NEED TO FIGURE A WAY OUT TO SET IT TO LOOP IF LOOP=TRUE
+            ///////////////////////////////////////////////////////////
+
+            // Wait for the cursor to get to position where we need
+            // to start scrolling
+            var moveVP = setTimeout(function(){
+                // Start moving the viewport...
+                var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
                 remainingTime = totalTime - (
                     (cursorPos * .05)
                 );
-            $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
-        }, cursorStartTime);
+                $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
+            }, cursorStartTime);
 
-        $('#stop').click(function() {
-            lightning.stopPlayback(cursor, moveVP, startPos);
-        });
+            $('#stop').click(function() {
+                lightning.stopPlayback(cursor, moveVP, startPos);
+            });
+        };
+
     });
 
     function moveIcons() {
