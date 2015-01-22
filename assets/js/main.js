@@ -22,8 +22,10 @@ $(function() {
     // TODO: have classes be able to register themselves as click listeners
 
     canvas.addEventListener('mousedown', function(event) {
-        var pos = mousePos(event);
-        if (event.srcElement.className == 'addMeasure') {
+        var pos = mousePos(event),
+            target = event.target.className;
+
+        if (target == 'addMeasure') {
             var measureId = ($('#measure-count').html())*1,
                 seqWidth = $('#sequencer-input').width(),
                 staffWidth = $('.staff-lines').width(),
@@ -44,7 +46,7 @@ $(function() {
         } if (sampleId !== null) {
             // User didn't click on addMeasure, the only other thing they could
             // have clicked on is it's parent element... #sequencer-input
-            var beatId = event.target.className,
+            var beatId = target,
                 measureId = event.target.parentElement.id,
                 lNum = Math.round(event.layerY / 32),
                 line = ((lNum > 0 && lNum < 3) || lNum > 7) ? 'll-' : 'sl-',
@@ -213,11 +215,11 @@ $(function() {
                 var moveVP = setTimeout(function(){
                     // Start moving the viewport...
                     var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
-                    remainingTime = totalTime - (
-                        (cursorPos * .05)
-                    );
-                    $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
-                }, cursorStartTime);
+                            remainingTime = totalTime - (
+                                (cursorPos * .05)
+                            );
+                            $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
+                        }, cursorStartTime);
 
                 $('#stop').click(function() {
                     lightning.stopPlayback(cursor, moveVP, startPos);
@@ -227,18 +229,13 @@ $(function() {
                 animateCursor();
                 playbackSamples();
                 animateVP();
+
+
             };
-
-
-            ///////////////////////////////////////////////////////////
-            //TRYING TO FIGURE OUT WHAT TO DO WITH THE FOLLOWING BIT OF CODE IN
-            //THE CASE WHERE THE USER CLICKED LOOP. PLAYING THROUGH ONCE IS SETUP
-            //BELOW, BUT NEED TO FIGURE A WAY OUT TO SET IT TO LOOP IF LOOP=TRUE
-            ///////////////////////////////////////////////////////////
 
             if (loop) {
                 runAnim();
-                setInterval(function(){
+                var test = setInterval(function(){
                     runAnim();
                 }, totalTime);
             } else {

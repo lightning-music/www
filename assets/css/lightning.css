@@ -9,18 +9,23 @@ html {
     background: -o-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: -ms-linear-gradient(top,  #98e4f4 0%,#17aaed 100%);
     background: linear-gradient(to bottom,  #98e4f4 0%,#17aaed 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(
-    startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#98e4f4', endColorstr='#17aaed',GradientType=0 );
 }
 
-#lightning {
+#lightning, .pace-cover {
     min-height: 100vh;
-    background: transparent url(../img/starburst.svg) left top;
-    background-size: 100% 100%;
+    background: transparent url(../img/starburst.svg) left top; background-size: 100% 100%;
     overflow: hidden;
 }
 
-#lightning::before {
+.pace-cover {
+    background-color: #42bef0;
+    position: relative;
+    z-index: 999999;
+    margin-bottom: -100vh;
+}
+
+#lightning::before, .pace-cover::before {
     content: " ";
     position: absolute;
     bottom: 2%;
@@ -29,10 +34,9 @@ html {
     z-index: -9;
     width: 462px;
     height: 478px;
-    background: transparent url(../img/lightning.png)
-    left top no-repeat;
+    background: transparent url(../img/lightning.png) left top no-repeat;
 }
-#lightning::after {
+#lightning::after, .pace-cover::after {
     content: " ";
     position: absolute;
     top: 3%;
@@ -40,8 +44,34 @@ html {
     z-index: -9;
     width: 282px;
     height: 449px;
-    background: transparent url(../img/lightning.png)
-    right top no-repeat;
+    background: transparent url(../img/lightning.png) right top no-repeat;
+}
+
+.pace-cover > img {
+    width: 50vw;
+    display: block;
+    margin: 30vh auto 0 auto;
+    -webkit-animation: title-bounce alternate 600ms infinite;
+    -moz-animation:    title-bounce alternate 600ms infinite;
+    -o-animation:      title-bounce alternate 600ms infinite;
+    animation:         title-bounce alternate 600ms infinite;
+}
+
+@-webkit-keyframes title-bounce {
+    0%   { width: 50vw; }
+    100% { width: 49vw; }
+}
+@-moz-keyframes title-bounce {
+    0%   { width: 50vw; }
+    100% { width: 49vw; }
+}
+@-o-keyframes title-bounce {
+    0%   { width: 50vw; }
+    100% { width: 49vw; }
+}
+@keyframes title-bounce {
+    0%   { width: 50vw; }
+    100% { width: 49vw; }
 }
 
 /*
@@ -688,16 +718,17 @@ li.selected {
 .addNoteMode {
     cursor: pointer;
 }
-.pace-cover {
+/*.pace-cover {
     height: 100vh;
     width: 100vw;
     display: block;
-    background: #fff;
+    background: transparent url(./img/title.svg) center center no-repeat;
+    background-size: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
-}
+}*/
 .disabled {
     cursor: default !important;
 }
