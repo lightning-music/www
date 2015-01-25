@@ -47,16 +47,132 @@ html {
     background: transparent url(../img/lightning.png) right top no-repeat;
 }
 
-.pace-cover > img {
-    width: 50vw;
-    display: block;
-    margin: 30vh auto 0 auto;
-    -webkit-animation: title-bounce alternate 600ms infinite;
-    -moz-animation:    title-bounce alternate 600ms infinite;
-    -o-animation:      title-bounce alternate 600ms infinite;
-    animation:         title-bounce alternate 600ms infinite;
+.pace-cover div {
+    width: 900px;
+    height: 100px;
+    position: relative;
+    left: 50%;
+    margin: 10% 0 0 -270px;
+}
+.pace-cover span {
+    width: 11.11111%;
+    height: 100px;
+    display: inline-block;
+    float: left;
+    background-size: 100%;
+    /* Adjust Kerning */
+    margin-left: -30px;
+}
+@media only screen and (max-device-width:620px){
+    /* styles for mobile browsers smaller than 480px; (iPhone) */
+    .pace-cover div {
+        width: 300px;
+        height: 50px;
+        margin-left: -150px;
+    }
+    .pace-cover span {
+        margin-left: 0;
+        height: 50px;
+        background-size: 100% !important;
+    }
+    .pace-cover span:nth-child(2), .pace-cover span:nth-child(7) {
+        width: 11.11111% !important;
+    }
+}
+@media only screen and (min-device-width:1024px){
+    /* styles for browsers larger than 1024 */
+    .pace-cover div {
+        width: 1000px;
+        height: 150px;
+        margin-left: -325px;
+    }
+    .pace-cover span {
+        margin-left: -35px;
+        height: 150px;
+        background-size: 100% !important;
+    }
+    .pace-cover span:nth-child(2), .pace-cover span:nth-child(7) {
+        width: 11.11111% !important;
+        margin-right: -15px;
+        margin-left: -50px;
+    }
+}
+.pace-cover span:nth-child(even) {
+    background: rgba(255,255,255,.25);
+}
+.pace-cover span:nth-child(1) {
+    background: transparent url(../img/L.svg) 50% no-repeat;
+}
+.pace-cover span:nth-child(2), .pace-cover span:nth-child(7) {
+    background: transparent url(../img/I.svg) 50% no-repeat;
+    width: 8%;
+}
+.pace-cover span:nth-child(3), .pace-cover span:nth-child(9) {
+    background: transparent url(../img/G.svg) 50% no-repeat;
+}
+.pace-cover span:nth-child(4) {
+    background: transparent url(../img/H.svg) 50% no-repeat;
+}
+.pace-cover span:nth-child(5) {
+    background: transparent url(../img/T.svg) 50% no-repeat;
+}
+.pace-cover span:nth-child(6), .pace-cover span:nth-child(8) {
+    background: transparent url(../img/N.svg) 50% no-repeat;
+}
+.pace-cover span:nth-child(1),
+.pace-cover span:nth-child(3),
+.pace-cover span:nth-child(5),
+.pace-cover span:nth-child(7),
+.pace-cover span:nth-child(9) {
+    -webkit-animation:spin1 1s alternate infinite;
+    -moz-animation:spin1 1s alternate infinite;
+    animation:spin1 1s alternate infinite;
+}
+.pace-cover span:nth-child(2),
+.pace-cover span:nth-child(4),
+.pace-cover span:nth-child(6),
+.pace-cover span:nth-child(8) {
+    -webkit-animation:spin2 1s alternate infinite;
+    -moz-animation:spin2 1s alternate infinite;
+    animation:spin2 1s alternate infinite;
+}
+@-moz-keyframes spin1 {
+    0% { -moz-transform: rotate(10deg); }
+    50% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(-10deg); }
+}
+@-webkit-keyframes spin1 {
+    0% { -webkit-transform: rotate(10deg); }
+    50% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(-10deg); }
+}
+@keyframes spin1 {
+    0% { -webkit-transform: rotate(10deg); transform: rotate(10deg); }
+    50% { -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(-10deg); transform: rotate(-10deg);}
+}
+@-moz-keyframes spin2 {
+    0% { -moz-transform: rotate(-10deg); }
+    50% { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(10deg); }
+}
+@-webkit-keyframes spin2 {
+    0% { -webkit-transform: rotate(-10deg); }
+    50% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(10deg); }
+}
+@keyframes spin2 {
+    0% { -webkit-transform: rotate(-10deg); transform: rotate(-10deg); }
+    50% { -webkit-transform: rotate(0deg); transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(10deg); transform: rotate(10deg);}
 }
 
+
+.load {
+    height: 100vh;
+    overflow: hidden;
+}
+/*
 @-webkit-keyframes title-bounce {
     0%   { width: 50vw; }
     100% { width: 49vw; }
@@ -72,7 +188,7 @@ html {
 @keyframes title-bounce {
     0%   { width: 50vw; }
     100% { width: 49vw; }
-}
+}*/
 
 /*
 * Adjust the width value below to change the page size.
