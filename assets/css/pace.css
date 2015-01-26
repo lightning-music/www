@@ -13,14 +13,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 30px;
-    width: 200px;
-    border-radius: 15px;
-    background: #6ed1f2;
-    border: 1px solid #812600;
+    height: 100px;
+    width: 400px;
 
     overflow: hidden;
 }
+/*.pace::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    border: 1px solid blue;
+    height: 60px;
+    width: 10px;
+    z-index: 999999;
+}*/
 
 .pace .pace-progress {
     -webkit-box-sizing: border-box;
@@ -35,7 +42,7 @@
     -o-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 
-    max-width: 200px;
+    max-width: 300px;
     position: fixed;
     z-index: 2000;
     display: block;
@@ -44,7 +51,19 @@
     right: 100%;
     height: 100%;
     width: 100%;
-    background: #fe9900;
+    background: transparent url(../img/glow.svg) -20px 20px no-repeat;;
+}
+
+.pace .pace-progress::after {
+    content: " ";
+    display: block;
+    height: 100px;
+    width: 100px;
+    background: transparent url(../img/flying-bug.png) 50% no-repeat;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: -90px;
 }
 
 .pace.pace-inactive {
