@@ -177,18 +177,18 @@ Lightning.prototype.playback = function(sArr, time, timeSig) {
 Lightning.prototype.sendSamples = function(calcTime, sample, addtl, self) {
     var cursor =$('[data-cursor=true]');
 
-    function myStopFunction() {
-        clearInterval(myVar);
+    function stopSample() {
+        clearInterval(sendSample);
     }
 
-    var myVar = setInterval(function() {
+    var sendSample = setInterval(function() {
         cursorPos = (cursor.css('margin-left').replace('px', '')) * 1;
         if (cursorPos > (calcTime + 50)) {
             self.playSample(sample + ".wav", 60, 96);
             for (var i=0; i<addtl.length; i++) {
                 self.playSample(addtl[i] + ".wav", 60, 96);
             }
-            myStopFunction();
+            stopSample();
             return;
         }
     }, 50);

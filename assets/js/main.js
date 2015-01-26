@@ -22,8 +22,10 @@ $(function() {
     // TODO: have classes be able to register themselves as click listeners
 
     canvas.addEventListener('mousedown', function(event) {
-        var pos = mousePos(event);
-        if (event.srcElement.className == 'addMeasure') {
+        var pos = mousePos(event),
+            target = event.target.className;
+
+        if (target == 'addMeasure') {
             var measureId = ($('#measure-count').html())*1,
                 seqWidth = $('#sequencer-input').width(),
                 staffWidth = $('.staff-lines').width(),
@@ -44,7 +46,7 @@ $(function() {
         } if (sampleId !== null) {
             // User didn't click on addMeasure, the only other thing they could
             // have clicked on is it's parent element... #sequencer-input
-            var beatId = event.target.className,
+            var beatId = target,
                 measureId = event.target.parentElement.id,
                 lNum = Math.round(event.layerY / 32),
                 line = ((lNum > 0 && lNum < 3) || lNum > 7) ? 'll-' : 'sl-',
@@ -173,53 +175,76 @@ $(function() {
             });
         }
     });
+    // canvas.addEventListener('mousedown', function(event) {
+    $('#mediaControls .playable').click(function(e) {
+        var loop = (e.target.id == 'loop') ? true : false;
+        playback();
 
-    $('#play').click(function() {
-        var endPos = $('.staff-lines').width(),
-            startPos = cursor.css('margin-left'),
-            startPosNum = startPos.replace('px', ''),
-            // BPM Range 358 - 600
-            bpm = $('#totalBPM').val(),
-            measures = ($('#measure-count').html()) * 1,
-            beatNum = (timeSig == '3_3') ? 3 : 4,
-            totalTime = ((measures * beatNum) / bpm) * 60000,
-            // Shorten the distance of the screen so the viewport moves before
-            // the cursor reaches the edge.
-            screenDist = ($('.scroller-bar').width() - startPosNum) - 100,
-            speed = endPos / totalTime,
-            cursorStartTime = screenDist / speed;
+        function playback() {
+            var endPos = $('.staff-lines').width(),
+                startPos = cursor.css('margin-left'),
+                startPosNum = startPos.replace('px', ''),
+                bpm = $('#totalBPM').val(),
+                measures = ($('#measure-count').html()) * 1,
+                beatNum = (timeSig == '3_3') ? 3 : 4,
+                totalTime = ((measures * beatNum) / bpm) * 60000,
+                // Shorten the distance of the screen so the viewport moves before
+                // the cursor reaches the edge.
+                screenDist = ($('.scroller-bar').width() - startPosNum) - 100,
+                speed = endPos / totalTime,
+                cursorStartTime = screenDist / speed;
 
-        // Disable certain buttons
-        lightning.updateUI('play');
+            // Disable certain buttons
+            var btn = (loop) ? lightning.updateUI('loop') : lightning.updateUI('play');
 
-        // Start moving the cursor towards the end
-        cursor.animate({
-            marginLeft: "+=" + (endPos - 115)
-        }, totalTime, "linear", function() {
-            // Animation complete.
-            cursor.css('margin-left', startPos);
-            $(".stage").scroller('scroll', 0);
-            // Switch the buttons back to default
-            lightning.updateUI('stop');
-        });
+            function animateCursor() {
+                cursor.animate({
+                    marginLeft: "+=" + (endPos - 115)
+                }, totalTime, "linear", function() {
+                    // Animation complete.
+                    cursor.css('margin-left', startPos);
+                    $(".stage").scroller('scroll', 0);
+                    // Switch the buttons back to default
+                    var btnStop = (loop) ? '' : lightning.updateUI('stop');
+                });
+            };
+            function playbackSamples() {
+                lightning.playback(sampleArr, totalTime, timeSig);
+            };
+            function animateVP() {
+                var moveVP = setTimeout(function(){
+                    // Start moving the viewport...
+                    var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
+                            remainingTime = totalTime - (
+                                (cursorPos * .05)
+                            );
+                            $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
+                        }, cursorStartTime);
 
-        // Start the playback
-        lightning.playback(sampleArr, totalTime, timeSig);
+                $('#stop').click(function() {
+                    lightning.stopPlayback(cursor, moveVP, startPos);
+                });
+            };
+            function runAnim() {
+                animateCursor();
+                playbackSamples();
+                animateVP();
 
-        // Wait for the cursor to get to position where we need
-        // to start scrolling
-        var moveVP = setTimeout(function(){
-            // Start moving the viewport...
-            var cursorPos = (cursor.css('margin-left').replace('px', '')) * 1,
-                remainingTime = totalTime - (
-                    (cursorPos * .05)
-                );
-            $(".stage").scroller("scroll", (endPos - startPosNum), remainingTime);
-        }, cursorStartTime);
 
-        $('#stop').click(function() {
-            lightning.stopPlayback(cursor, moveVP, startPos);
-        });
+            };
+
+            if (loop) {
+                runAnim();
+                var test = setInterval(function(){
+                    runAnim();
+                }, totalTime);
+            } else {
+                runAnim();
+            }
+
+
+        };
+
     });
 
     function moveIcons() {
