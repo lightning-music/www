@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="550"
+   height="35"
+   id="svg6675">
+  <defs
+     id="defs6677">
+    <filter
+       x="-0.012128246"
+       y="-1.1348437"
+       width="1.0242565"
+       height="3.2696874"
+       color-interpolation-filters="sRGB"
+       id="filter7251">
+      <feGaussianBlur
+         id="feGaussianBlur7253"
+         stdDeviation="1.8914062" />
+    </filter>
+    <filter
+       x="-0.030320615"
+       y="-2.8371093"
+       width="1.0606412"
+       height="6.6742187"
+       color-interpolation-filters="sRGB"
+       id="filter7255">
+      <feGaussianBlur
+         id="feGaussianBlur7257"
+         stdDeviation="4.7285156" />
+    </filter>
+  </defs>
+  <metadata
+     id="metadata6680">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-1017.3622)"
+     id="layer1">
+    <path
+       d="m 11.773339,1033.7695 0,4 374.281251,0 0,-4 -374.281251,0 z"
+       transform="matrix(1.3783791,0,0,0.99337855,-0.26488814,6.8582938)"
+       id="path7193"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:4;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter7255);enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+    <path
+       d="m 11.773339,1033.7695 0,4 374.281251,0 0,-4 -374.281251,0 z"
+       transform="matrix(1.3783791,0,0,0.99337855,-0.26488814,6.8582938)"
+       id="path7193-4"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#ffffff;fill-opacity:1;stroke:#ffff8f;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter7251);enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+  </g>
+</svg>

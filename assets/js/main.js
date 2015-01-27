@@ -102,7 +102,10 @@ $(function() {
     });
 
     Pace.on("done", function(){
-        $(".pace-cover").fadeOut(500);
+        $(".pace-cover").fadeOut(500, function() {
+            // Show the entire page
+            $('html').removeClass('load');
+        });
     });
 
     $('input[type=range]').change(function(){
