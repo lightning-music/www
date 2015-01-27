@@ -78,8 +78,8 @@ Lightning.prototype.setupSampleTriggers = function(f) {
             return f(err);
         }
         samples.forEach(function(sample) {
-            var c = stripExtension(sample.path);
-            var el = $('li.' + c);
+            var c = (!!stripExtension(sample.path) ? 'li.' + stripExtension(sample.path) : '');
+            var el = $(c);
             el.click(function(ev) {
                 self.playSample(sample.path, 60, 96);
                 ev.preventDefault();
