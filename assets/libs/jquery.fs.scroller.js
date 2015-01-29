@@ -117,7 +117,7 @@
                     if (data.horizontal) {
                         // Horizontal
                         data.barHeight = data.$content[0].offsetHeight - data.$content[0].clientHeight;
-                        data.frameWidth = data.$content.outerWidth();
+                        data.frameWidth = data.$content.outerWidth() - 12;
                         data.trackWidth = data.frameWidth - (data.trackMargin * 2);
                         data.scrollWidth = data.$content[0].scrollWidth;
                         data.ratio = data.trackWidth / data.scrollWidth;
