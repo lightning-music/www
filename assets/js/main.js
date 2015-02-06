@@ -64,7 +64,9 @@ $(function() {
                 });
 
                 // Add the sample to the DOM
-                $('#' + measureId + ' .' + beatId).append(sampleTpl);
+                if ((measureId) && measureId != '') {
+                    $('#' + measureId + ' .' + beatId).append(sampleTpl);
+                }
 
                 if (line == 'll-' && lNum < 8) {
                     line += lNum;
