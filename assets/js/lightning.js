@@ -206,7 +206,6 @@ Lightning.prototype.playback = function(sArr, time, timeSig) {
                 note: noteAttrs.note,
                 velocity: noteAttrs.velocity
             };
-            console.dir(sample);
 
         var run = lightning.sendSamples(calcTime, sample, sArr[i].addtlSamples, self);
     };
@@ -287,7 +286,7 @@ Lightning.prototype.updateUI = function(t) {
 };
 
 Lightning.prototype.releaseEraser = function() {
-    lightning.toggleBtns('stop');
+    lightning.updateUI('stop');
     lightning.deleteMode(false);
 };
 
@@ -295,8 +294,13 @@ Lightning.prototype.stopPlayback = function(c, v, s) {
     c.stop();
     clearTimeout(v);
     c.css('margin-left', s);
-    lightning.toggleBtns('stop');
     $(".stage").scroller("scroll", 0);
+
+
+
+    lightning.hideMouseSample();
+    lightning.releaseEraser();
+    lightning.updateUI('stop');
 };
 
 Lightning.prototype.addNote = function(pos, sample, note, vel) {

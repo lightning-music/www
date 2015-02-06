@@ -213,7 +213,6 @@ $(function() {
             };
             function playbackSamples() {
                 lightning.playback(sampleArr, totalTime, timeSig);
-                console.dir(sampleArr);
             };
             function animateVP() {
                 var moveVP = setTimeout(function(){
