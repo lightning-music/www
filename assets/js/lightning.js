@@ -109,13 +109,18 @@ Lightning.prototype.collectMultiple = function(arr) {
     var abort = '---', dupArr = arr, finalArr = new Array();
 
     var findMatches = function(beat, measure, sampleRef) {
-        var output = new Array();
+        var output = new Array(), sampleAttr;
         for (var i=0; i<dupArr.length; i++) {
             if (dupArr[i].sample != abort) {
-                // Holy shit, it never made it to the comparison of the last 2 elements (piano crow)
                 if (dupArr[i].beat == beat && dupArr[i].measure == measure &&
                     (dupArr[i].sampleRef != sampleRef)) {
-                    output.push(dupArr[i].sample);
+                    // Calculate the note/velocity
+                    sampleAttr = lightning.getNoteVelocity(dupArr[i].htmlPos.topMargin);
+                    output.push({
+                        sample: dupArr[i].sample,
+                        note: sampleAttr.note,
+                        velocity: sampleAttr.velocity
+                    });
                     dupArr[i].sample = abort;
                 }
             }
@@ -162,6 +167,31 @@ Lightning.prototype.arrangePlayback = function() {
     }
 }
 
+Lightning.prototype.getNoteVelocity = function(val) {
+    var result = {};
+    // Using if/else as with the math comparison its supposed to be faster than a switch statement
+    if (val <= 32) {                            // Ledger-Line 1
+        result = { note: 80, velocity: 96};
+    } else if (val >= 33 && val <= 66) {        // Ledger-Line 2
+        result = { note: 75, velocity: 96};
+    } else if (val >= 67 && val <= 100) {        // Staff-Line 1
+        result = { note: 70, velocity: 96};
+    } else if (val >= 101 && val <= 132) {       // Staff-Line 2
+        result = { note: 65, velocity: 96};
+    } else if (val >= 133 && val <= 164) {      // Staff-Line 3
+        result = { note: 60, velocity: 96};
+    } else if (val >= 165 && val <= 198) {      // Staff-Line 4
+        result = { note: 58, velocity: 100};
+    } else if (val >= 199 && val <= 232) {      // Staff-Line 5
+        result = { note: 55, velocity: 104};
+    } else if (val >= 233 && val <= 262) {      // Ledger-Line 4
+        result = { note: 53, velocity: 108};
+    } else if (val >= 263) {                    // Ledger-Line 5
+        result = { note: 50, velocity: 112};
+    }
+    return result;
+};
+
 Lightning.prototype.playback = function(sArr, time, timeSig) {
     var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
@@ -169,7 +199,15 @@ Lightning.prototype.playback = function(sArr, time, timeSig) {
     sArr = lightning.collectMultiple(sArr);
     for (var i=0; i<sArr.length; i++) {
         var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
-            cursorPos, sample = sArr[i].sample;
+            cursorPos,
+            noteAttrs = lightning.getNoteVelocity(sArr[i].htmlPos.topMargin),
+            sample = {
+                name: sArr[i].sample,
+                note: noteAttrs.note,
+                velocity: noteAttrs.velocity
+            };
+            console.dir(sample);
+
         var run = lightning.sendSamples(calcTime, sample, sArr[i].addtlSamples, self);
     };
 };
@@ -184,9 +222,9 @@ Lightning.prototype.sendSamples = function(calcTime, sample, addtl, self) {
     var sendSample = setInterval(function() {
         cursorPos = (cursor.css('margin-left').replace('px', '')) * 1;
         if (cursorPos > (calcTime + 50)) {
-            self.playSample(sample + ".wav", 60, 96);
+            self.playSample(sample.name + ".wav", sample.note, sample.velocity);
             for (var i=0; i<addtl.length; i++) {
-                self.playSample(addtl[i] + ".wav", 60, 96);
+                self.playSample(addtl[i].sample + ".wav", addtl[i].note, addtl[i].velocity);
             }
             stopSample();
             return;
