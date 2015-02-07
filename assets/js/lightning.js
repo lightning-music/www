@@ -85,7 +85,7 @@ Lightning.prototype.setupSampleTriggers = function(f) {
                 ev.preventDefault();
             });
         });
-        return f(null);
+        // return f(null);
     });
 };
 
@@ -318,7 +318,10 @@ Lightning.prototype.hideMouseSample = function() {
     *
     * @RETURN = N/A
     */
-    $('#mouse-sample').removeAttr('class').removeClass('displayBlock');
+    $('#mouse-sample')
+        .removeAttr('class')
+        .removeClass('displayBlock')
+        .attr('data-selected-sample', '');
     $('#sequencer-input').removeClass('addNoteMode');
 };
 
@@ -371,7 +374,7 @@ Lightning.prototype.updateUI = function(t) {
             break;
         case 'add-sample':
             lightning.deleteMode(false);
-            $('#sequencer-input').addClass('addNoteMode');
+            // $('#sequencer-input').addClass('addNoteMode');
             break;
         default:
             //

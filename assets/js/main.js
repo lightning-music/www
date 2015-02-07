@@ -9,7 +9,7 @@ function getMousePosWithin(boundingRect) {
 
 $(function() {
     var lightning = Lightning.getInstance(),
-        canvas = document.getElementById('sequencer-input'),
+        // canvas = document.getElementById('sequencer-input'),
         sampleArr = new Array(), timeSig = '3_3', y = 0,
         boundingRect = canvas.getBoundingClientRect(),
         mousePos = getMousePosWithin(boundingRect),
@@ -111,7 +111,8 @@ $(function() {
 
     $('#timeSignature').click(function(e) {
         if (!$(this).hasClass('disabled')) {
-            var i = 1, seq = $('#sequencer-input'),
+            var i = 1,
+                // seq = $('#sequencer-input'),
                 staff = $('.staff-lines'),
                 seqLength = seq.width(),
                 staffLength = staff.width();
