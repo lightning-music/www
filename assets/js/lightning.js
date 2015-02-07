@@ -168,15 +168,25 @@ Lightning.prototype.arrangePlayback = function() {
 }
 
 Lightning.prototype.getNoteVelocity = function(val) {
+    /*
+    * This function calculates the note and velocity based of of the position
+    * of the sample within the DOM. IF/ELSE is used as it is supposed to be faster
+    * than a switch statement.
+    *
+    * @val = The vertical position of the sample (in pixels) within the
+    *        sequencer-input
+    *
+    * @RETURN = A JSON object containing the value of the note and velocity of
+    *           the sample.
+    */
     var result = {};
-    // Using if/else as with the math comparison its supposed to be faster than a switch statement
     if (val <= 32) {                            // Ledger-Line 1
         result = { note: 80, velocity: 96};
     } else if (val >= 33 && val <= 66) {        // Ledger-Line 2
         result = { note: 75, velocity: 96};
-    } else if (val >= 67 && val <= 100) {        // Staff-Line 1
+    } else if (val >= 67 && val <= 100) {       // Staff-Line 1
         result = { note: 70, velocity: 96};
-    } else if (val >= 101 && val <= 132) {       // Staff-Line 2
+    } else if (val >= 101 && val <= 132) {      // Staff-Line 2
         result = { note: 65, velocity: 96};
     } else if (val >= 133 && val <= 164) {      // Staff-Line 3
         result = { note: 60, velocity: 96};
@@ -192,14 +202,23 @@ Lightning.prototype.getNoteVelocity = function(val) {
     return result;
 };
 
-Lightning.prototype.playback = function(sArr, time, timeSig) {
+Lightning.prototype.playback = function(sArr, timeSig) {
+    /*
+    * This function prepares the final playback of the samples based on
+    * the sorted array of samples, the overall time signature, and the scale of
+    * the samples and sends it ???>>>>>>>>>>>>>
+    *
+    * @val = The vertical position of the sample (in pixels) within the
+    *        sequencer-input
+    *
+    * @RETURN = N/A
+    */
     var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
 
     sArr = lightning.collectMultiple(sArr);
     for (var i=0; i<sArr.length; i++) {
         var calcTime = ((sArr[i].measure - 1) * fullMeasure) + (sArr[i].beat * 50),
-            cursorPos,
             noteAttrs = lightning.getNoteVelocity(sArr[i].htmlPos.topMargin),
             sample = {
                 name: sArr[i].sample,
@@ -324,13 +343,6 @@ Lightning.prototype.stop = function() {
     this.__patternStop.send({
     });
 };
-
-// Lightning.prototype.collectData = function(data) {
-//     // Not completely sure what to do with this data for now, so
-//     // just returning it to the screen
-//     $('.devMode').removeClass('hide').html(JSON.stringify(data, null, 4));
-//     $('.devModeToggle').removeClass('hide');
-// };
 
 Lightning.getInstance = (function() {
     var INSTANCE;

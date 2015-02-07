@@ -214,7 +214,7 @@ $(function() {
                 });
             };
             function playbackSamples() {
-                lightning.playback(sampleArr, totalTime, timeSig);
+                lightning.playback(sampleArr, timeSig);
             };
             function animateVP() {
                 var moveVP = setTimeout(function(){
