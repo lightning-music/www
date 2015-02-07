@@ -19,8 +19,6 @@ $(function() {
         el: '#sample-triggers'
     });
 
-    // TODO: have classes be able to register themselves as click listeners
-
     canvas.addEventListener('mousedown', function(event) {
         var pos = mousePos(event),
             target = event.target.className;
@@ -84,10 +82,7 @@ $(function() {
                     measure: measure,
                     beat: beat,
                     staffLine: line,
-                    htmlPos: {
-                        topMargin: event.layerY - 20,
-                        leftMargin: 4
-                    },
+                    vertPos: event.layerY - 20,
                     addtlSamples: new Array()
                 });
                 y++;
