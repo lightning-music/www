@@ -287,6 +287,7 @@ lightningApp.directive("playSequence", [
                         };
                         function playbackSamples() {
                             lightning.playback(scope.sampleArr, scope.timeSig);
+                            console.dir(scope.sampleArr);
                         };
                         function animateVP() {
                             var moveVP = setTimeout(function(){

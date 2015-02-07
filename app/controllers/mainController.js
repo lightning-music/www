@@ -1,5 +1,4 @@
 lightningApp.controller('mainController', function($scope, $http, $location, $rootScope) {
-
     $scope.availableSamples = [
         'bass',
         'meow',
@@ -29,7 +28,6 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
          var lightning = Lightning.getInstance();
          $(document).keyup(function(e) {
              if (e.keyCode == 27) { // Esc key
-                //  sampleId = null;
                  lightning.hideMouseSample();
                  lightning.releaseEraser();
                  lightning.updateUI('stop');
