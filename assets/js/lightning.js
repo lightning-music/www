@@ -13,24 +13,36 @@ function Lightning(options) {
         console.log("connected to /samples/play websocket endpoint");
     });
 
+    // endpoint used to edit patterns
     self.__patternEdit = WS.create(self.__wsAddr + "/pattern");
     self.__patternEdit.on('open', function(event) {
         console.log("connected to /pattern websocket endpoint");
     });
 
+    // endpoint used to begin playback
     self.__play = WS.create(self.__wsAddr + "/pattern/play");
     self.__play.on('open', function(event) {
         console.log("connected to /pattern/play websocket endpoint");
     });
 
+    // endpoint used to stop playback
     self.__stop = WS.create(self.__wsAddr + "/pattern/stop");
     self.__stop.on('open', function(event) {
         console.log("connected to /pattern/stop websocket endpoint");
     });
 
+    // endpoint used for receiving pattern position
+    self.__pos = WS.create(self.__wsAddr + "/pattern/position");
+    self.__pos.on('open', function(event) {
+        console.log("connected to /pattern/position websocket endpoint");
+    });
+
     self.__events = {
         // handler for sequencer position messages
-        'seq:pos': function(handler) {
+        'pattern:position': function(handler) {
+          self.__pos.on('message', function(data) {
+            console.log(data);
+          });
         }
     };
 }
@@ -40,6 +52,7 @@ Lightning.prototype.on = function(type, handler) {
     if (typeof type !== 'string' || !(type in self.__events)) {
         throw new TypeError('invalid event type: ' + type);
     }
+    self.__events[type](handler);
 };
 
 Lightning.prototype.listSamples = function(f) {
