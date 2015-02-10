@@ -98,7 +98,7 @@ Lightning.prototype.setupSampleTriggers = function(f) {
                 ev.preventDefault();
             });
         });
-        return f(null);
+        // return f(null);
     });
 };
 
@@ -253,7 +253,7 @@ Lightning.prototype.playback = function(sArr, timeSig) {
     *
     * @RETURN = N/A
     */
-    var self = this, fullMeasure = (timeSig == '3_3') ? 150 : 200;
+    var self = this, fullMeasure = (timeSig == 3) ? 150 : 200;
     sArr.sort(lightning.arrangePlayback("measure","beat","staffLine"));
 
     sArr = lightning.collectMultiple(sArr);
@@ -304,7 +304,7 @@ Lightning.prototype.sendSamples = function(smpInfo, addtlSmpls, self) {
     *
     * @RETURN = N/A
     */
-    var cursor =$('[data-cursor=true]');
+    var cursor =$('[data-cursor=true]'), cursorPos = 0, smpPos = 0;
 
     function stopSample() {
         clearInterval(findOverlap);
@@ -312,8 +312,10 @@ Lightning.prototype.sendSamples = function(smpInfo, addtlSmpls, self) {
 
     var findOverlap = setInterval(function() {
         // Loop every 50ms until the cursor passes over a given sample
-        cursorPos = (cursor.css('margin-left').replace('px', '')) * 1;
-        if (cursorPos > (smpInfo.position + 50)) {
+        cursorPos = Math.round((cursor.css('margin-left').replace('px', '')) * 1);
+        smpPos = smpInfo.position + 50;
+
+        if (cursorPos > smpPos) {
             self.playSample(smpInfo.name + ".wav", smpInfo.pitch, smpInfo.velocity);
             for (var i=0; i<addtlSmpls.length; i++) {
                 self.playSample(addtlSmpls[i].sample + ".wav", addtlSmpls[i].pitch, addtlSmpls[i].velocity);
@@ -321,7 +323,7 @@ Lightning.prototype.sendSamples = function(smpInfo, addtlSmpls, self) {
             stopSample();
             return;
         }
-    }, 50);
+    }, 10);
 };
 
 Lightning.prototype.hideMouseSample = function() {
@@ -331,7 +333,10 @@ Lightning.prototype.hideMouseSample = function() {
     *
     * @RETURN = N/A
     */
-    $('#mouse-sample').removeAttr('class').removeClass('displayBlock');
+    $('#mouse-sample')
+        .removeAttr('class')
+        .removeClass('displayBlock')
+        .attr('data-selected-sample', '');
     $('#sequencer-input').removeClass('addNoteMode');
 };
 
@@ -384,7 +389,7 @@ Lightning.prototype.updateUI = function(t) {
             break;
         case 'add-sample':
             lightning.deleteMode(false);
-            $('#sequencer-input').addClass('addNoteMode');
+            // $('#sequencer-input').addClass('addNoteMode');
             break;
         default:
             //

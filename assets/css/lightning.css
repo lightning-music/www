@@ -834,17 +834,6 @@ li.selected {
 .addNoteMode {
     cursor: pointer;
 }
-/*.pace-cover {
-    height: 100vh;
-    width: 100vw;
-    display: block;
-    background: transparent url(./img/title.svg) center center no-repeat;
-    background-size: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-}*/
 .disabled {
     cursor: default !important;
 }
@@ -861,50 +850,6 @@ li.selected {
     height: 20px;
     text-align: right;
 }
-
-
-
-/*
-.devMode {
-    display: inline-block;
-    height: 100%;
-    width: 235px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 99;
-    color: #02FF05;
-    font-family: monospace, monospace;
-    font-size: 12px;
-    overflow-y: auto;
-}
-.devModeToggle {
-    font-weight: bold;
-    color: #fff;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    height: 14px;
-    width: 50px;
-    cursor: pointer;
-    background: rgba(0,0,0,.75);
-    display: block;
-    z-index: 999;
-    position: fixed;
-    bottom: 20px;
-    left: 175px;
-    padding: 5px;
-}
-.docked {
-    left: -30px;
-    text-align: right;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}*/
-
-
 
 .hide {
     display: none !important;
