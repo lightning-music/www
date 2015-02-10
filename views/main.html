@@ -2,16 +2,7 @@
     <!-- begin #content -->
     <div class="content" id="content">
         <h1>Lightning</h1>
-        <div class="samples">
-            <div class="reverse"></div>
-            <div id="sample-triggers">
-                <!-- Samples go here -->
-                <ul class="sampleList">
-                    <li data-ng-repeat="sample in availableSamples" class="{{ sample }}" data-add-sample-mode="{{ sample }}"></li>
-                </ul>
-            </div>
-            <div class="forward"></div>
-        </div>
+        <div class="samples" data-ng-include="template.sampleNav"></div>
         <!-- begin .stage -->
         <div class="stage">
             <div class="staff-lines" style="width: 1460px;">

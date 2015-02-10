@@ -87,7 +87,7 @@ lightningApp.directive("sequencerInput", [
         return {
             restrict: "A",
             link: function(scope, elm, attrs) {
-                elm.click(function(e) {
+                elm.click(function(event) {
                     var target = event.target.className, y = 0,
                         sampleId = $('#mouse-sample').attr('data-selected-sample');
 

@@ -1,4 +1,7 @@
 lightningApp.controller('mainController', function($scope, $http, $location, $rootScope) {
+    $scope.template = {
+        sampleNav: 'views/samples.html'
+    }
     $scope.availableSamples = [
         'bass',
         'meow',
