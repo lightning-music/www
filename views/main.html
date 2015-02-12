@@ -17,57 +17,8 @@
                 <span id="leger-line-4" class="leger-line"></span>
             </div>
             <div class="cursor" data-cursor="true"></div>
-            <div id="measure-count" class="hide">9</div>
             <div id="sequencer-input" class="staff" style="width: 1510px;" data-sequencer-input>
-                <div class="measure" id="measure001">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure002">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure003">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure004">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure005">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure006">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure007">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure008">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4 hide"></div>
-                </div>
-                <div class="measure" id="measure009">
+                <div class="measure" id="measure00{{ $index }}" ng-repeat="n in [] | range:(measureCount)">
                     <div class="beat-1"></div>
                     <div class="beat-2"></div>
                     <div class="beat-3"></div>

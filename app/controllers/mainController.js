@@ -25,6 +25,7 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
     $scope.sampleArr = [];
     // Setup the default time signature
     $scope.timeSig = 3;
+    $scope.measureCount = 9;
 
 
     $(function() {

@@ -92,19 +92,21 @@ lightningApp.directive("sequencerInput", [
                         sampleId = $('#mouse-sample').attr('data-selected-sample');
 
                     if (target == 'addMeasure') {
-                        var measureId = ($('#measure-count').html())*1,
-                            seqWidth = $('#sequencer-input').width(),
+                        // var measureId = ($('#measure-count').html())*1,
+                        var seqWidth = $('#sequencer-input').width(),
                             staffWidth = $('.staff-lines').width(),
                             mWidth = $('#measure001').width(),
                             measureTpl = _.template($('#measure-template').html(),
                                 {
-                                    measureId: measureId
+                                    measureId: scope.measureCount
                                 });
 
                         // Add the sample to the DOM
                         $('#extraMeasures').append(measureTpl);
                         // Update the data-measures count
-                        $('#measure-count').html(measureId+1);
+                        scope.$apply(function() {
+                            scope.measureCount++;
+                        });
                         $('#sequencer-input').css('width', (seqWidth + mWidth) + 'px');
                         $('.staff-lines').width((staffWidth + mWidth) + 'px');
                         $(".stage").scroller("reset");
@@ -263,7 +265,7 @@ lightningApp.directive("playSequence", [
                             startPos = cursor.css('margin-left'),
                             startPosNum = startPos.replace('px', ''),
                             bpm = $('#totalBPM').val(),
-                            measures = ($('#measure-count').html()) * 1,
+                            measures = scope.measureCount,
                             totalTime = ((measures * scope.timeSig) / bpm) * 60000,
                             // Shorten the distance of the screen so the viewport moves before
                             // the cursor reaches the edge.
@@ -338,3 +340,24 @@ lightningApp.directive("updateBpm", [
         };
     }
 ]);
+
+
+
+
+
+
+
+
+
+
+/* *****************************************
+* CUSTOM FILTERS
+* ***************************************** */
+lightningApp.filter('range', function() {
+    return function(input, total) {
+        total = parseInt(total);
+        for (var i=0; i<total; i++)
+            input.push(i);
+        return input;
+    };
+});
