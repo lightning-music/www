@@ -616,11 +616,16 @@ input[type=range]::-moz-range-track {
 /* Begin adjust the controls based on the available room */
 @media (max-width: 1200px) {
     .erase { margin-right: 5px; }
-    input[type=range] { width: 65%; }
-    .mediaControls { width: 55%;}
-    .timingControls { width: 45%;}
+    input[type=range] { width: 56%; }
+    .mediaControls { width: 65%;}
+    .timingControls { width: 35%;}
 }
-
+@media (max-width: 1200px) {
+    .timingControls{
+        clear: both;
+        width: 100%;
+    }
+}
 
 
 
