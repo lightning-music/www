@@ -146,6 +146,8 @@ lightningApp.directive("sequencerInput", [
                             var path = lightning.getSamplePath(scope, sampleId),
                                 sampleAttr = lightning.getNoteVelocity(event.offsetY - 20);
                             lightning.playSample(path, sampleAttr.pitch, sampleAttr.velocity);
+
+                            // increment the index for unique sample references
                             y++;
                         }
                     } else {
@@ -331,12 +333,6 @@ lightningApp.directive("updateBpm", [
         };
     }
 ]);
-
-
-
-
-
-
 
 
 
