@@ -95,18 +95,13 @@ lightningApp.directive("sequencerInput", [
                         // var measureId = ($('#measure-count').html())*1,
                         var seqWidth = $('#sequencer-input').width(),
                             staffWidth = $('.staff-lines').width(),
-                            mWidth = $('#measure001').width(),
-                            measureTpl = _.template($('#measure-template').html(),
-                                {
-                                    measureId: scope.measureCount
-                                });
+                            mWidth = $('#measure001').width();
 
-                        // Add the sample to the DOM
-                        $('#extraMeasures').append(measureTpl);
                         // Update the data-measures count
                         scope.$apply(function() {
                             scope.measureCount++;
                         });
+                        // Adjust any manual widths
                         $('#sequencer-input').css('width', (seqWidth + mWidth) + 'px');
                         $('.staff-lines').width((staffWidth + mWidth) + 'px');
                         $(".stage").scroller("reset");
