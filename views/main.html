@@ -38,6 +38,12 @@
                 <div class="stop toggle"     id="stop">Stop</div>
                 <div class="loop playable"   id="loop" data-play-sequence>Loop</div>
                 <div class="erase btnShadow" id="erase" data-erase-note>Erase</div>
+                <div id="timeSignature" class="timeSignature btnShadow">
+                    <div class="threeFourImg toggle"></div>
+                    <div class="fourFourImg"></div>
+                    <div class="three-four" id="3_4" data-update-time-sig="3"><div></div></div>
+                    <div class="four-four"  id="4_4" data-update-time-sig="4"><div></div></div>
+                </div>
             </div>
             <div class="timingControls">
                 <div class="bpm btnShadow" id="bpm">
@@ -46,12 +52,6 @@
                         <input type="text" id="totalBPM" value="120" disabled class="totalBPM">
                         bpm
                     </div>
-                </div>
-                <div id="timeSignature" class="timeSignature btnShadow">
-                    <div class="threeFourImg toggle"></div>
-                    <div class="fourFourImg"></div>
-                    <div class="three-four" id="3_4" data-update-time-sig="3"><div></div></div>
-                    <div class="four-four"  id="4_4" data-update-time-sig="4"><div></div></div>
                 </div>
             </div>
         </div>

@@ -441,8 +441,8 @@ h1 {
 .erase {
     width: 109px;
     position: relative;
-    float: right;
-    margin-right: 40px;
+    float: left;
+    margin: 0 5px;
     background: transparent url(../img/buttonSprite.png) 0px top no-repeat;
 }
 .erase.toggle { background-position: 0px bottom; }
@@ -455,7 +455,6 @@ h1 {
     width: 96px;
     position: relative;
     float: right;
-    margin-right: 15px;
 }
 
 .threeFourImg, .fourFourImg {
@@ -524,7 +523,7 @@ h1 {
 }
 
 .bpm {
-    width: 355px;
+    width: 90%;
     height: 100%;
     background: #f64801;
     position: relative;
@@ -540,7 +539,7 @@ h1 {
 }
 input[type=range] {
     -webkit-appearance: none;
-    width: 240px;
+    width: 75%;
     position: relative;
     float: left;
     margin: 16px 0 0 14px;
@@ -614,32 +613,14 @@ input[type=range]::-moz-range-track {
     background: #4b1c15;
     border: 0;
 }
+/* Begin adjust the controls based on the available room */
+@media (max-width: 1200px) {
+    .erase { margin-right: 5px; }
+    input[type=range] { width: 65%; }
+    .mediaControls { width: 55%;}
+    .timingControls { width: 45%;}
+}
 
-/*input[type=range]::-ms-track {
-    width: 100%;
-    height: 4px;
-    cursor: pointer;
-    background: #4b1c15;
-    border: 0;
-}
-input[type=range]::-ms-fill-lower {
-    background: #2a6495;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-input[type=range]:focus::-ms-fill-lower {
-    background: #3071a9;
-}
-input[type=range]::-ms-fill-upper {
-    background: #3071a9;
-    border: 0.2px solid #010101;
-    border-radius: 2.6px;
-    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-input[type=range]:focus::-ms-fill-upper {
-    background: #367ebd;
-}*/
 
 
 
