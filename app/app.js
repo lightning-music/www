@@ -54,12 +54,7 @@ lightningApp.directive("addSampleMode", [
                     if (!elm.hasClass('disabled')) {
                         // Get the path for the clicked sample as we cannot assume they'll
                         // all be wav files
-                        var path = '';
-                        for (var i=0; i<(scope.samples).length; i++) {
-                            if (stripExtension(scope.samples[i].path) == attrs.addSampleMode) {
-                                path = scope.samples[i].path;
-                            }
-                        }
+                        var path = lightning.getSamplePath(scope, attrs.addSampleMode);
                         lightning.playSample(path, 60, 96);
 
                         var $mouseFollow = $('#mouse-sample'), selectedSmp = attrs.addSampleMode;
@@ -146,6 +141,11 @@ lightningApp.directive("sequencerInput", [
                                 vertPos: event.offsetY - 20,
                                 addtlSamples: new Array()
                             });
+
+                            // Play the sample back for the user
+                            var path = lightning.getSamplePath(scope, sampleId),
+                                sampleAttr = lightning.getNoteVelocity(event.offsetY - 20);
+                            lightning.playSample(path, sampleAttr.pitch, sampleAttr.velocity);
                             y++;
                         }
                     } else {

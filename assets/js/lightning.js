@@ -84,6 +84,16 @@ Lightning.prototype.playSample = function(path, note, vel) {
     });
 };
 
+Lightning.prototype.getSamplePath = function(scope, sample) {
+    var path = '';
+    for (var i=0; i<(scope.samples).length; i++) {
+        if (stripExtension(scope.samples[i].path) == sample) {
+            path = scope.samples[i].path;
+        }
+    }
+    return path;
+};
+
 Lightning.prototype.toggleBtns = function(on) {
     // Check to make sure the button exists
     if (on == 'play' ||
