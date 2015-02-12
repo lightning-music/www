@@ -111,32 +111,21 @@ lightningApp.directive("sequencerInput", [
                         // have clicked on is it's parent element... #sequencer-input
                         var beatId = target,
                             measureId = event.target.parentElement.id,
-                            lNum = Math.round(event.layerY / 32),
-                            line = ((lNum > 0 && lNum < 3) || lNum > 7) ? 'll-' : 'sl-',
                             beat = beatId.charAt(beatId.length - 1),
                             measure = measureId.charAt(measureId.length - 1);
 
-                        if ((event.layerY / 32) > 0.5) {
+                        if ((event.offsetY / 32) > 0.5) {
                             var sampleTpl = _.template($('#live-sample-template').html(),
                                 {
                                     // Margins are offset to account for the tile image size,
                                     // and for centering within the measure.
-                                    sampleMargins: (event.layerY - 20) + 'px 0 0 4px',
+                                    sampleMargins: (event.offsetY - 20) + 'px 0 0 4px',
                                     sampleName: sampleId,
                                     sampleRef: sampleId + '-' + y
                                 });
-
                             // Add the sample to the DOM
                             if ((measureId) && measureId != '') {
                                 $('#' + measureId + ' .' + beatId).append(sampleTpl);
-                            }
-
-                            if (line == 'll-' && lNum < 8) {
-                                line += lNum;
-                            } else if (line == 'll-' && lNum > 7) {
-                                line += (lNum - 5);
-                            } else if (line == 'sl-' && lNum < 8) {
-                                line += (lNum - 2);
                             }
 
                             // Add the sample to the song array
@@ -145,12 +134,10 @@ lightningApp.directive("sequencerInput", [
                                 sample: sampleId,
                                 measure: measure,
                                 beat: beat,
-                                staffLine: line,
-                                vertPos: event.layerY - 20,
+                                vertPos: event.offsetY - 20,
                                 addtlSamples: new Array()
                             });
                             y++;
-                            // lightning.collectData(sampleArr);
                         }
                     } else {
                         // Do nothing as the user has not clicked a sample yet
