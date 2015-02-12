@@ -27,6 +27,20 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
     $scope.timeSig = 3;
     $scope.measureCount = 9;
 
+    // Get the available samples and add it to the scope
+    $.ajax({
+        type: 'GET',
+        url: lightning.__httpAddr + "/samples",
+        error: function() {
+            f(new Error("error getting samples list"), null);
+        },
+        success: function(samples) {
+            $scope.$apply(function() {
+                $scope.samples = JSON.parse(samples);
+            });
+        }
+    });
+
 
     $(function() {
          var lightning = Lightning.getInstance();
@@ -37,10 +51,6 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
                  lightning.updateUI('stop');
              }
          });
-
-         console.log('setting up sample triggers');
-         // wire up sample icons to their backend calls
-         lightning.setupSampleTriggers($('#sample-triggers > ul li'));
     });
 
 });

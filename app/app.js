@@ -51,8 +51,17 @@ lightningApp.directive("addSampleMode", [
                 "use strict";
                 elm.click(function(e) {
                     e.preventDefault();
-
                     if (!elm.hasClass('disabled')) {
+                        // Get the path for the clicked sample as we cannot assume they'll
+                        // all be wav files
+                        var path = '';
+                        for (var i=0; i<(scope.samples).length; i++) {
+                            if (stripExtension(scope.samples[i].path) == attrs.addSampleMode) {
+                                path = scope.samples[i].path;
+                            }
+                        }
+                        lightning.playSample(path, 60, 96);
+
                         var $mouseFollow = $('#mouse-sample'), selectedSmp = attrs.addSampleMode;
 
                         lightning.updateUI('add-sample');

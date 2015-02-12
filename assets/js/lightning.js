@@ -69,36 +69,18 @@ Lightning.prototype.listSamples = function(f) {
     });
 };
 
+// strip the extension from a sample path
+function stripExtension(path) {
+    var wi = path.lastIndexOf('.');
+    return path.substring(0, wi);
+}
+
 Lightning.prototype.playSample = function(path, note, vel) {
     var self = this;
     self.__samplePlay.send({
         sample: path,
         number: note,
         velocity: vel
-    });
-};
-
-// strip the .wav extension from a sample path
-function stripExtension(path) {
-    var wi = path.lastIndexOf('.wav');
-    return path.substring(0, wi);
-}
-
-Lightning.prototype.setupSampleTriggers = function(f) {
-    var self = this;
-    this.listSamples(function(err, samples) {
-        if (err) {
-            return f(err);
-        }
-        samples.forEach(function(sample) {
-            var c = (!!stripExtension(sample.path) ? 'li.' + stripExtension(sample.path) : '');
-            var el = $(c);
-            el.click(function(ev) {
-                self.playSample(sample.path, 60, 96);
-                ev.preventDefault();
-            });
-        });
-        // return f(null);
     });
 };
 
