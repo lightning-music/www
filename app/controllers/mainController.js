@@ -23,7 +23,6 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
 
     // Setup the samples array that will be used for playback
     $scope.sampleArr = [];
-    // Setup the default time signature
     $scope.timeSig = 4;
     $scope.measureCount = 9;
 
@@ -41,7 +40,6 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
         }
     });
 
-
     $(function() {
          var lightning = Lightning.getInstance();
          $(document).keyup(function(e) {
@@ -52,5 +50,5 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
              }
          });
     });
-
+    console.dir($scope);
 });
