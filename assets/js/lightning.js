@@ -110,10 +110,13 @@ Lightning.prototype.toggleBtns = function(on) {
         on == 'loop' ||
         on == 'erase') {
             $('.mediaControls div').each(function() {
-                if ($(this).attr('id') == on) {
-                    $(this).addClass('toggle');
-                } else {
-                    $(this).removeClass('toggle');
+                var id = $(this).attr('id');
+                if ((id) && id != 'timeSignature' && id != '3_4' && id != '4_4') {
+                    if ($(this).attr('id') == on) {
+                        $(this).addClass('toggle');
+                    } else {
+                        $(this).removeClass('toggle');
+                    }
                 }
             });
         }
