@@ -18,13 +18,8 @@
             </div>
             <div class="cursor" data-cursor="true"></div>
             <div id="sequencer-input" class="staff" style="width: 1969px;" data-sequencer-input>
-                <div class="measure" id="measure00{{ $index }}" ng-repeat="n in [] | range:(measureCount)">
-                    <div class="beat-1"></div>
-                    <div class="beat-2"></div>
-                    <div class="beat-3"></div>
-                    <div class="beat-4"></div>
-                </div>
                 <div class="extraMeasures" id="extraMeasures"></div>
+                <div class="position" id="position-0{{ $index }}" data-ng-repeat="n in [] | range:(pattern)" data-ng-class="{true:'measureMarker', false:''}[$index!=0 && $index%timeSig==0]"></div>
                 <div class="addMeasure" id="addMeasure">
                     <span></span>
                 </div>

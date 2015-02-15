@@ -3,7 +3,6 @@ var lightningApp = angular.module('lightningApp', ['ngRoute']);
 // configure our routes
 lightningApp.config(['$routeProvider', '$locationProvider','$provide' ,
 function($routeProvider, $locationProvider, $provide) {
-
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
@@ -92,11 +91,10 @@ lightningApp.directive("sequencerInput", [
             restrict: "A",
             link: function(scope, elm, attrs) {
                 elm.click(function(event) {
-                    var target = event.target.className, y = 0,
+                    var target = event.target.className, y = 0, targetPos = event.target.id,
                         sampleId = $('#mouse-sample').attr('data-selected-sample');
 
                     if (target == 'addMeasure') {
-                        // var measureId = ($('#measure-count').html())*1,
                         var seqWidth = $('#sequencer-input').width(),
                             staffWidth = $('.staff-lines').width(),
                             mWidth = $('#measure001').width();
@@ -113,10 +111,6 @@ lightningApp.directive("sequencerInput", [
                     } else if (sampleId !== undefined && (!$('#sequencer-input').hasClass('delMode'))) {
                         // User didn't click on addMeasure, the only other thing they could
                         // have clicked on is it's parent element... #sequencer-input
-                        var beatId = target,
-                            measureId = event.target.parentElement.id,
-                            beat = beatId.charAt(beatId.length - 1),
-                            measure = measureId.charAt(measureId.length - 1);
 
                         if ((event.offsetY / 32) > 0.5) {
                             var sampleTpl = _.template($('#live-sample-template').html(),
@@ -128,16 +122,13 @@ lightningApp.directive("sequencerInput", [
                                     sampleRef: sampleId + '-' + y
                                 });
                             // Add the sample to the DOM
-                            if ((measureId) && measureId != '') {
-                                $('#' + measureId + ' .' + beatId).append(sampleTpl);
-                            }
-
+                            $('#' + targetPos).append(sampleTpl);
+                            
                             // Add the sample to the song array
                             scope.sampleArr.push({
                                 sampleRef: sampleId + '-' + y,
                                 sample: sampleId,
-                                measure: measure,
-                                beat: beat,
+                                position: targetPos,
                                 vertPos: event.offsetY - 20,
                                 addtlSamples: new Array()
                             });
@@ -150,8 +141,6 @@ lightningApp.directive("sequencerInput", [
                             // increment the index for unique sample references
                             y++;
                         }
-                    } else {
-                        // Do nothing as the user has not clicked a sample yet
                     }
                 });
             }
@@ -166,43 +155,15 @@ lightningApp.directive("updateTimeSig", [
             link: function(scope, elm, attrs) {
                 elm.click(function(){
                     if (!elm.hasClass('disabled')) {
-                        var i = 1,
-                        seq = $('#sequencer-input'),
-                        staff = $('.staff-lines'),
-                        seqLength = seq.width(),
-                        staffLength = staff.width();
+                        var activeBtn = (attrs.updateTimeSig == 3) ? 'threeFourImg' : 'fourFourImg';
+                        $('#timeSignature div').each(function() {
+                            $(this).removeClass('toggle');
+                        });
+                        $('.' + activeBtn).addClass('toggle');
+                        scope.$apply(function() {
+                            scope.timeSig = attrs.updateTimeSig;
+                        });
 
-                        scope.timeSig = attrs.updateTimeSig;
-
-                        if (scope.timeSig == 4) {
-                            if ($('#measure001 .beat-4').hasClass('hide')){
-                                // Toggle the button states
-                                $('.threeFourImg').removeClass('toggle');
-                                $('.fourFourImg').addClass('toggle');
-                                $('.measure').each(function() {
-                                    $(this).find('.beat-4').removeClass('hide');
-                                    i++;
-                                });
-                                // Adjust the sequencer length
-                                seqLength = (i > 1) ? seqLength + (i * 50) : seqLength;
-                                staffLength = (i > 1) ? staffLength + (i * 50) : staffLength;
-                            }
-                        } else {
-                            if (!$('#measure001 .beat-4').hasClass('hide')){
-                                // Toggle the button states
-                                $('.threeFourImg').addClass('toggle');
-                                $('.fourFourImg').removeClass('toggle');
-                                $('.measure').each(function() {
-                                    $(this).find('.beat-4').addClass('hide');
-                                    i++;
-                                });
-                                // Adjust the sequencer length
-                                seqLength = (i > 1) ? seqLength - (i * 50) : seqLength;
-                                staffLength = (i > 1) ? staffLength - (i * 50) : staffLength;
-                            }
-                        }
-                        seq.width(seqLength);
-                        staff.width(staffLength);
                         // Reset the scroll bar
                         $(".stage").scroller("reset");
 

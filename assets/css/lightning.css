@@ -368,28 +368,20 @@ h1 {
     float: left;
 }
 
-/* Uncomment the following lines to visually see the beats on the sequencer */
-/*
-.beat-1, .beat-2, .beat-3, .beat-4 {
-    opacity: .25;
-}
-.beat-1{background: red;}
-.beat-2{background: blue;}
-.beat-3{background: green;}
-.beat-4{background: black;}*/
-.measure div {
-    border-right: 1px solid rgba(129,38,0,.1);
-}
-.measure {
-    border-right: 1px solid rgba(129,38,0,.35);
+#position-00 {
+    margin-left: 110px;
 }
 
-.measure > div {
+.position {
+    border-right: 1px solid rgba(129,38,0,.1);
     width: 49px;
     height: 330px;
     position: relative;
     float: left;
     z-index: 9;
+}
+.measureMarker {
+    border-left: 1px solid rgba(129,38,0,.35);
 }
 
 .controls {

@@ -24,7 +24,7 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
     // Setup the samples array that will be used for playback
     $scope.sampleArr = [];
     $scope.timeSig = 4;
-    $scope.measureCount = 9;
+    $scope.pattern = 36;
 
     // Get the available samples and add it to the scope
     $.ajax({
@@ -50,5 +50,4 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
              }
          });
     });
-    console.dir($scope);
 });
