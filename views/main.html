@@ -19,7 +19,7 @@
             <div class="cursor" data-cursor="true"></div>
             <div id="sequencer-input" class="staff" style="width: 1969px;" data-sequencer-input>
                 <div class="extraMeasures" id="extraMeasures"></div>
-                <div class="position" id="position-0{{ $index }}" data-ng-repeat="n in [] | range:(pattern)" data-ng-class="{true:'measureMarker', false:''}[$index!=0 && $index%timeSig==0]"></div>
+                <div class="position" id="position-0{{ ($index + 1) }}" data-ng-repeat="n in [] | range:(pattern)" data-ng-class="{true:'measureMarker', false:''}[$index!=0 && ($index + 1)%timeSig==0]"></div>
                 <div class="addMeasure" id="addMeasure">
                     <span></span>
                 </div>

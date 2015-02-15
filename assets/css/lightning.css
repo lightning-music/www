@@ -368,12 +368,11 @@ h1 {
     float: left;
 }
 
-#position-00 {
+#position-01 {
     margin-left: 110px;
 }
 
 .position {
-    /*border-right: 1px solid rgba(129,38,0,.1);*/
     width: 49px;
     height: 330px;
     position: relative;
