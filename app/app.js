@@ -117,13 +117,13 @@ lightningApp.directive("sequencerInput", [
                                 {
                                     // Margins are offset to account for the tile image size,
                                     // and for centering within the measure.
-                                    sampleMargins: (event.offsetY - 20) + 'px 0 0 -20px',
+                                    sampleMargins: (event.offsetY - 20) + 'px 0 0 4px',
                                     sampleName: sampleId,
                                     sampleRef: sampleId + '-' + y
                                 });
                             // Add the sample to the DOM
                             $('#' + targetPos).append(sampleTpl);
-                            
+
                             // Add the sample to the song array
                             scope.sampleArr.push({
                                 sampleRef: sampleId + '-' + y,
