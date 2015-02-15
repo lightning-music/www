@@ -131,25 +131,25 @@ Lightning.prototype.getNoteVelocity = function(val) {
     * @RETURN = A JSON object containing the value of the note and velocity of
     *           the sample.
     */
-    var result = {};
+    var result = {}, vel = 96;
     if (val <= 32) {                            // Ledger-Line 1
-        result = { pitch: 80, velocity: 96};
+        result = { pitch: 72, velocity: vel};
     } else if (val >= 33 && val <= 66) {        // Ledger-Line 2
-        result = { pitch: 75, velocity: 96};
+        result = { pitch: 71, velocity: vel};
     } else if (val >= 67 && val <= 100) {       // Staff-Line 1
-        result = { pitch: 70, velocity: 96};
+        result = { pitch: 69, velocity: vel};
     } else if (val >= 101 && val <= 132) {      // Staff-Line 2
-        result = { pitch: 65, velocity: 96};
+        result = { pitch: 67, velocity: vel};
     } else if (val >= 133 && val <= 164) {      // Staff-Line 3
-        result = { pitch: 60, velocity: 96};
+        result = { pitch: 65, velocity: vel};
     } else if (val >= 165 && val <= 198) {      // Staff-Line 4
-        result = { pitch: 58, velocity: 100};
+        result = { pitch: 64, velocity: vel};
     } else if (val >= 199 && val <= 232) {      // Staff-Line 5
-        result = { pitch: 55, velocity: 104};
+        result = { pitch: 62, velocity: vel};
     } else if (val >= 233 && val <= 262) {      // Ledger-Line 4
-        result = { pitch: 53, velocity: 108};
+        result = { pitch: 60, velocity: vel};
     } else if (val >= 263) {                    // Ledger-Line 5
-        result = { pitch: 50, velocity: 112};
+        result = { pitch: 57, velocity: vel};
     }
     return result;
 };
