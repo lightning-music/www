@@ -13,10 +13,16 @@ function Lightning(options) {
         console.log("connected to /samples/play websocket endpoint");
     });
 
-    // endpoint used to edit patterns
-    self.__patternEdit = WS.create(self.__wsAddr + "/pattern");
-    self.__patternEdit.on('open', function(event) {
-        console.log("connected to /pattern websocket endpoint");
+    // endpoint used to add notes
+    self.__addNote = WS.create(self.__wsAddr + "/note/add");
+    self.__addNote.on('open', function(event) {
+        console.log("connected to /note/add websocket endpoint");
+    });
+
+    // endpoint used to remove notes
+    self.__removeNote = WS.create(self.__wsAddr + "/note/remove");
+    self.__removeNote.on('open', function(event) {
+        console.log("connected to /note/add websocket endpoint");
     });
 
     // endpoint used to begin playback
@@ -39,6 +45,9 @@ function Lightning(options) {
 
     self.__events = {
         // handler for sequencer position messages
+        // Usage:
+        // lightning.on('pattern:position', function(position) {
+        // });
         'pattern:position': function(handler) {
           self.__pos.on('message', function(data) {
             console.log(data);
@@ -408,8 +417,22 @@ Lightning.prototype.stopPlayback = function(c, v, s) {
 };
 
 Lightning.prototype.addNote = function(pos, sample, note, vel) {
+  var self = this;
+  self.__addNote.send([
+    {
+      pos: pos,
+      note: {
+        sample: sample,
+        number: note,
+        velocity: vel
+      }
+    }
+  ]);
+};
+
+Lightning.prototype.removeNote = function(pos, sample, note, vel) {
     var self = this;
-    self.__patternEdit.send({
+    self.__removeNote.send({
         pos: pos,
         note: {
             sample: sample,
