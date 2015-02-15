@@ -376,8 +376,13 @@ h1 {
 .beat-1{background: red;}
 .beat-2{background: blue;}
 .beat-3{background: green;}
-.beat-4{background: black;}
-*/
+.beat-4{background: black;}*/
+.measure div {
+    border-right: 1px solid rgba(129,38,0,.1);
+}
+.measure {
+    border-right: 1px solid rgba(129,38,0,.35);
+}
 
 .measure > div {
     width: 50px;
@@ -811,7 +816,7 @@ li.selected {
 }
 
 .leger-line {
-    opacity: .5;
+    opacity: .1;
 }
 
 .staff-lines {

@@ -24,7 +24,7 @@ lightningApp.controller('mainController', function($scope, $http, $location, $ro
     // Setup the samples array that will be used for playback
     $scope.sampleArr = [];
     // Setup the default time signature
-    $scope.timeSig = 3;
+    $scope.timeSig = 4;
     $scope.measureCount = 9;
 
     // Get the available samples and add it to the scope

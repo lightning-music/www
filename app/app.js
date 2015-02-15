@@ -117,13 +117,14 @@ lightningApp.directive("sequencerInput", [
                             measureId = event.target.parentElement.id,
                             beat = beatId.charAt(beatId.length - 1),
                             measure = measureId.charAt(measureId.length - 1);
+                            console.dir(event);
 
                         if ((event.offsetY / 32) > 0.5) {
                             var sampleTpl = _.template($('#live-sample-template').html(),
                                 {
                                     // Margins are offset to account for the tile image size,
                                     // and for centering within the measure.
-                                    sampleMargins: (event.offsetY - 20) + 'px 0 0 4px',
+                                    sampleMargins: (event.offsetY - 20) + 'px 0 0 -20px',
                                     sampleName: sampleId,
                                     sampleRef: sampleId + '-' + y
                                 });
