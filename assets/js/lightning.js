@@ -49,8 +49,9 @@ function Lightning(options) {
         // lightning.on('pattern:position', function(position) {
         // });
         'pattern:position': function(handler) {
-          self.__pos.on('message', function(data) {
-            console.log(data);
+          self.__pos.on('message', function(message) {
+            var data = JSON.parse(message.data);
+            handler(data.position);
           });
         }
     };
@@ -446,12 +447,12 @@ Lightning.prototype.removeNote = function(pos, sample, note, vel) {
 };
 
 Lightning.prototype.play = function() {
-    this.__patternPlay.send({
+    this.__play.send({
     });
 };
 
 Lightning.prototype.stop = function() {
-    this.__patternStop.send({
+    this.__stop.send({
     });
 };
 
