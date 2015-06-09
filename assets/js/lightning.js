@@ -1,5 +1,6 @@
 // Abstraction for controlling a lightning backend.
 function Lightning(options) {
+console.log('initializing lightning');
     var self = this;
     options = options || {};
 
@@ -10,7 +11,7 @@ function Lightning(options) {
 
     self.__samplePlay = WS.create(self.__wsAddr + "/sample/play");
     self.__samplePlay.on('open', function(event) {
-        console.log("connected to /samples/play websocket endpoint");
+        console.log("connected to /sample/play websocket endpoint");
     });
 
     // endpoint used to add notes
@@ -79,29 +80,13 @@ Lightning.prototype.listSamples = function(f) {
     });
 };
 
-// strip the extension from a sample path
-function stripExtension(path) {
-    var wi = path.lastIndexOf('.');
-    return path.substring(0, wi);
-}
-
-Lightning.prototype.playSample = function(path, note, vel) {
+Lightning.prototype.playSample = function(name, note, vel) {
     var self = this;
     self.__samplePlay.send({
-        sample: path,
+        sample: name,
         number: note,
         velocity: vel
     });
-};
-
-Lightning.prototype.getSamplePath = function(scope, sample) {
-    var path = '';
-    for (var i=0; i<(scope.samples).length; i++) {
-        if (stripExtension(scope.samples[i].path) == sample) {
-            path = scope.samples[i].path;
-        }
-    }
-    return path;
 };
 
 Lightning.prototype.toggleBtns = function(on) {
@@ -452,6 +437,7 @@ Lightning.prototype.play = function() {
 };
 
 Lightning.prototype.stop = function() {
+    console.log('stopping sequencer');
     this.__stop.send({
     });
 };
@@ -466,4 +452,4 @@ Lightning.getInstance = (function() {
     };
 })();
 
-window.lightning = new Lightning();
+window.lightning = Lightning.getInstance();

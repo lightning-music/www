@@ -51,9 +51,7 @@ lightningApp.directive("addSampleMode", [
                 elm.click(function(e) {
                     e.preventDefault();
                     if (!elm.hasClass('disabled')) {
-                        // Get the path for the clicked sample as we cannot assume they'll
-                        // all be wav files
-                        var path = lightning.getSamplePath(scope, attrs.addSampleMode);
+                        var path = attrs.addSampleMode;
                         lightning.playSample(path, 60, 96);
 
                         var $mouseFollow = $('#mouse-sample'), selectedSmp = attrs.addSampleMode;
@@ -134,7 +132,8 @@ lightningApp.directive("sequencerInput", [
                             });
 
                             // Play the sample back for the user
-                            var path = lightning.getSamplePath(scope, sampleId),
+console.log('sampleId', sampleId);
+                            var path = sampleId,
                                 sampleAttr = lightning.getNoteVelocity(event.offsetY - 20);
                             lightning.playSample(path, sampleAttr.pitch, sampleAttr.velocity);
 
